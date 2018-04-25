@@ -178,9 +178,6 @@
                 <artifactId>cukedoctor-converter</artifactId>
                 <version>${cukedoctor.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
-
-
 </project>
