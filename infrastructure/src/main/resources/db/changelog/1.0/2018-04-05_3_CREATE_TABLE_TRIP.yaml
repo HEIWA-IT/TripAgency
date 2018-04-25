@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: dan
+      changes:
+        - createTable:
+            tableName: trip
+            columns:
+              - column:
+                  name: destination
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: agency_fees
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: travel_fees
+                  type: int
+                  constraints:
+                    nullable: false

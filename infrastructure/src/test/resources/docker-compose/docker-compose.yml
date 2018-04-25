@@ -1,0 +1,13 @@
+postgresql:
+  container_name: my-trip-test_postgresql
+  image: sameersbn/postgresql:9.6-2
+  restart: unless-stopped
+  environment:
+    - DB_USER=my-trip-user
+    - DB_PASS=my-trip-pwd
+    - DB_NAME=my-trip-db
+    - DB_EXTENSION=pg_trgm
+  volumes:
+    - ./postgres:/var/lib/postgresql/
+  ports:
+    - 5433:5432

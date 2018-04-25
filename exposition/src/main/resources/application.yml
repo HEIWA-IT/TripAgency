@@ -1,0 +1,10 @@
+server:
+    port: 12378
+    contextPath: /trip
+
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/my-trip-db
+        username: my-trip-user
+        password: my-trip-pwd
+        driver-class-name: org.postgresql.Driver

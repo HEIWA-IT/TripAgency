@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{dd/MM/yyyy - HH:mm:ss} %5p [%t] %c > %m%n"/>
+        </Console>
+        <File name="TripAgency-back" fileName="/opt/apps/logs/TripAgency-back.log" immediateFlush="true" append="true">
+            <PatternLayout pattern="%d{dd/MM/yyyy - HH:mm:ss} %5p [%t] %c > %m%n"/>
+
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <Logger name="com.heiwait.tripagency" level="INFO" additivity="false">
+            <AppenderRef ref="TripAgency-back"/>
+        </Logger>
+    </Loggers>
+</Configuration>

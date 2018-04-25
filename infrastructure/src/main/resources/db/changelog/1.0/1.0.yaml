@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/1.0/2018-04-05_1_CREATE_TABLE_DESTINATION.yaml
+  - include:
+      file: db/changelog/1.0/2018-04-05_2_INSERT_DESTINATIONS.yaml
+  - include:
+      file: db/changelog/1.0/2018-04-05_3_CREATE_TABLE_TRIP.yaml
+  - include:
+      file: db/changelog/1.0/2018-04-05_4_INSERT_TRIPS.yaml
