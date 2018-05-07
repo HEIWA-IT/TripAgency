@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.driver.exposition.rest.error;
+package com.heiwait.tripagency.infrastructure.repository.driver.exposition.rest.error;
 
 import com.heiwait.tripagency.domain.error.BusinessErrors;
 import com.heiwait.tripagency.domain.error.BusinessException;

@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.driver.exposition.rest.config;
+package com.heiwait.tripagency.infrastructure.repository.driver.exposition.rest.config;
 
 
 import liquibase.integration.spring.SpringLiquibase;
@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
@@ -16,7 +17,7 @@ public class DataBaseConfig {
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
-        return new org.apache.tomcat.jdbc.pool.DataSource();
+        return new DriverManagerDataSource();
     }
 
     @Bean
@@ -33,7 +34,7 @@ public class DataBaseConfig {
     @Bean
     public SpringLiquibase liquibase() {
         SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setChangeLog("classpath:db/changelog/db.changelog-master.yaml");
+        liquibase.setChangeLog("classpath:db/changelog/db-changelog-master.yaml");
         liquibase.setDataSource(dataSource());
         return liquibase;
     }

@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.repository.travel.fees.mock;
+package com.heiwait.tripagency.infrastructure.repository.mock;
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;

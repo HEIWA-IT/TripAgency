@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.repository.travel.fees.jdbctemplate;
+package com.heiwait.tripagency.infrastructure.repository.jdbctemplate;
 
 import com.heiwait.tripagency.domain.Destination;
 import org.springframework.jdbc.core.RowMapper;

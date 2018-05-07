@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.driver.exposition.rest.config;
+package com.heiwait.tripagency.infrastructure.repository.driver.exposition.rest.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

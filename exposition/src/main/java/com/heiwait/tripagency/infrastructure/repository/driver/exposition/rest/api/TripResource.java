@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.driver.exposition.rest.api;
+package com.heiwait.tripagency.infrastructure.repository.driver.exposition.rest.api;
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.PriceComputorDriverPort;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 
 @RestController
