@@ -4,7 +4,6 @@ databaseChangeLog:
       author: Dan
       changes:
       - sqlFile:
-          dbms: postgresql
           encoding: utf8
           endDelimiter: \nGO
           path: sql/2018-04-05_insert_destinations.sql
