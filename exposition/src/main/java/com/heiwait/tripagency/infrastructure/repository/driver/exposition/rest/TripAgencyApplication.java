@@ -14,13 +14,4 @@ public class TripAgencyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TripAgencyApplication.class, args);
 	}
-
-	@Service
-	public static class PriceComputorHandler extends TravelPricer {
-
-		public PriceComputorHandler(
-				@Qualifier("TripRepositoryJdbcTemplateAdapter") TripRepositoryPort tripRepositoryPort) {
-			super(tripRepositoryPort);
-		}
-	}
 }

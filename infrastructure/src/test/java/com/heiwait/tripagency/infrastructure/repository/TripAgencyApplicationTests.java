@@ -3,6 +3,7 @@ package com.heiwait.tripagency.infrastructure.repository;
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
+import com.heiwait.tripagency.domain.error.BusinessException;
 import com.heiwait.tripagency.infrastructure.repository.config.AppConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,5 +32,13 @@ public class TripAgencyApplicationTests {
         Trip expectedTrip = new Trip(paris, 300, 50);
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTrip.agencyFees());
         assertThat(parisTrip.travelFees()).isEqualTo(expectedTrip.travelFees());
+    }
+
+    @Test(expected = BusinessException.class)
+    public void findTripByDestination_with_a_invalid_destination_should_return_a_destination_not_found_message() {
+        Destination pari = new Destination();
+        pari.setName("Pari");
+
+        Trip pariTrip = tripRepositoryPort.findTripByDestination(pari);
     }
 }
