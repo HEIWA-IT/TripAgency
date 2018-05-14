@@ -1,15 +1,15 @@
 package com.heiwait.tripagency.domain.error;
 
-import org.springframework.http.HttpStatus;
+import java.net.HttpURLConnection;
 
 public enum BusinessErrors {
 
-    MISSING_DESTINATION("error.destination.missing", HttpStatus.BAD_REQUEST);
+    MISSING_DESTINATION("error.destination.missing", HttpURLConnection.HTTP_BAD_REQUEST);
 
     private final String code;
-    private final HttpStatus httpStatus;
+    private final int httpStatus;
 
-    BusinessErrors(final String code, HttpStatus httpStatus) {
+    BusinessErrors(final String code, int httpStatus) {
         this.code = code;
         this.httpStatus = httpStatus;
     }
@@ -18,7 +18,7 @@ public enum BusinessErrors {
         return code;
     }
 
-    public HttpStatus getHttpStatus() {
+    public int getHttpStatus() {
         return httpStatus;
     }
 }

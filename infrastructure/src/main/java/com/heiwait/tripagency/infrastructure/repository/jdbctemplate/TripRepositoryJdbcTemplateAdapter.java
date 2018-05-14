@@ -3,12 +3,14 @@ package com.heiwait.tripagency.infrastructure.repository.jdbctemplate;
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
+@Qualifier("TripRepositoryJdbcTemplateAdapter")
 public class TripRepositoryJdbcTemplateAdapter implements TripRepositoryPort {
 
     private JdbcTemplate jdbcTemplate;

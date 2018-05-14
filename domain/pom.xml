@@ -15,21 +15,6 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-        </dependency>
-
         <!-- Tests -->
         <dependency>
             <groupId>junit</groupId>
@@ -97,7 +82,7 @@
                 <configuration>
                     <outputFileName>TripAgency_living_documentation-${project.version}</outputFileName>
                     <outputDir>TripAgency</outputDir>
-                    <format>pdf</format>
+                    <format>all</format>
                     <toc>right</toc>
                     <numbered>true</numbered>
                     <docVersion>${project.version}</docVersion>

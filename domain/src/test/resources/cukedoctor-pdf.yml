@@ -19,3 +19,7 @@ link:
   font_color: #002FA7
 outline_list:
   indent: $base_font_size * 1.5
+block:
+  #margin_top: 0
+  #margin_bottom: $vertical_rhythm
+  padding: [$vertical_rhythm, $vertical_rhythm * 1.25, $vertical_rhythm, $vertical_rhythm * 1.25]

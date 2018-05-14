@@ -5,8 +5,11 @@ import com.heiwait.tripagency.domain.Trip;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
 import com.heiwait.tripagency.domain.error.BusinessErrors;
 import com.heiwait.tripagency.domain.error.BusinessException;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
-//@Repository
+@Repository
+@Qualifier("TripRepositoryPortMockAdapter")
 public class TripRepositoryPortMockAdapter implements TripRepositoryPort {
 
     @Override
