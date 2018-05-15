@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Qualifier("TripRepositoryPortMockAdapter")
-public class TripRepositoryPortMockAdapter implements TripRepositoryPort {
+@Qualifier("TripRepositoryMockAdapter")
+public class TripRepositoryMockAdapter implements TripRepositoryPort {
 
     @Override
     public Trip findTripByDestination(final Destination destination) {

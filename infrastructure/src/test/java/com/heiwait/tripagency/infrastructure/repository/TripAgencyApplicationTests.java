@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TripAgencyApplicationTests {
 
     @Autowired
-    @Qualifier("TripRepositoryJdbcTemplateAdapter")
+    @Qualifier("TripRepositoryJpaAdapter")
     private TripRepositoryPort tripRepositoryPort;
 
     @Test

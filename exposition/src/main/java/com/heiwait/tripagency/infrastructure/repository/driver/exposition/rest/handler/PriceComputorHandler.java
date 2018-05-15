@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class PriceComputorHandler extends TravelPricer {
     public PriceComputorHandler(
-            @Qualifier("TripRepositoryJdbcTemplateAdapter") TripRepositoryPort tripRepositoryPort) {
+            //@Qualifier("TripRepositoryMockAdapter")
+            //@Qualifier("TripRepositoryJdbcTemplateAdapter")
+            @Qualifier("TripRepositoryJpaAdapter")
+                    final TripRepositoryPort tripRepositoryPort) {
         super(tripRepositoryPort);
     }
 }

@@ -6,7 +6,7 @@ public class TravelPricer implements PriceComputorDriverPort {
 
     private TripRepositoryPort tripRepository;
 
-    public TravelPricer(TripRepositoryPort tripRepository) {
+    public TravelPricer(final TripRepositoryPort tripRepository) {
         this.tripRepository=tripRepository;
     }
 
@@ -14,7 +14,7 @@ public class TravelPricer implements PriceComputorDriverPort {
     public Integer computeTravelPrice(final Destination destination) {
         checkDestination(destination);
 
-        Trip trip=tripRepository.findTripByDestination(destination);
+        Trip trip = tripRepository.findTripByDestination(destination);
 
         return trip.agencyFees() + trip.travelFees();
     }
