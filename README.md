@@ -1,4 +1,4 @@
-#MyTrip kata
+#Trip-agency kata
 
 # 1 - Kata goals
 This kata has has two main goals :
@@ -16,7 +16,7 @@ You'll have to develop an application responding to the previous need.
 
 You'll have to develop the core domain application following the next two rules:
 - by doing the tests first, i.e. defining the behaviour, with the domain people and QA first.
-- without relying on a real infrastructure by mocking the data provider (db, resst services, ...)
+- without relying on a real infrastructure by mocking the data provider (db, rest services, ...)
 
 The second point can be done by mocking the intention represented by the java interfaces (for example in a java project).
 
@@ -24,7 +24,7 @@ The second point can be done by mocking the intention represented by the java in
 Based on the project made in the first part, you'll now just have to implement the adapters based on the ports (the java interfaces
 here) defined previously.  
 You can exposed your service via a rest service.  
-The repository adapter code can be value hard coded in a java class. In principle, it will be quickier to implement it like this.
+The repository adapter code can have values hard coded in a java class. In principle, it will be quickier to implement it like this.
 
 # 3 - Hints to do the kata
 The branch master as you can see contains only the README.md
@@ -57,7 +57,7 @@ you can start the rest expostion by executing the following command line in the 
 **mvn clean spring-boot:run**  
 
 The url to use the service is the following:  
-**http://localhost:12378/trip/swagger-ui.html**
+**http://localhost:12378/trip-agency/swagger-ui.html**
 
 # 4 - Kata solution software architecture
 ## DDD
