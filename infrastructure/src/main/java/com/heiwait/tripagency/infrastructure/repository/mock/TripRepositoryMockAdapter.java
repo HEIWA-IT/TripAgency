@@ -18,18 +18,18 @@ public class TripRepositoryMockAdapter implements TripRepositoryPort {
         Trip trip = new Trip();
         trip.setDestination(destination);
 
-        switch (destination.getName()) {
-            case "Paris":
+        switch (destination.getName().toLowerCase()) {
+            case "paris":
                 trip.setTravelFees(250);
                 trip.setAgencyFees(25);
                 break;
-            case "Lille":
+            case "lille":
                 trip.setTravelFees(0);
                 trip.setAgencyFees(0);
                 break;
-            case "New-York":
-            case "Tokyo":
-            case "Beijing":
+            case "new-york":
+            case "tokyo":
+            case "beijing":
                 trip.setTravelFees(1000);
                 trip.setAgencyFees(100);
                 break;

@@ -24,7 +24,7 @@ public class TripRepositoryJdbcTemplateAdapter implements TripRepositoryPort {
 
     @Override
     public Trip findTripByDestination(Destination destination) {
-        String sql = "SELECT destination, agency_fees, travel_fees FROM trip WHERE destination = ?";
+        String sql = "SELECT destination, agency_fees, travel_fees FROM trip WHERE LOWER(destination) = LOWER(?)";
         RowMapper<Trip> rowMapper = new TripRowMapper();
         try {
             return jdbcTemplate.queryForObject(sql, rowMapper, destination.getName());

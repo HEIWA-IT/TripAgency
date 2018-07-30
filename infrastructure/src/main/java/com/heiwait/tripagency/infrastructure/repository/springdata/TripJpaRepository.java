@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TripJpaRepository extends JpaRepository<TripEntity, String> {
 
-    @Query("select trip from TripEntity trip where trip.destination = :destination")
+    @Query("select trip from TripEntity trip where LOWER(trip.destination) = LOWER(:destination)")
     TripEntity findTripByDestination(@Param("destination") final String destination);
 }
