@@ -57,7 +57,7 @@ public class TripEntity implements Serializable {
         this.destination = destinationName;
     }
 
-    public Integer agencyFees() {
+    private Integer agencyFees() {
         return agencyFees;
     }
 
@@ -65,7 +65,7 @@ public class TripEntity implements Serializable {
         this.agencyFees = agencyFees;
     }
 
-    public Integer travelFees() {
+    private Integer travelFees() {
         return travelFees;
     }
 
