@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public class TravelPricer implements PriceComputorDriverPort {
 
-    private TripRepositoryPort tripRepository;
+    protected TripRepositoryPort tripRepository;
 
     public TravelPricer() {}
 
@@ -24,9 +24,5 @@ public class TravelPricer implements PriceComputorDriverPort {
     private void checkDestination(final Destination destination) {
         Optional<Destination> operationOpt = Optional.ofNullable(destination);
         operationOpt.orElseThrow(IllegalArgumentException::new);
-    }
-
-    public void setTripRepository(TripRepositoryPort tripRepository) {
-        this.tripRepository=tripRepository;
     }
 }

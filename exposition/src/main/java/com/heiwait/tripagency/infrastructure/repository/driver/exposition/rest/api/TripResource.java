@@ -3,6 +3,7 @@ package com.heiwait.tripagency.infrastructure.repository.driver.exposition.rest.
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.PriceComputorDriverPort;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
+import com.heiwait.tripagency.infrastructure.application.handler.PriceComputorHandler;
 import com.heiwait.tripagency.infrastructure.application.handler.PriceComputorRepositoryManager;
 import com.heiwait.tripagency.infrastructure.application.handler.RepositoryType;
 import io.swagger.annotations.ApiOperation;
@@ -15,10 +16,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value="/api")
 public class TripResource {
 
-    private final PriceComputorDriverPort priceComputorDriverPort;
+    private final PriceComputorHandler priceComputorDriverPort;
     private final PriceComputorRepositoryManager priceComputorRepositoryManager;
 
-    public TripResource(final PriceComputorDriverPort priceComputorDriverPort,
+    public TripResource(final PriceComputorHandler priceComputorDriverPort,
                         final PriceComputorRepositoryManager priceComputorRepositoryManager) {
         this.priceComputorDriverPort = priceComputorDriverPort;
         this.priceComputorRepositoryManager = priceComputorRepositoryManager;
