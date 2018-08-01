@@ -6,8 +6,10 @@ public class TravelPricer implements PriceComputorDriverPort {
 
     private TripRepositoryPort tripRepository;
 
+    public TravelPricer() {}
+
     public TravelPricer(final TripRepositoryPort tripRepository) {
-        this.tripRepository=tripRepository;
+        this.tripRepository = tripRepository;
     }
 
     @Override
@@ -20,7 +22,11 @@ public class TravelPricer implements PriceComputorDriverPort {
     }
 
     private void checkDestination(final Destination destination) {
-        Optional<Destination> operationOpt=Optional.ofNullable(destination);
+        Optional<Destination> operationOpt = Optional.ofNullable(destination);
         operationOpt.orElseThrow(IllegalArgumentException::new);
+    }
+
+    public void setTripRepository(TripRepositoryPort tripRepository) {
+        this.tripRepository=tripRepository;
     }
 }
