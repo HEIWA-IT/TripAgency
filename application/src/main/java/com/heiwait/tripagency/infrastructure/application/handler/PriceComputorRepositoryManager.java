@@ -22,7 +22,7 @@ public class PriceComputorRepositoryManager {
         this.tripRepositoryJpaAdapter = tripRepositoryJpaAdapter;
     }
 
-    public TripRepositoryPort getTripRepositoryAdapter(RepositoryType repositoryType) {
+    TripRepositoryPort getTripRepositoryAdapter(RepositoryType repositoryType) {
         switch (repositoryType) {
             case MOCK:
                return tripRepositoryMockAdapter;
