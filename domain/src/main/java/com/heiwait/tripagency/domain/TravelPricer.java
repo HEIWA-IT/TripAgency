@@ -1,7 +1,5 @@
 package com.heiwait.tripagency.domain;
 
-import java.util.Optional;
-
 public class TravelPricer implements PriceComputorDriverPort {
 
     protected TripRepositoryPort tripRepository;
@@ -22,7 +20,7 @@ public class TravelPricer implements PriceComputorDriverPort {
     }
 
     private void checkDestination(final Destination destination) {
-        Optional<Destination> operationOpt = Optional.ofNullable(destination);
-        operationOpt.orElseThrow(IllegalArgumentException::new);
+        if (destination == null)
+            throw new IllegalArgumentException();
     }
 }
