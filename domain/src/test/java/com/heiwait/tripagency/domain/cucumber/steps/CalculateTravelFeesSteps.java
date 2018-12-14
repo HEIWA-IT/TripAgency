@@ -1,9 +1,6 @@
 package com.heiwait.tripagency.domain.cucumber.steps;
 
-import com.heiwait.tripagency.domain.Destination;
-import com.heiwait.tripagency.domain.TravelPricer;
-import com.heiwait.tripagency.domain.Trip;
-import com.heiwait.tripagency.domain.TripRepositoryPort;
+import com.heiwait.tripagency.domain.*;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -16,6 +13,7 @@ public class CalculateTravelFeesSteps {
 
     private Trip trip = new Trip();
     private Destination destination = new Destination();
+    private TravelClass travelClass;
     private TripRepositoryPort tripRepositoryPort;
     private TravelPricer travelPricer;
 
@@ -34,6 +32,16 @@ public class CalculateTravelFeesSteps {
         Mockito.when(tripRepositoryPort.findTripByDestination(destination)).thenReturn(trip);
     }
 
+    @Given("^the customer want to travel in \"([^\"]*)\" class$")
+    public void the_customer_want_to_travel_in_class(TravelClass travelClass) {
+        this.travelClass = travelClass;
+    }
+
+    @Given("^the economic travel ticket price is (\\d+)€$")
+    public void the_economic_travel_ticket_price_is_€(int ticketPrice) {
+       trip.setTicketPrice(ticketPrice);
+    }
+
     @Given("^the travel fees are (\\d+)€$")
     public void the_travel_fees_are_€(Integer travelFees) {
         trip.setTravelFees(travelFees);
@@ -46,7 +54,7 @@ public class CalculateTravelFeesSteps {
 
     @When("^the system calculate the trip price")
     public void the_system_calculate_the_trip_price() {
-        computedPrice = travelPricer.computeTravelPrice(destination);
+        computedPrice = travelPricer.computeTravelPrice(destination, travelClass);
     }
 
     @Then("^the trip price is (\\d+)€$")

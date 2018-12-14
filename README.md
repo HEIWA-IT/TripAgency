@@ -6,13 +6,17 @@ This kata has has two main goals :
 - to use the hexagonal architecture, an architectural pattern allowing to dissociate domain code and technical code.
 
 # 2 - Kata subject
-You are in charge of a travel agency which sells trips all around the world.
-The price of a trip is composed of the agency fees and the travel fees (hotels room, taxi, ticket, etc ...).
+You are in charge of a travel agency in the town of Lille which sells trips all around the world.
+The price of a trip is composed of the agency fees, the ticket price and the travel fees (hotels room, taxi, etc ...).
+The ticket price can change depending if you are in business, first or economic class.
+In first class, the ticket costs two times the price of an economic one.
+In business class, the ticket costs five times the price of an economic one.
 
 You'll have to develop an application responding to the previous need.
 
 ## First part: BDD
-**The goal is to determine the price of a trip which is here _the sum of two numbers, the agency fees and the travel fees._**
+**The goal is to determine the price of a trip which is here _the sum of three numbers, the agency fees the ticket price and the travel fees._**
+It's possible for a customer to decide in which travel class he will travel.
 
 You'll have to develop the core domain application following the next two rules:
 - by doing the tests first, i.e. defining the behaviour, with the domain people and QA first.
@@ -77,7 +81,7 @@ AssertJ + Mockito
 ## Hexagonal architecture
 Multi modules: 
 - domain (the most important module)
-- infrastructure (infrastructure repository) and expostion (infrastructure driver) for the technical ones
+- infrastructure (infrastructure repository) and exposition (infrastructure driver) for the technical ones
 
 ## Liquibase
 Database version control and deployment

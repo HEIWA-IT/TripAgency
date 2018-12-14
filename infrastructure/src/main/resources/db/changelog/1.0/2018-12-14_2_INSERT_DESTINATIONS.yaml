@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: 4
+      id: 2
       author: Dan
       changes:
       - sqlFile:
           encoding: utf8
           endDelimiter: \nGO
-          path: sql/2018-04-05_insert_trips.sql
+          path: sql/2018-12-14_insert_destinations.sql
           relativeToChangelogFile: true
           splitStatements: true
           stripComments: true

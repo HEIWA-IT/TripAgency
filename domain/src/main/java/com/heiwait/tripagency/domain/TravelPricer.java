@@ -11,12 +11,13 @@ public class TravelPricer implements PriceComputorDriverPort {
     }
 
     @Override
-    public Integer computeTravelPrice(final Destination destination) {
+    public Integer computeTravelPrice(final Destination destination, final TravelClass travelClass) {
         checkDestination(destination);
 
         Trip trip = tripRepository.findTripByDestination(destination);
+        trip.setTravelClass(travelClass);
 
-        return trip.agencyFees() + trip.travelFees();
+        return (trip.ticketPrice() * trip.travelClass().coefficient())  + trip.agencyFees() + trip.travelFees();
     }
 
     private void checkDestination(final Destination destination) {

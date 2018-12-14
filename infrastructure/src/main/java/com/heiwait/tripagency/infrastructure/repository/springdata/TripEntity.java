@@ -21,32 +21,35 @@ public class TripEntity implements Serializable {
     private String destination;
     private Integer agencyFees;
     private Integer travelFees;
+    private Integer ticketPrice;
 
     public TripEntity(){}
 
-    public TripEntity(String destination, Integer agencyFees, Integer travelFees) {
+    public TripEntity(String destination, Integer agencyFees, Integer travelFees, Integer ticketPrice) {
         this.destination = destination;
         this.agencyFees = agencyFees;
         this.travelFees = travelFees;
+        this.ticketPrice = ticketPrice;
     }
 
     Trip toTrip(){
-        return new Trip(new Destination(destination()), this.agencyFees(), travelFees());
+        return new Trip(new Destination(destination()), agencyFees(), travelFees(), ticketPrice());
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        TripEntity otherTrip = (TripEntity) other;
-        return Objects.equals(destination, otherTrip.destination) &&
-                Objects.equals(agencyFees, otherTrip.agencyFees) &&
-                Objects.equals(travelFees, otherTrip.travelFees);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TripEntity that=(TripEntity) o;
+        return Objects.equals(destination, that.destination) &&
+                Objects.equals(agencyFees, that.agencyFees) &&
+                Objects.equals(travelFees, that.travelFees) &&
+                Objects.equals(ticketPrice, that.ticketPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(destination, agencyFees, travelFees);
+        return Objects.hash(destination, agencyFees, travelFees, ticketPrice);
     }
 
     public String destination() {
@@ -71,5 +74,13 @@ public class TripEntity implements Serializable {
 
     public void setTravelFees(Integer travelFees) {
         this.travelFees = travelFees;
+    }
+
+    public Integer ticketPrice() {
+        return ticketPrice;
+    }
+
+    public void setTicketPrice(Integer ticketPrice) {
+        this.ticketPrice=ticketPrice;
     }
 }

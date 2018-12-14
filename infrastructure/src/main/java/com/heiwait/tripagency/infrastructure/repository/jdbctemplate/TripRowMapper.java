@@ -17,7 +17,7 @@ public class TripRowMapper implements RowMapper<Trip> {
         trip.setDestination(destination);
         trip.setAgencyFees(row.getInt("agency_fees"));
         trip.setTravelFees(row.getInt("travel_fees"));
-
+        trip.setTicketPrice(row.getInt("ticket_price"));
         return trip;
     }
 }

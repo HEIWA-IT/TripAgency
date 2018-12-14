@@ -17,3 +17,6 @@ Desgin the place where the people go during their trip
 
 ==== Travel pricer
 This is the service calculating the fees of a trip
+
+==== Travel class
+This is the travel class selected by the traveler. He can choose economic, first and business
