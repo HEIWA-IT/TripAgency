@@ -61,7 +61,7 @@ public class Trip {
         this.agencyFees = agencyFees;
     }
 
-    Integer travelFees() {
+    public Integer travelFees() {
         return travelFees;
     }
 

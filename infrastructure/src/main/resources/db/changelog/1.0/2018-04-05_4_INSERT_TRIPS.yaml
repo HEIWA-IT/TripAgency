@@ -6,7 +6,7 @@ databaseChangeLog:
       - sqlFile:
           encoding: utf8
           endDelimiter: \nGO
-          path: sql/2018-12-14_insert_trips.sql
+          path: sql/2018-04-05_insert_trips.sql
           relativeToChangelogFile: true
           splitStatements: true
           stripComments: true

@@ -23,8 +23,3 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-              - column:
-                  name: ticket_price
-                  type: int
-                  constraints:
-                    nullable: false

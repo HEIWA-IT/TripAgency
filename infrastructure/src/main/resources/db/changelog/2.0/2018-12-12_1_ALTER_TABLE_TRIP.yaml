@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: Add ticket price column
+      author: dan
+      changes:
+        - addColumn:
+              tableName: trip
+              columns:
+                - column:
+                    name: ticket_price
+                    type: int
+                    constraints:
+                      nullable: false
