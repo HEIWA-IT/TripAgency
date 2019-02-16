@@ -9,9 +9,9 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/cucumber",
-        glue = {"com.heiwait.tripagency.domain.cucumber.steps"},
-        format = {"json:target/cucumber/TripAgency.json", "html:target/cucumber/TripAgency.html", "pretty"}
+        features = "src/test/cucumber"
+        , glue = {"com.heiwait.tripagency.domain.cucumber.steps"}
+        , plugin = {"json:target/cucumber/TripAgency.json", "html:target/cucumber/TripAgency.html", "pretty"}
 )
 public class BDDRunner {
 }
