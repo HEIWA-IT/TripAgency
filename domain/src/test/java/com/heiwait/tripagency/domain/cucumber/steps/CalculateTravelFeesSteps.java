@@ -5,24 +5,26 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.mockito.Mockito;
+import org.mockito.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CalculateTravelFeesSteps {
 
+    @Mock
+    private TripRepositoryPort tripRepositoryPort;
+    @InjectMocks
+    private TravelPricer travelPricer;
+
     private Trip trip = new Trip();
     private Destination destination = new Destination();
     private TravelClass travelClass;
-    private TripRepositoryPort tripRepositoryPort;
-    private TravelPricer travelPricer;
 
     private Integer computedPrice;
 
     @Before
     public void setup() {
-        tripRepositoryPort = Mockito.mock(TripRepositoryPort.class);
-        travelPricer = Mockito.spy(new TravelPricer(tripRepositoryPort));
+        MockitoAnnotations.initMocks(this);
     }
 
     @Given("^the customer want to travel to \"([^\"]*)\"$")
