@@ -27,15 +27,15 @@ public class CalculateTravelFeesSteps {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Given("^the customer want to travel to \"([^\"]*)\"$")
-    public void the_customer_want_to_travel_to(String dest) {
+    @Given("^the customer wants to travel to \"([^\"]*)\"$")
+    public void the_customer_wants_to_travel_to(String dest) {
         destination.setName(dest);
         trip.setDestination(destination);
         Mockito.when(tripRepositoryPort.findTripByDestination(destination)).thenReturn(trip);
     }
 
-    @Given("^the customer want to travel in \"([^\"]*)\" class$")
-    public void the_customer_want_to_travel_in_class(TravelClass travelClass) {
+    @Given("^the customer wants to travel in \"([^\"]*)\" class$")
+    public void the_customer_wants_to_travel_in_class(TravelClass travelClass) {
         this.travelClass = travelClass;
     }
 
