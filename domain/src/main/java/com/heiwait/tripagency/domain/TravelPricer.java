@@ -15,9 +15,8 @@ public class TravelPricer implements PriceComputorDriverPort {
         checkDestination(destination);
 
         Trip trip = tripRepository.findTripByDestination(destination);
-        trip.setTravelClass(travelClass);
 
-        return (trip.ticketPrice() * trip.travelClass().coefficient())  + trip.agencyFees() + trip.travelFees();
+        return (trip.ticketPrice() * travelClass.coefficient())  + trip.agencyFees() + trip.travelFees();
     }
 
     private void checkDestination(final Destination destination) {
