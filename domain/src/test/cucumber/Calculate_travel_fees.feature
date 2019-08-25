@@ -1,6 +1,6 @@
 Feature: as a travel agency, I want to calculate travel fees depending on the departure and destination trip
-  The travel price is computed using the travel fees and the agency fees added together.
-  Depending of the class choosen by the customer, the class value multiplicator will change:
+  The travel price is computed using the ticket price, the travel fees and the agency fees added together.
+  Depending of the class chosen by the customer, the class value multiplier factor will change:
   - for the economic one class value is 1
   - for the first one, class value is 2
   - for the business one, class value is 5
