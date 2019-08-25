@@ -57,7 +57,7 @@ You should see or configure in which folders you can make the features files and
 ### 05_a_solution branch
 04_HA_adapter_to_develop + one possibility for the adapter part
 
-you can start the rest expostion by executing the following command line in the exposition folder:  
+you can start the rest exposition by executing the following command line in the exposition folder:  
 **mvn clean spring-boot:run**  
 
 The url to use the service is the following:  
