@@ -27,6 +27,7 @@ public class CalculateTravelFeesSteps {
         MockitoAnnotations.initMocks(this);
     }
 
+
     @Given("^the customer wants to travel to \"([^\"]*)\"$")
     public void the_customer_wants_to_travel_to(String dest) {
         destination.setName(dest);
@@ -56,7 +57,7 @@ public class CalculateTravelFeesSteps {
 
     @When("^the system calculate the trip price")
     public void the_system_calculate_the_trip_price() {
-        computedPrice = travelPricer.computeTravelPrice(destination, travelClass);
+        computedPrice = travelPricer.priceTravel(destination, travelClass);
     }
 
     @Then("^the trip price is (\\d+)€$")

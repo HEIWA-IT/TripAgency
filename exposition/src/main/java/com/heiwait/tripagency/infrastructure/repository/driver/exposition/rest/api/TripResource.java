@@ -21,36 +21,36 @@ public class TripResource {
     }
 
     @ApiOperation(value="Compute travel fees", notes="Returns the price of a trip")
-    @GetMapping(value={"/trip/{destination}/travelClass/{travelClass}/calculateTripPriceWithHardCodedValues"}, produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> calculateTripPriceWithHardCodedValues(
+    @GetMapping(value={"/trip/{destination}/travelClass/{travelClass}/priceTripWithHardCodedValues"}, produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> priceTripWithHardCodedValues(
             @PathVariable(value="destination") String destinationName,
             @PathVariable(value="travelClass") TravelClass travelClass) {
 
-        return calculateTripPrice(destinationName, travelClass, RepositoryType.MOCK);
+        return priceTrip(destinationName, travelClass, RepositoryType.MOCK);
     }
 
     @ApiOperation(value="Compute travel fees", notes="Returns the price of a trip")
-    @GetMapping(value={"/trip/{destination}/travelClass/{travelClass}/calculateTripPriceWithJPA"}, produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> calculateTripPriceWithJPA(
+    @GetMapping(value={"/trip/{destination}/travelClass/{travelClass}/priceTripWithJPA"}, produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> priceTripWithJPA(
             @PathVariable(value="destination") String destinationName,
             @PathVariable(value="travelClass") TravelClass travelClass) {
 
-        return calculateTripPrice(destinationName, travelClass, RepositoryType.JPA);
+        return priceTrip(destinationName, travelClass, RepositoryType.JPA);
     }
 
     @ApiOperation(value="Compute travel fees", notes="Returns the price of a trip")
-    @GetMapping(value={"/trip/{destination}/travelClass/{travelClass}/calculateTripPricewithJdbcTemplate/"}, produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> calculateTripPricewithJdbcTemplate(
+    @GetMapping(value={"/trip/{destination}/travelClass/{travelClass}/priceTripWithJdbcTemplate"}, produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> priceTripWithJdbcTemplate(
             @PathVariable(value="destination") String destinationName,
             @PathVariable(value="travelClass") TravelClass travelClass) {
 
-        return calculateTripPrice(destinationName, travelClass, RepositoryType.JDBC_TEMPLATE);
+        return priceTrip(destinationName, travelClass, RepositoryType.JDBC_TEMPLATE);
     }
 
-    private ResponseEntity<Integer> calculateTripPrice(final String destinationName, final TravelClass travelClass,
-                                                       final RepositoryType repositoryType) {
+    private ResponseEntity<Integer> priceTrip(final String destinationName, final TravelClass travelClass,
+                                              final RepositoryType repositoryType) {
         Destination destination=new Destination(destinationName);
-        Integer travelPrice=priceComputorDriverPort.computeTravelPrice(destination, travelClass, repositoryType);
+        Integer travelPrice=priceComputorDriverPort.priceTravel(destination, travelClass, repositoryType);
         return new ResponseEntity<>(travelPrice, HttpStatus.OK);
     }
 }

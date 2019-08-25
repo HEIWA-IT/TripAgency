@@ -17,7 +17,7 @@ public class TravelPricerTest {
 
     @Test
     public void computeTravelPrice_should_return_an_invalid_argument_exception_if_destination_is_null() {
-        assertThatThrownBy(() -> travelPricer.computeTravelPrice(null, null))
+        assertThatThrownBy(() -> travelPricer.priceTravel(null, null))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
