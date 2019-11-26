@@ -72,11 +72,11 @@ Specifications by examples implemented with Cucumber
 
 ## Living documentation
 Cukedoctor  
-See in the following repository in the domain module : target/TripFees   
+See in the following repository in the domain module : domain/target/TripAgency   
 You should see a pdf file containing the results of the cucumber tests.
 
-## TDD
-AssertJ + Mockito
+## Testing tools
+AssertJ + Mockito + Cucumber
 
 ## Hexagonal architecture
 Multi modules: 
