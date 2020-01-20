@@ -5,7 +5,7 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
   - for the first one, class value is 2
   - for the business one, class value is 5
 
-  Travel_price = (travel_ticket * class) + travel_fees + agency_fees
+  Rule 1: Travel_price = (travel_ticket * class) + travel_fees + agency_fees
 
 
   Scenario Outline: Determine the fees for a supported destination
@@ -18,21 +18,21 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
     Then the trip price is <travelPrice>€
 
     Examples:
-      | destination | travelClass   | ticketPrice | travelFees | agencyFees | travelPrice |
-      | "Paris"     | "FIRST"       | 100         | 800        | 50         | 1050        |
-      | "Lille"     | "ECONOMIC"    | 0           | 0          | 0          | 0           |
-      | "New-York"  | "FIRST"       | 800         | 1000       | 100        | 2700        |
-      | "Tokyo"     | "BUSINESS"    | 1200        | 1000       | 100        | 7100        |
-      | "Beijing"   | "ECONOMIC"    | 1000        | 1000       | 100        | 2100        |
+      | destination | travelClass | ticketPrice | travelFees | agencyFees | travelPrice |
+      | "Paris"     | "FIRST"     | 100         | 800        | 50         | 1050        |
+      | "Lille"     | "ECONOMIC"  | 0           | 0          | 0          | 0           |
+      | "New-York"  | "FIRST"     | 800         | 1000       | 100        | 2700        |
+      | "Tokyo"     | "BUSINESS"  | 1200        | 1000       | 100        | 7100        |
+      | "Beijing"   | "ECONOMIC"  | 1000        | 1000       | 100        | 2100        |
 
-   Scenario: Determine the fees for travel to Paris in first class with 800€ of travel fees and 50€ of agency fees
-     Given the customer wants to travel to "Paris"
-     And the economic travel ticket price is 100€
-     And the customer wants to travel in "FIRST" class
-     And the travel fees are 800€
-     And the agency fees are 50€
-     When the system calculate the trip price
-     Then the trip price is 1050€
+  Scenario: Determine the fees for travel to Paris in first class with 800€ of travel fees and 50€ of agency fees
+    Given the customer wants to travel to "Paris"
+    And the economic travel ticket price is 100€
+    And the customer wants to travel in "FIRST" class
+    And the travel fees are 800€
+    And the agency fees are 50€
+    When the system calculate the trip price
+    Then the trip price is 1050€
 
   Scenario: Determine the fees for travel to Lille in economic class with 0€ of travel fees and 0€ of agency fees
     Given the customer wants to travel to "Lille"
