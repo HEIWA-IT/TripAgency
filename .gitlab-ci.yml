@@ -25,10 +25,18 @@ build:
       - exposition/target
     expire_in: 1 day
 
-deploy to development:
+deploy to DEV:
   stage: deploy_to_non_prod_environments
   script:
-    - "/builds/pax-leones/formations/TripAgency/Scripts/deploy.sh"
+    - "/builds/pax-leones/formations/TripAgency/Scripts/deploy.sh DEV"
   type: deploy
   environment:
     name: dev
+
+deploy to INT:
+  stage: deploy_to_non_prod_environments
+  script:
+    - "/builds/pax-leones/formations/TripAgency/Scripts/deploy.sh INT"
+  type: deploy
+  environment:
+    name: int
