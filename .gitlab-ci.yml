@@ -1,55 +1,54 @@
+variables:
+  GIT_SSL_NO_VERIFY: "true"
+
 before_script:
-########### Prérequis ###########
-- mkdir -p ~/.ssh
-- echo "$SSH_PRIVATE_KEY" >> ~/.ssh/docker-devtools.key
-- chmod 600 ~/.ssh/docker-devtools.key
-- echo "$SSH_CONFIG" >> ~/.ssh/config
-- mkdir -p ~/.m2
-- echo "$SETTINGS_XML" >> ~/.m2/settings.xml
-- ssh -o StrictHostKeyChecking=no hit uptime
-- mkdir -p /opt/apps/conf
+  ########### Prérequis ###########
+  - apt-get update
+  - apt-get install -y openssh-server
+  - mkdir -p ~/.ssh
+  - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/docker-devtools.key
+  - chmod 600 ~/.ssh/docker-devtools.key
+  - echo "$SSH_CONFIG" >> ~/.ssh/config
+  - mkdir -p ~/.m2
+  - echo "$SETTINGS_XML" >> ~/.m2/settings.xml
+  - ssh -o StrictHostKeyChecking=no pxl uptime
+  - mkdir -p /opt/apps/conf
 
-########### Récupère le numéro de version ###########
-- VERSION=$(mvn -e -q -Dexec.executable="echo" -Dexec.args="${project.version}" --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec 2>/dev/null)
-- echo $VERSION
-
-########### Commandes utilisées dans les jobs ###########
-- CMD_ARTIFACT_DOWNLOAD="mvn -Pnexus -U org.apache.maven.plugins:maven-dependency-plugin:3.0.1:copy -Dartifact=com.heiwa-it.tripagency:exposition:$VERSION:jar -DoutputDirectory=./"
-- CMD_DC_STOP="docker-compose stop"
-- CMD_DC_UP="docker-compose up -d"
+  ########### Commandes utilisées dans les jobs ###########
+  #- CMD_ARTIFACT_DOWNLOAD="mvn -Pnexus -U org.apache.maven.plugins:maven-dependency-plugin:3.0.1:copy -Dartifact=com.heiwa-it.tripagency:exposition:$VERSION:jar -DoutputDirectory=./"
+  - CMD_DC_STOP="docker-compose stop"
+  - CMD_DC_UP="docker-compose up -d"
 
 cache:
   untracked: true
 
 stages:
-- build
-- deploy_to_non_prod_environments
-- deploy_to_prod_environments
+  - build
+  - deploy_to_non_prod_environments
+  - deploy_to_prod_environments
 
 verify:
   stage: build
   script:
-  - mvn sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_CREDENTIALS $MAVEN_SONAR_OPTIONS
+    - mvn sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_CREDENTIALS $MAVEN_SONAR_OPTIONS
 
 build:
   stage: build
   script:
-  - echo "Building project with maven"
-  - mvn deploy $MAVEN_TEST_OPTIONS
-  - echo $VERSION
+    - echo "Building project with maven"
+    - mvn deploy $MAVEN_TEST_OPTIONS
+    - echo $VERSION
   artifacts:
     paths:
-    - domain/target/myBank/report.pdf
+      - domain/target/TripAgency
     expire_in: 1 day
 
 deploy to development:
   stage: deploy_to_non_prod_environments
   script:
-  - echo "Deploying artifact to development"
-  - ENV_FOLDER=$FOLDER_BASE_ENV-dev
-  - ssh hit "cd \"$ENV_FOLDER\" && $CMD_DC_STOP && cd ./apps/artifacts/ && rm -f *.jar && $CMD_ARTIFACT_DOWNLOAD && $CMD_DC_UP"
+    - echo "Deploying artifact to development"
+   # - ENV_FOLDER=$FOLDER_BASE_ENV-dev
+   # - ssh pxl "cd \"$ENV_FOLDER\" && $CMD_DC_STOP && cd ./apps/artifacts/ && rm -f *.jar && $CMD_ARTIFACT_DOWNLOAD && $CMD_DC_UP"
   type: deploy
   environment:
     name: dev
-  only:
-  - master

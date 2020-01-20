@@ -190,7 +190,14 @@
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>
-
-    </dependencies>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>paxleones_nexus</id>
+            <url>https://nexus.paxleones.com/repository/paxleones_snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>paxleones_nexus</id>
+            <url>https://nexus.paxleones.com/repository/paxleones_releases/</url>
+        </repository>
+    </distributionManagement>
 </project>
