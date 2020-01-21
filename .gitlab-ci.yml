@@ -3,7 +3,7 @@ variables:
 
 before_script:
   ########### Prérequis ###########
-  - "/builds/pax-leones/formations/TripAgency/CI CD/before_jobs.sh"
+  - "/builds/pax-leones/formations/TripAgency/CI_CD/before_jobs.sh"
 
 cache:
   untracked: true
@@ -16,7 +16,7 @@ stages:
 build:
   stage: build
   script:
-    - "/builds/pax-leones/formations/TripAgency/CI CD/build.sh"
+    - "/builds/pax-leones/formations/TripAgency/CI_CD/build.sh"
   artifacts:
     paths:
       - domain/target/TripAgency
@@ -28,7 +28,7 @@ build:
 deploy to DEV:
   stage: deploy_to_non_prod_environments
   script:
-    - "/builds/pax-leones/formations/TripAgency/CI CD/deploy.sh DEV"
+    - "/builds/pax-leones/formations/TripAgency/CI_CD/deploy.sh DEV"
   type: deploy
   environment:
     name: dev
@@ -36,7 +36,7 @@ deploy to DEV:
 deploy to INT:
   stage: deploy_to_non_prod_environments
   script:
-    - "/builds/pax-leones/formations/TripAgency/CI CD/deploy.sh INT"
+    - "/builds/pax-leones/formations/TripAgency/CI_CD/deploy.sh INT"
   type: deploy
   environment:
     name: int
