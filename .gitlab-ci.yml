@@ -1,10 +1,6 @@
 variables:
   GIT_SSL_NO_VERIFY: "true"
 
-before_script:
-  ########### Prérequis ###########
-  - "/builds/pax-leones/formations/TripAgency/CI_CD/before_jobs.sh"
-
 cache:
   untracked: true
 
@@ -25,18 +21,17 @@ build:
       - exposition/target
     expire_in: 1 day
 
-deploy to DEV:
+Deploy to DEV:
   stage: deploy_to_non_prod_environments
   script:
     - "/builds/pax-leones/formations/TripAgency/CI_CD/deploy.sh DEV"
-  type: deploy
   environment:
     name: dev
 
-deploy to INT:
+Deploy to INT:
   stage: deploy_to_non_prod_environments
   script:
     - "/builds/pax-leones/formations/TripAgency/CI_CD/deploy.sh INT"
-  type: deploy
   environment:
     name: int
+  when: manual
