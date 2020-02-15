@@ -36,4 +36,4 @@ echo "url to dowload artifact: " $ARTIFACT_URL;
 ########## Strating deployment ##########################
 echo "Deploying artifact to $1";
 ENV_FOLDER=/home/upxl/containers/tripagency/$1;
-ssh pxl "cd $ENV_FOLDER && $DOCKER_COMPOSE_STOP && $CLEAN_ARTIFACT_FOLDER && curl -u dev:dev $ARTIFACT_URL -fsSL -o exposition.jar && $DOCKER_COMPOSE_UP";
+ssh pxl "cd $ENV_FOLDER && $DOCKER_COMPOSE_STOP && $CLEAN_ARTIFACT_FOLDER && curl -u $NEXUS_LOGIN:$NEXUS_PASSWORD $ARTIFACT_URL -fsSL -o exposition.jar && $DOCKER_COMPOSE_UP";
