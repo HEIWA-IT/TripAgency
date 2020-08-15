@@ -13,5 +13,5 @@ import org.junit.runner.RunWith;
         , glue = {"com.heiwait.tripagency.domain.cucumber.steps"}
         , plugin = {"json:target/cucumber/TripAgency.json", "html:target/cucumber/TripAgency.html", "pretty"}
 )
-public class BDDRunner {
+public class BDDRunnerTest {
 }

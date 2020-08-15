@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AppConfig.class)
-public class TripRepositoryTests {
+public class TripRepositoryTest {
 
     @Autowired
     @Qualifier("TripRepositoryJpaAdapter")
