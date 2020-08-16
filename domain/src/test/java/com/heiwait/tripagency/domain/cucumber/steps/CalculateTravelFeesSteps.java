@@ -1,10 +1,11 @@
 package com.heiwait.tripagency.domain.cucumber.steps;
 
 import com.heiwait.tripagency.domain.*;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+
+import io.cucumber.java.Before;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.mockito.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,7 +43,7 @@ public class CalculateTravelFeesSteps {
 
     @Given("^the economic travel ticket price is (\\d+)€$")
     public void the_economic_travel_ticket_price_is_€(int ticketPrice) {
-       trip.setTicketPrice(ticketPrice);
+        trip.setTicketPrice(ticketPrice);
     }
 
     @Given("^the travel fees are (\\d+)€$")

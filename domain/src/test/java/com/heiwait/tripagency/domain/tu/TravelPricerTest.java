@@ -1,19 +1,17 @@
 package com.heiwait.tripagency.domain.tu;
 
 import com.heiwait.tripagency.domain.TravelPricer;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class TravelPricerTest {
-
     @InjectMocks
     private TravelPricer travelPricer;
-
 
     @Test
     public void computeTravelPrice_should_return_an_invalid_argument_exception_if_destination_is_null() {
