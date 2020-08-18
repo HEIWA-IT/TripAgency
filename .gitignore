@@ -1,3 +1,10 @@
-target
+### Maven  ###
+*target/
+
+### Gradle ###
+.gradle
+*build/
+
+### IntelliJ ###
 **/*.iml
 .idea
