@@ -69,7 +69,6 @@
             <plugin>
                 <groupId>com.github.cukedoctor</groupId>
                 <artifactId>cukedoctor-maven-plugin</artifactId>
-                <version>${cukedoctor.version}</version>
                 <configuration>
                     <outputFileName>TripAgency_living_documentation-${project.version}</outputFileName>
                     <outputDir>TripAgency</outputDir>
