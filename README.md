@@ -61,7 +61,7 @@ you can start the rest exposition by executing the following command line in the
 **mvn clean spring-boot:run**  
 
 The url to use the service is the following:  
-**http://localhost:12378/trip-agency/swagger-ui.html**
+**http://localhost:12378/trip-agency/swagger-ui/**
 
 # 4 - Kata solution software architecture
 ## DDD
