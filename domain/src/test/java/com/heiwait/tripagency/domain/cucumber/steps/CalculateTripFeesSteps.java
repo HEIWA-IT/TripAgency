@@ -15,7 +15,7 @@ public class CalculateTripFeesSteps {
     @Mock
     private TripRepositoryPort tripRepositoryPort;
     @InjectMocks
-    private TravelPricer travelPricer;
+    private TripPricer tripPricer;
 
     private Trip trip = new Trip();
     private Destination destination = new Destination();
@@ -58,7 +58,7 @@ public class CalculateTripFeesSteps {
 
     @When("^the system calculate the trip price")
     public void the_system_calculate_the_trip_price() {
-        computedPrice = travelPricer.priceTravel(destination, travelClass);
+        computedPrice = tripPricer.priceTravel(destination, travelClass);
     }
 
     @Then("^the trip price is (\\d+)€$")

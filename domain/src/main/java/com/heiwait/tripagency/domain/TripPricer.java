@@ -1,12 +1,12 @@
 package com.heiwait.tripagency.domain;
 
-public class TravelPricer implements PriceComputorDriverPort {
+public class TripPricer implements PriceComputorDriverPort {
 
     protected TripRepositoryPort tripRepository;
 
-    public TravelPricer() {}
+    public TripPricer() {}
 
-    public TravelPricer(final TripRepositoryPort tripRepository) {
+    public TripPricer(final TripRepositoryPort tripRepository) {
         this.tripRepository = tripRepository;
     }
 

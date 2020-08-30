@@ -2,13 +2,13 @@ package com.heiwait.tripagency.infrastructure.application.handler;
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.TravelClass;
-import com.heiwait.tripagency.domain.TravelPricer;
+import com.heiwait.tripagency.domain.TripPricer;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class PriceComputorHandler extends TravelPricer {
+public class PriceComputorHandler extends TripPricer {
 
     private PriceComputorRepositoryManager priceComputorRepositoryManager;
 
