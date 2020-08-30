@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.application.handler;
+package com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler;
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.TravelClass;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PriceComputorHandler extends TripPricer {
 
-    private PriceComputorRepositoryManager priceComputorRepositoryManager;
+    private final PriceComputorRepositoryManager priceComputorRepositoryManager;
 
     public PriceComputorHandler(final PriceComputorRepositoryManager priceComputorRepositoryManager){
         this.priceComputorRepositoryManager = priceComputorRepositoryManager;

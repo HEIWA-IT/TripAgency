@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ControllerExceptionTranslator {
 
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
     ControllerExceptionTranslator(MessageSource messageSource) {
         this.messageSource = messageSource;

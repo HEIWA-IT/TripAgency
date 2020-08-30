@@ -2,8 +2,8 @@ package com.heiwait.tripagency.infrastructure.repository.driver.exposition.rest.
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.TravelClass;
-import com.heiwait.tripagency.infrastructure.application.handler.PriceComputorHandler;
-import com.heiwait.tripagency.infrastructure.application.handler.RepositoryType;
+import com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler.PriceComputorHandler;
+import com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler.RepositoryType;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

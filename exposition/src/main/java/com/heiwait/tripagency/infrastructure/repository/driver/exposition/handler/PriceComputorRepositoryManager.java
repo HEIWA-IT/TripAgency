@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.application.handler;
+package com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler;
 
 import com.heiwait.tripagency.domain.TripRepositoryPort;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class PriceComputorRepositoryManager {
 
-    private TripRepositoryPort tripRepositoryMockAdapter;
+    private final TripRepositoryPort tripRepositoryMockAdapter;
 
-    private TripRepositoryPort tripRepositoryJdbcTemplateAdapter;
+    private final TripRepositoryPort tripRepositoryJdbcTemplateAdapter;
 
-    private TripRepositoryPort tripRepositoryJpaAdapter;
+    private final TripRepositoryPort tripRepositoryJpaAdapter;
 
     public PriceComputorRepositoryManager(
             @Qualifier("TripRepositoryMockAdapter") final TripRepositoryPort tripRepositoryMockAdapter,
@@ -22,14 +22,13 @@ public class PriceComputorRepositoryManager {
         this.tripRepositoryJpaAdapter = tripRepositoryJpaAdapter;
     }
 
-    TripRepositoryPort getTripRepositoryAdapter(RepositoryType repositoryType) {
+    public TripRepositoryPort getTripRepositoryAdapter(final RepositoryType repositoryType) {
         switch (repositoryType) {
-            case MOCK:
-               return tripRepositoryMockAdapter;
             case JDBC_TEMPLATE:
                 return tripRepositoryJdbcTemplateAdapter;
             case JPA:
                 return tripRepositoryJpaAdapter;
+            case MOCK:
             default:
                 return tripRepositoryMockAdapter;
         }
