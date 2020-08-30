@@ -6,6 +6,7 @@ import com.heiwait.tripagency.domain.TripRepositoryPort;
 import com.heiwait.tripagency.domain.error.BusinessErrors;
 import com.heiwait.tripagency.domain.error.BusinessException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
