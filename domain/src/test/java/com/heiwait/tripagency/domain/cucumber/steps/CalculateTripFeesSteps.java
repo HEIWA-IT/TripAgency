@@ -10,7 +10,7 @@ import org.mockito.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CalculateTravelFeesSteps {
+public class CalculateTripFeesSteps {
 
     @Mock
     private TripRepositoryPort tripRepositoryPort;
@@ -46,8 +46,8 @@ public class CalculateTravelFeesSteps {
         trip.setTicketPrice(ticketPrice);
     }
 
-    @Given("^the travel fees are (\\d+)€$")
-    public void the_travel_fees_are_€(Integer travelFees) {
+    @Given("^the activities fees are (\\d+)€$")
+    public void the_activities_fees_are_€(Integer travelFees) {
         trip.setTravelFees(travelFees);
     }
 
