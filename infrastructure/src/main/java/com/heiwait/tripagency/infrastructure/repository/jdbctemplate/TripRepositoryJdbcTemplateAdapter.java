@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
 @Qualifier("TripRepositoryJdbcTemplateAdapter")
 public class TripRepositoryJdbcTemplateAdapter implements TripRepositoryPort {
@@ -19,12 +18,12 @@ public class TripRepositoryJdbcTemplateAdapter implements TripRepositoryPort {
     private JdbcTemplate jdbcTemplate;
 
     public TripRepositoryJdbcTemplateAdapter(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate=jdbcTemplate;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public Trip findTripByDestination(Destination destination) {
-        String sql = "SELECT destination, agency_fees, travel_fees, ticket_price FROM trip WHERE LOWER(destination) = LOWER(?)";
+        String sql = "SELECT destination, agency_fees, stay_fees, ticket_price FROM trip WHERE LOWER(destination) = LOWER(?)";
         RowMapper<Trip> rowMapper = new TripRowMapper();
         try {
             return jdbcTemplate.queryForObject(sql, rowMapper, destination.getName());

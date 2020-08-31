@@ -11,7 +11,7 @@ public class TripPricer implements PriceComputorDriverPort {
     }
 
     @Override
-    public Integer priceTravel(final Destination destination, final TravelClass travelClass) {
+    public Integer priceTrip(final Destination destination, final TravelClass travelClass) {
         checkDestination(destination);
 
         Trip trip = tripRepository.findTripByDestination(destination);

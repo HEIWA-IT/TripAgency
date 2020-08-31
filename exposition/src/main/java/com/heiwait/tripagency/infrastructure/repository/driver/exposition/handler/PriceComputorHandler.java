@@ -23,6 +23,6 @@ public class PriceComputorHandler extends TripPricer {
     public Integer priceTravel(final Destination destination, final TravelClass travelClass, final RepositoryType repositoryType) {
         TripRepositoryPort tripRepositoryAdapter = priceComputorRepositoryManager.getTripRepositoryAdapter(repositoryType);
         this.setTripRepository(tripRepositoryAdapter);
-        return super.priceTravel(destination, travelClass);
+        return super.priceTrip(destination, travelClass);
     }
 }

@@ -19,7 +19,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: travel_fees
+                  name: stay_fees
                   type: int
                   constraints:
                     nullable: false

@@ -11,45 +11,46 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name="trip")
+@Table(name = "trip")
 public class TripEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name="destination")
+    @Column(name = "destination")
     private String destination;
     private Integer agencyFees;
-    private Integer travelFees;
+    private Integer stayFees;
     private Integer ticketPrice;
 
-    public TripEntity(){}
+    public TripEntity() {
+    }
 
-    public TripEntity(String destination, Integer agencyFees, Integer travelFees, Integer ticketPrice) {
+    public TripEntity(String destination, Integer agencyFees, Integer stayFees, Integer ticketPrice) {
         this.destination = destination;
         this.agencyFees = agencyFees;
-        this.travelFees = travelFees;
+        this.stayFees = stayFees;
         this.ticketPrice = ticketPrice;
     }
 
-    Trip toTrip(){
-        return new Trip(new Destination(destination()), agencyFees(), travelFees(), ticketPrice());
+    Trip toTrip() {
+        return new Trip(new Destination(destination()), agencyFees(), stayFees(), ticketPrice());
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TripEntity that=(TripEntity) o;
+        TripEntity that = (TripEntity) o;
         return Objects.equals(destination, that.destination) &&
                 Objects.equals(agencyFees, that.agencyFees) &&
-                Objects.equals(travelFees, that.travelFees) &&
+                Objects.equals(stayFees, that.stayFees) &&
                 Objects.equals(ticketPrice, that.ticketPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(destination, agencyFees, travelFees, ticketPrice);
+        return Objects.hash(destination, agencyFees, stayFees, ticketPrice);
     }
 
     public String destination() {
@@ -68,12 +69,12 @@ public class TripEntity implements Serializable {
         this.agencyFees = agencyFees;
     }
 
-    private Integer travelFees() {
-        return travelFees;
+    private Integer stayFees() {
+        return stayFees;
     }
 
-    public void setTravelFees(Integer travelFees) {
-        this.travelFees = travelFees;
+    public void setStayFees(Integer stayFees) {
+        this.stayFees = stayFees;
     }
 
     public Integer ticketPrice() {
@@ -81,6 +82,6 @@ public class TripEntity implements Serializable {
     }
 
     public void setTicketPrice(Integer ticketPrice) {
-        this.ticketPrice=ticketPrice;
+        this.ticketPrice = ticketPrice;
     }
 }

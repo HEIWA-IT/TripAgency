@@ -46,9 +46,9 @@ public class CalculateTripFeesSteps {
         trip.setTicketPrice(ticketPrice);
     }
 
-    @Given("^the activities fees are (\\d+)€$")
-    public void the_activities_fees_are_€(Integer travelFees) {
-        trip.setTravelFees(travelFees);
+    @Given("^the stay fees are (\\d+)€$")
+    public void the_stay_fees_are_€(Integer travelFees) {
+        trip.setStayFees(travelFees);
     }
 
     @Given("^the agency fees are (\\d+)€$")
@@ -58,7 +58,7 @@ public class CalculateTripFeesSteps {
 
     @When("^the system calculate the trip price")
     public void the_system_calculate_the_trip_price() {
-        computedPrice = tripPricer.priceTravel(destination, travelClass);
+        computedPrice = tripPricer.priceTrip(destination, travelClass);
     }
 
     @Then("^the trip price is (\\d+)€$")

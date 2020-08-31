@@ -6,16 +6,16 @@ public class Trip {
 
     private Destination destination;
     private Integer agencyFees;
-    private Integer travelFees;
+    private Integer stayFees;
     private Integer ticketPrice;
 
     public Trip() {
     }
 
-    public Trip(Destination destination, Integer agencyFees, Integer travelFees, Integer ticketPrice) {
+    public Trip(Destination destination, Integer agencyFees, Integer stayFees, Integer ticketPrice) {
         this.destination = destination;
         this.agencyFees = agencyFees;
-        this.travelFees = travelFees;
+        this.stayFees = stayFees;
         this.ticketPrice = ticketPrice;
     }
 
@@ -27,12 +27,12 @@ public class Trip {
         return  Objects.equals(ticketPrice, trip.ticketPrice) &&
                 Objects.equals(destination, trip.destination) &&
                 Objects.equals(agencyFees, trip.agencyFees) &&
-                Objects.equals(travelFees, trip.travelFees) ;
+                Objects.equals(stayFees, trip.stayFees) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(destination, agencyFees, travelFees, ticketPrice);
+        return Objects.hash(destination, agencyFees, stayFees, ticketPrice);
     }
 
     public Destination destination() {
@@ -52,11 +52,11 @@ public class Trip {
     }
 
     public Integer travelFees() {
-        return travelFees;
+        return stayFees;
     }
 
-    public void setTravelFees(Integer travelFees) {
-        this.travelFees = travelFees;
+    public void setStayFees(Integer stayFees) {
+        this.stayFees = stayFees;
     }
 
     public void setTicketPrice(int ticketPrice) {
