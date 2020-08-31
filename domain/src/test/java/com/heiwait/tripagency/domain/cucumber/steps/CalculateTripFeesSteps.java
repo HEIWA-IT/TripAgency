@@ -47,8 +47,8 @@ public class CalculateTripFeesSteps {
     }
 
     @Given("^the stay fees are (\\d+)€$")
-    public void the_stay_fees_are_€(Integer travelFees) {
-        trip.setStayFees(travelFees);
+    public void the_stay_fees_are_€(Integer stayFees) {
+        trip.setStayFees(stayFees);
     }
 
     @Given("^the agency fees are (\\d+)€$")
