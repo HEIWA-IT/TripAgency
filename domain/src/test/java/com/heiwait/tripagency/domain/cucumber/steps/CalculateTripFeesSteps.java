@@ -17,17 +17,16 @@ public class CalculateTripFeesSteps {
     @InjectMocks
     private TripPricer tripPricer;
 
-    private Trip trip = new Trip();
-    private Destination destination = new Destination();
+    private final Trip trip = new Trip();
+    private final Destination destination = new Destination();
     private TravelClass travelClass;
 
     private Integer computedPrice;
 
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
-
 
     @Given("^the customer wants to travel to \"([^\"]*)\"$")
     public void the_customer_wants_to_travel_to(String dest) {
