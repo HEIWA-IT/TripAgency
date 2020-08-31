@@ -3,14 +3,14 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
   The trip pricer computes the total price of the trip using the ticket price, the stay fees (hotel, activities, ...)
   and the agency fees added together.
 
-  The ticket price is defined is always the economic one. Depending of the class chosen by the customer, the travel class
+  The ticket price defined is always based on the economic one.
+  Depending of the class chosen by the customer, the travel class
   value multiplier factor will change:
   - for the economic one class value is 1
   - for the first one, class value is 2
   - for the business one, class value is 5
 
-  Rule 1: Trip_price = (trip_ticket * travel_class) + activities_fees + agency_fees
-
+  Rule 1: Trip_price = (ticket_price * travel_class) + stay_fees + agency_fees
 
   Scenario Outline: Determine the fees for a supported destination
     Given the customer wants to travel to <destination>
