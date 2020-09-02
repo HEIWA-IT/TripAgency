@@ -25,6 +25,20 @@
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+
+        <jacoco.version>0.8.5</jacoco.version>
+        <jacoco.it.execution.data.file>${project.build.directory}/coverage-reports/jacoco-it.exec
+        </jacoco.it.execution.data.file>
+        <jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec
+        </jacoco.ut.execution.data.file>
+
+
+        <sonar.scanner.version>3.3.0.603</sonar.scanner.version>
+        <!--Sonar coverage related properties-->
+        <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+        <sonar.jacoco.reportPaths>${project.basedir}/target/coverage.exec</sonar.jacoco.reportPaths>
+        <sonar.jacoco.reportPath>${project.basedir}/target/jacoco-ut.exec</sonar.jacoco.reportPath>
+        <sonar.jacoco.itReportPath>${project.basedir}/target/jacoco-it.exec</sonar.jacoco.itReportPath>
     </properties>
 
 
@@ -37,8 +51,25 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!--Jacoco required at runtime to build offline coverages-->
+            <dependency>
+                <groupId>org.jacoco</groupId>
+                <artifactId>org.jacoco.agent</artifactId>
+                <version>${jacoco.version}</version>
+                <classifier>runtime</classifier>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <!--Jacoco required at runtime to build offline coverages-->
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>org.jacoco.agent</artifactId>
+            <classifier>runtime</classifier>
+        </dependency>
+    </dependencies>
 
     <build>
         <pluginManagement>
@@ -52,11 +83,19 @@
                         <target>${java.version}</target>
                     </configuration>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco.version}</version>
+                </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                 </plugin>
+
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
@@ -70,9 +109,71 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
+
+            <!--Jacoco offline instrument to work with powermock-->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <!--Performs offline instrumentation.-->
+                    <execution>
+                        <id>default-instrument</id>
+                        <goals>
+                            <goal>instrument</goal>
+                        </goals>
+                    </execution>
+
+                    <!--Restores original classes as they were before offline instrumentation.-->
+                    <execution>
+                        <id>default-restore-instrumented-classes</id>
+                        <goals>
+                            <goal>restore-instrumented-classes</goal>
+                        </goals>
+                    </execution>
+
+                    <!--Now for integration tests-->
+                    <!--Same as prepare-agent, but provides default values suitable for integration-tests:-->
+                    <execution>
+                        <id>prepare-it-agent</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>prepare-agent-integration</goal>
+                        </goals>
+                        <configuration>
+                            <!--The path variable should not change.This is used by Sonar-->
+                            <destFile>${sonar.jacoco.itReportPath}</destFile>
+                            <append>true</append>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/coverage.exec</dataFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--END of jacoco plugin settings-->
+
+            <!--*** Maven surefire plugin to generate coverage file ***-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!--Exclude any Integration Test-->
+                    <!-- <excludes>
+                        <exclude>**/*Integration*Test*</exclude>
+                    </excludes> -->
+                    <!--Setup Jacoco Junit file path here-->
+                    <systemPropertyVariables>
+                        <jacoco-agent.destfile>${project.build.directory}/coverage.exec</jacoco-agent.destfile>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>
