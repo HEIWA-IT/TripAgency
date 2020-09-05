@@ -9,12 +9,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @ExtendWith(MockitoExtension.class)
-public class TripPricerTest {
+class TripPricerTest {
     @InjectMocks
     private TripPricer travelPricer;
 
     @Test
-    public void computeTravelPrice_should_return_an_invalid_argument_exception_if_destination_is_null() {
+    void computeTravelPrice_should_return_an_invalid_argument_exception_if_destination_is_null() {
         assertThatThrownBy(() -> travelPricer.priceTrip(null, null))
                 .isInstanceOf(IllegalArgumentException.class);
     }
