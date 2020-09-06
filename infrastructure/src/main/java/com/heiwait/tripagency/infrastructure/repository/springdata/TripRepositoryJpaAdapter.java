@@ -14,9 +14,9 @@ import java.util.Optional;
 @Qualifier("TripRepositoryJpaAdapter")
 public class TripRepositoryJpaAdapter implements TripRepositoryPort {
 
-    private TripJpaRepository tripJpaRepository;
+    private final TripJpaRepository tripJpaRepository;
 
-    public TripRepositoryJpaAdapter(TripJpaRepository tripJpaRepository) {
+    public TripRepositoryJpaAdapter(final TripJpaRepository tripJpaRepository) {
         this.tripJpaRepository = tripJpaRepository;
     }
 

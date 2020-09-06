@@ -23,16 +23,6 @@ public class TripEntity implements Serializable {
     private Integer stayFees;
     private Integer ticketPrice;
 
-    public TripEntity() {
-    }
-
-    public TripEntity(String destination, Integer agencyFees, Integer stayFees, Integer ticketPrice) {
-        this.destination = destination;
-        this.agencyFees = agencyFees;
-        this.stayFees = stayFees;
-        this.ticketPrice = ticketPrice;
-    }
-
     Trip toTrip() {
         return new Trip(new Destination(destination()), agencyFees(), stayFees(), ticketPrice());
     }
