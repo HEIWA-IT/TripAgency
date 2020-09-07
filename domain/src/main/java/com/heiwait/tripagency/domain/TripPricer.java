@@ -1,10 +1,14 @@
 package com.heiwait.tripagency.domain;
 
+import com.heiwait.tripagency.domain.error.BusinessErrors;
+import com.heiwait.tripagency.domain.error.BusinessException;
+
 public class TripPricer implements PriceComputorDriverPort {
 
     protected TripRepositoryPort tripRepository;
 
-    public TripPricer() {}
+    public TripPricer() {
+    }
 
     public TripPricer(final TripRepositoryPort tripRepository) {
         this.tripRepository = tripRepository;
@@ -16,11 +20,15 @@ public class TripPricer implements PriceComputorDriverPort {
 
         Trip trip = tripRepository.findTripByDestination(destination);
 
+        if (trip.equals(Trip.MISSING_DESTINATION)) {
+            throw new BusinessException(BusinessErrors.MISSING_DESTINATION);
+        }
+
         return priceTrip(travelClass, trip);
     }
 
     private int priceTrip(TravelClass travelClass, Trip trip) {
-        return (trip.ticketPrice() * travelClass.coefficient())  + trip.agencyFees() + trip.travelFees();
+        return (trip.ticketPrice() * travelClass.coefficient()) + trip.agencyFees() + trip.travelFees();
     }
 
     private void checkDestination(final Destination destination) {

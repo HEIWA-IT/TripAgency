@@ -3,8 +3,6 @@ package com.heiwait.tripagency.infrastructure.repository.jdbctemplate;
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
-import com.heiwait.tripagency.domain.error.BusinessErrors;
-import com.heiwait.tripagency.domain.error.BusinessException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,7 +26,7 @@ public class TripRepositoryJdbcTemplateAdapter implements TripRepositoryPort {
         try {
             return jdbcTemplate.queryForObject(sql, rowMapper, destination.getName());
         } catch (EmptyResultDataAccessException e) {
-            throw new BusinessException(BusinessErrors.MISSING_DESTINATION);
+            return Trip.MISSING_DESTINATION;
         }
     }
 }

@@ -3,8 +3,6 @@ package com.heiwait.tripagency.infrastructure.repository.springdata;
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
-import com.heiwait.tripagency.domain.error.BusinessErrors;
-import com.heiwait.tripagency.domain.error.BusinessException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +25,7 @@ public class TripRepositoryJpaAdapter implements TripRepositoryPort {
         Optional<TripEntity> tripEntityOptional = Optional.ofNullable(tripEntity);
         if (tripEntityOptional.isPresent())
             return tripEntityOptional.get().toTrip();
-
-        throw new BusinessException(BusinessErrors.MISSING_DESTINATION);
+        else
+            return Trip.MISSING_DESTINATION;
     }
 }

@@ -9,6 +9,8 @@ public class Trip {
     private Integer stayFees;
     private Integer ticketPrice;
 
+    public final static Trip MISSING_DESTINATION = new Trip(new Destination("Missing destination"), 0, 0, 0);
+
     public Trip() {
     }
 

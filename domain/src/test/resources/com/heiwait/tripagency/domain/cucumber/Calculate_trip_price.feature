@@ -1,16 +1,19 @@
 Feature: as a travel agency, I want to calculate travel fees depending on the departure and destination trip.
-  To facilitate the use case, we will use always the same departure. We will only need the destination
+  To facilitate the use case, we will use always the same departure Lille.
+  We will only need the destination.
   The trip pricer computes the total price of the trip using the ticket price, the stay fees (hotel, activities, ...)
   and the agency fees added together.
 
   The ticket price defined is always based on the economic one.
-  Depending of the class chosen by the customer, the travel class
-  value multiplier factor will change:
+  Depending of the class chosen by the customer, the travel class value multiplier factor will change:
   - for the economic one class value is 1
   - for the first one, class value is 2
   - for the business one, class value is 5
 
+  If the destination wanted is not know by the pricer, it returns a missing destination message
+
   Rule 1: Trip_price = (ticket_price * travel_class) + stay_fees + agency_fees
+  Rule 2: If the destination wanted by the customer is not in the system, the pricer returns a missing destination message.
 
   Scenario Outline: Determine the fees for a supported destination
     Given the customer wants to travel to <destination>
@@ -28,6 +31,12 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
       | "New-York"  | "FIRST"     | 800         | 1000     | 100        | 2700      |
       | "Tokyo"     | "BUSINESS"  | 1200        | 1000     | 100        | 7100      |
       | "Beijing"   | "ECONOMIC"  | 1000        | 1000     | 100        | 2100      |
+
+  Scenario: returns a missing destination message when the destination is missing
+    Given the customer wants to travel to "Sydney"
+    And the customer wants to travel in "FIRST" class
+    When the system calculate the trip price
+    Then the trip price returns the following message "Missing destination!"
 
   Scenario: Determine the fees for travel to Paris in first class with 800€ of stay fees and 50€ of agency fees
     Given the customer wants to travel to "Paris"

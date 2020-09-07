@@ -2,6 +2,8 @@ package com.heiwait.tripagency.domain.cucumber.steps;
 
 import com.heiwait.tripagency.domain.*;
 
+import com.heiwait.tripagency.domain.error.BusinessErrors;
+import com.heiwait.tripagency.domain.error.BusinessException;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -17,11 +19,14 @@ public class CalculateTripFeesSteps {
     @InjectMocks
     private TripPricer tripPricer;
 
-    private final Trip trip = new Trip();
-    private final Destination destination = new Destination();
+    private Destination destination;
     private TravelClass travelClass;
+    private Integer agencyFees;
+    private Integer stayFees;
+    private Integer ticketPrice;
 
     private Integer computedPrice;
+    private String errorMessage;
 
     @Before
     public void setup() {
@@ -30,9 +35,7 @@ public class CalculateTripFeesSteps {
 
     @Given("^the customer wants to travel to \"([^\"]*)\"$")
     public void the_customer_wants_to_travel_to(String dest) {
-        destination.setName(dest);
-        trip.setDestination(destination);
-        Mockito.when(tripRepositoryPort.findTripByDestination(destination)).thenReturn(trip);
+            destination = new Destination(dest);
     }
 
     @Given("^the customer wants to travel in \"([^\"]*)\" class$")
@@ -42,26 +45,46 @@ public class CalculateTripFeesSteps {
 
     @Given("^the economic travel ticket price is (\\d+)€$")
     public void the_economic_travel_ticket_price_is_€(int ticketPrice) {
-        trip.setTicketPrice(ticketPrice);
+        this.ticketPrice = ticketPrice;
     }
 
     @Given("^the stay fees are (\\d+)€$")
     public void the_stay_fees_are_€(Integer stayFees) {
-        trip.setStayFees(stayFees);
+        this.stayFees = stayFees;
     }
 
     @Given("^the agency fees are (\\d+)€$")
     public void the_agency_fees_are_€(Integer agencyFees) {
-        trip.setAgencyFees(agencyFees);
+        this.agencyFees = agencyFees;
     }
 
     @When("^the system calculate the trip price")
     public void the_system_calculate_the_trip_price() {
-        computedPrice = tripPricer.priceTrip(destination, travelClass);
+        Trip trip;
+        if (destination.getName().equals("Sydney")) {
+            trip = Trip.MISSING_DESTINATION;
+        } else {
+            trip = new Trip(this.destination, this.agencyFees, this.stayFees, this.ticketPrice);
+        }
+
+        Mockito.when(tripRepositoryPort.findTripByDestination(destination)).thenReturn(trip);
+
+        try {
+            computedPrice = tripPricer.priceTrip(destination, travelClass);
+        } catch (BusinessException be) {
+            if (be.getError().equals(BusinessErrors.MISSING_DESTINATION)) {
+                errorMessage = "Missing destination!";
+            }
+        }
     }
 
     @Then("^the trip price is (\\d+)€$")
     public void the_trip_price_is_€(Integer expectedPrice) {
         assertThat(expectedPrice).isEqualTo(computedPrice);
+    }
+
+    @Then("^the trip price returns the following message \"([^\"]*)\"$")
+    public void the_trip_price_returns_the_following_message(String expectedMessage) {
+        assertThat(expectedMessage).isEqualTo(errorMessage);
     }
 }

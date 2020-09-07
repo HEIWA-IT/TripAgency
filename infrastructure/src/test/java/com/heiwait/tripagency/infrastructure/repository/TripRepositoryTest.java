@@ -3,7 +3,6 @@ package com.heiwait.tripagency.infrastructure.repository;
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
-import com.heiwait.tripagency.domain.error.BusinessException;
 import com.heiwait.tripagency.infrastructure.repository.config.AppConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +28,6 @@ public class TripRepositoryTest {
     @Autowired
     @Qualifier("TripRepositoryMockAdapter")
     private TripRepositoryPort tripRepositoryMockPort;
-
 
     @Test
     public void findTripByDestinationMock_with_a_valid_destination_should_find_a_trip() {
@@ -68,11 +66,12 @@ public class TripRepositoryTest {
         assertThat(parisTrip.ticketPrice()).isEqualTo(expectedTrip.ticketPrice());
     }
 
-    @Test(expected = BusinessException.class)
-    public void findTripByDestination_with_a_invalid_destination_should_return_a_destination_not_found_message() {
+    @Test
+    public void findTripByDestination_with_a_invalid_destination_should_return_a_missing_destination() {
         Destination pari = new Destination();
         pari.setName("Pari");
 
         Trip pariTrip = tripRepositoryJpaPort.findTripByDestination(pari);
+        assertThat(pariTrip).isEqualTo(Trip.MISSING_DESTINATION);
     }
 }
