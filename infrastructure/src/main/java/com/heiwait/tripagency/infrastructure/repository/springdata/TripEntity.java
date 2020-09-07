@@ -47,31 +47,15 @@ public class TripEntity implements Serializable {
         return destination;
     }
 
-    public void setDestination(String destinationName) {
-        this.destination = destinationName;
-    }
-
     private Integer agencyFees() {
         return agencyFees;
-    }
-
-    public void setAgencyFees(Integer agencyFees) {
-        this.agencyFees = agencyFees;
     }
 
     private Integer stayFees() {
         return stayFees;
     }
 
-    public void setStayFees(Integer stayFees) {
-        this.stayFees = stayFees;
-    }
-
     public Integer ticketPrice() {
         return ticketPrice;
-    }
-
-    public void setTicketPrice(Integer ticketPrice) {
-        this.ticketPrice = ticketPrice;
     }
 }
