@@ -6,7 +6,6 @@ import com.heiwait.tripagency.domain.TripPricer;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class PriceComputorHandler extends TripPricer {
 

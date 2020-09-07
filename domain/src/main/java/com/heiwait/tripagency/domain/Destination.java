@@ -3,20 +3,14 @@ package com.heiwait.tripagency.domain;
 import java.util.Objects;
 
 public class Destination {
-    private String name;
+    private final String name;
 
-    public Destination() {
-    }
-
-    public Destination(String destinationName) {
+    public Destination(final String destinationName) {
         name = destinationName;
     }
 
     public String getName() {
         return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

@@ -10,14 +10,12 @@ import java.sql.SQLException;
 public class TripRowMapper implements RowMapper<Trip> {
     @Override
     public Trip mapRow(ResultSet row, int i) throws SQLException {
-        Destination destination = new Destination();
-        destination.setName(row.getString("destination"));
+        String dest = row.getString("destination");
+        int agencyFees = row.getInt("agency_fees");
+        int stayFees = row.getInt("stay_fees");
+        int ticketPrice = row.getInt("ticket_price");
 
-        Trip trip = new Trip();
-        trip.setDestination(destination);
-        trip.setAgencyFees(row.getInt("agency_fees"));
-        trip.setStayFees(row.getInt("stay_fees"));
-        trip.setTicketPrice(row.getInt("ticket_price"));
-        return trip;
+        Destination destination = new Destination(dest);
+        return new Trip(destination, agencyFees, stayFees, ticketPrice);
     }
 }

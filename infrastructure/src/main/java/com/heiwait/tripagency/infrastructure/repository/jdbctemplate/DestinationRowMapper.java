@@ -9,9 +9,7 @@ import java.sql.SQLException;
 public class DestinationRowMapper implements RowMapper<Destination> {
     @Override
     public Destination mapRow(ResultSet row, int i) throws SQLException {
-        Destination destination = new Destination();
-        destination.setName(row.getString("name"));
-
-        return destination;
+        String dest = row.getString("name");
+        return new Destination(dest);
     }
 }

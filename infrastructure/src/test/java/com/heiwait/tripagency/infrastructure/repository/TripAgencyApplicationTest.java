@@ -23,8 +23,7 @@ public class TripAgencyApplicationTest {
 
     @Test
     public void findTripByDestination_with_a_valid_destination_should_find_a_trip() {
-        Destination paris = new Destination();
-        paris.setName("Paris");
+        final Destination paris = new Destination("Paris");
 
         Trip parisTrip = tripRepositoryPort.findTripByDestination(paris);
 
@@ -35,8 +34,7 @@ public class TripAgencyApplicationTest {
 
      @Test
     public void findTripByDestination_with_a_invalid_destination_should_return_a_destination_not_found_message() {
-        Destination pari = new Destination();
-        pari.setName("Pari");
+        final Destination pari = new Destination("Pari");
 
         Trip pariTrip = tripRepositoryPort.findTripByDestination(pari);
         assertThat(pariTrip).isEqualTo(Trip.MISSING_DESTINATION);

@@ -31,8 +31,7 @@ public class TripRepositoryTest {
 
     @Test
     public void findTripByDestinationMock_with_a_valid_destination_should_find_a_trip() {
-        Destination paris = new Destination();
-        paris.setName("Paris");
+        final Destination paris = new Destination("Paris");
 
         Trip parisTrip = tripRepositoryMockPort.findTripByDestination(paris);
 
@@ -43,8 +42,7 @@ public class TripRepositoryTest {
 
     @Test
     public void findTripByDestinationSpringData_with_a_valid_destination_should_find_a_trip() {
-        Destination paris = new Destination();
-        paris.setName("Paris");
+        final Destination paris = new Destination("Paris");
 
         Trip parisTrip = tripRepositoryJpaPort.findTripByDestination(paris);
 
@@ -56,8 +54,7 @@ public class TripRepositoryTest {
 
     @Test
     public void findTripByDestinationJdbcTemplate_with_a_valid_destination_should_find_a_trip() {
-        Destination paris = new Destination();
-        paris.setName("Paris");
+        final Destination paris = new Destination("Paris");
 
         Trip parisTrip = tripRepositoryJdbcTemplatePort.findTripByDestination(paris);
 
@@ -68,8 +65,7 @@ public class TripRepositoryTest {
 
     @Test
     public void findTripByDestination_with_a_invalid_destination_should_return_a_missing_destination() {
-        Destination pari = new Destination();
-        pari.setName("Pari");
+        final Destination pari = new Destination("Pari");
 
         Trip pariTrip = tripRepositoryJpaPort.findTripByDestination(pari);
         assertThat(pariTrip).isEqualTo(Trip.MISSING_DESTINATION);
