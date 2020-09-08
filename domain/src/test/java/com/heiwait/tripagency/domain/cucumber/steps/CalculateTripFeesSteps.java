@@ -21,7 +21,6 @@ public class CalculateTripFeesSteps {
     @InjectMocks
     private TripPricer tripPricer;
 
-    private Trip trip;
     private Destination destination;
     private TravelClass travelClass;
     private Integer agencyFees;
@@ -30,11 +29,6 @@ public class CalculateTripFeesSteps {
 
     private Integer computedPrice;
     private String errorMessage;
-
-    private final List<Destination> destinations =
-            List.of(new Destination("Paris"), new Destination("Lille"),
-            new Destination("New-York"), new Destination("Tokyo"),
-            new Destination("Beijing"));
 
     @Before
     public void setup() {
@@ -68,18 +62,18 @@ public class CalculateTripFeesSteps {
 
     @When("^the system calculate the trip price")
     public void the_system_calculate_the_trip_price() {
-        if (destinations.contains(destination)) {
-            trip = new Trip(this.destination, this.agencyFees, this.stayFees, this.ticketPrice);
-        } else {
+        Trip trip;
+        if (destination.name().equals("Sydney")) {
             trip = Trip.MISSING_DESTINATION;
-        }
+        } else
+            trip = new Trip(this.destination, this.agencyFees, this.stayFees, this.ticketPrice);
 
         Mockito.when(tripRepositoryPort.findTripByDestination(destination)).thenReturn(trip);
 
         try {
             computedPrice = tripPricer.priceTrip(destination, travelClass);
         } catch (BusinessException be) {
-            if (BusinessErrors.MISSING_DESTINATION.equals(be.getError())) {
+            if (BusinessErrors.MISSING_DESTINATION.equals(be.error())) {
                 errorMessage = "Missing destination!";
             }
         }
