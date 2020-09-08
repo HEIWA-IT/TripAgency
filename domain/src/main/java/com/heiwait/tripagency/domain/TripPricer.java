@@ -7,9 +7,6 @@ public class TripPricer implements PriceComputorDriverPort {
 
     protected TripRepositoryPort tripRepository;
 
-    public TripPricer() {
-    }
-
     public TripPricer(final TripRepositoryPort tripRepository) {
         this.tripRepository = tripRepository;
     }

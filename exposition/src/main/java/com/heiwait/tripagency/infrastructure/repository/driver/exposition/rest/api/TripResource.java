@@ -2,10 +2,10 @@ package com.heiwait.tripagency.infrastructure.repository.driver.exposition.rest.
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.TravelClass;
-import com.heiwait.tripagency.domain.TripRepositoryPort;
-import com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler.PriceComputorHandler;
+import com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler.TripPricerWithJdbcTemplateRepositoryAdapter;
+import com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler.TripPricerWithJpaRepositoryAdapter;
+import com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler.TripPricerWithMockRepositoryAdapter;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,20 +15,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api")
 public class TripResource {
 
-    private final PriceComputorHandler priceComputorHandler;
-    private final TripRepositoryPort tripRepositoryMockAdapter;
-    private final TripRepositoryPort tripRepositoryJdbcTemplateAdapter;
-    private final TripRepositoryPort tripRepositoryJpaAdapter;
+    private final TripPricerWithMockRepositoryAdapter tripPricerWithMockRepositoryAdapter;
+    private final TripPricerWithJpaRepositoryAdapter tripPricerWithJpaRepositoryAdapter;
+    private final TripPricerWithJdbcTemplateRepositoryAdapter tripPricerWithJdbcTemplateRepositoryAdapter;
 
     public TripResource(
-            final PriceComputorHandler priceComputorHandler,
-            @Qualifier("TripRepositoryMockAdapter") final TripRepositoryPort tripRepositoryMockAdapter,
-            @Qualifier("TripRepositoryJdbcTemplateAdapter") final TripRepositoryPort tripRepositoryJdbcTemplateAdapter,
-            @Qualifier("TripRepositoryJpaAdapter") final TripRepositoryPort tripRepositoryJpaAdapter) {
-        this.priceComputorHandler = priceComputorHandler;
-        this.tripRepositoryMockAdapter = tripRepositoryMockAdapter;
-        this.tripRepositoryJdbcTemplateAdapter = tripRepositoryJdbcTemplateAdapter;
-        this.tripRepositoryJpaAdapter = tripRepositoryJpaAdapter;
+            final TripPricerWithMockRepositoryAdapter tripPricerWithMockRepositoryAdapter,
+            final TripPricerWithJpaRepositoryAdapter tripPricerWithJpaRepositoryAdapter,
+            final TripPricerWithJdbcTemplateRepositoryAdapter tripPricerWithJdbcTemplateRepositoryAdapter) {
+        this.tripPricerWithMockRepositoryAdapter = tripPricerWithMockRepositoryAdapter;
+        this.tripPricerWithJpaRepositoryAdapter = tripPricerWithJpaRepositoryAdapter;
+        this.tripPricerWithJdbcTemplateRepositoryAdapter = tripPricerWithJdbcTemplateRepositoryAdapter;
     }
 
     @ApiOperation(value = "Compute travel fees", notes = "Returns the price of a trip")
@@ -37,7 +34,9 @@ public class TripResource {
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
 
-        return priceTrip(destinationName, travelClass, tripRepositoryMockAdapter);
+        Destination destination = new Destination(destinationName);
+        Integer travelPrice = tripPricerWithMockRepositoryAdapter.priceTrip(destination, travelClass);
+        return new ResponseEntity<>(travelPrice, HttpStatus.OK);
     }
 
     @ApiOperation(value = "Compute travel fees", notes = "Returns the price of a trip")
@@ -46,7 +45,9 @@ public class TripResource {
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
 
-        return priceTrip(destinationName, travelClass, tripRepositoryJpaAdapter);
+        Destination destination = new Destination(destinationName);
+        Integer travelPrice = tripPricerWithJpaRepositoryAdapter.priceTrip(destination, travelClass);
+        return new ResponseEntity<>(travelPrice, HttpStatus.OK);
     }
 
     @ApiOperation(value = "Compute travel fees", notes = "Returns the price of a trip")
@@ -55,14 +56,8 @@ public class TripResource {
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
 
-        return priceTrip(destinationName, travelClass, tripRepositoryJdbcTemplateAdapter);
-    }
-
-    private ResponseEntity<Integer> priceTrip(final String destinationName, final TravelClass travelClass,
-                                              final TripRepositoryPort repositoryType) {
         Destination destination = new Destination(destinationName);
-        priceComputorHandler.setTripRepository(repositoryType);
-        Integer travelPrice = priceComputorHandler.priceTrip(destination, travelClass);
+        Integer travelPrice = tripPricerWithJdbcTemplateRepositoryAdapter.priceTrip(destination, travelClass);
         return new ResponseEntity<>(travelPrice, HttpStatus.OK);
     }
 }
