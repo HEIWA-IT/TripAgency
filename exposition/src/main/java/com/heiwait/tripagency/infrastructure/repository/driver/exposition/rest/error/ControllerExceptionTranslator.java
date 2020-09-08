@@ -14,22 +14,25 @@ public class ControllerExceptionTranslator {
 
     private final MessageSource messageSource;
 
-    ControllerExceptionTranslator(MessageSource messageSource) {
+    private final PropertiesHttpCode propertiesHttpCode;
+
+    ControllerExceptionTranslator(MessageSource messageSource, PropertiesHttpCode propertiesHttpCode) {
         this.messageSource = messageSource;
+        this.propertiesHttpCode = propertiesHttpCode;
     }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorMessage> translateBusinessException(BusinessException bex) {
-        BusinessErrors error=bex.error();
+        BusinessErrors error = bex.error();
         String description = messageSource.getMessage(error.code(), bex.params(), error.code(), LocaleContextHolder.getLocale());
-        HttpStatus httpStatus = HttpStatus.resolve(error.httpCode());
+        HttpStatus httpStatus = HttpStatus.resolve(propertiesHttpCode.getHttpCodeFromErrorCode(error.code()));
         assert httpStatus != null;
         return new ResponseEntity<>(new ErrorMessage(error.code(), description), httpStatus);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessage> translateException(Exception ex) {
-        String code=TechnicalErrorConstants.ERR_INTERNAL_SERVER;
+        String code = TechnicalErrorConstants.ERR_INTERNAL_SERVER;
         String description = ex.getMessage();
         return new ResponseEntity<>(new ErrorMessage(code, description), HttpStatus.INTERNAL_SERVER_ERROR);
     }
