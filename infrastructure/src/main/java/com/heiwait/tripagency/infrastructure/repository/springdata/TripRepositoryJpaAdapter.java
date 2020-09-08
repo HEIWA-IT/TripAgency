@@ -20,7 +20,7 @@ public class TripRepositoryJpaAdapter implements TripRepositoryPort {
 
     @Override
     public Trip findTripByDestination(Destination destination) {
-        TripEntity tripEntity = tripJpaRepository.findTripByDestination(destination.getName());
+        TripEntity tripEntity = tripJpaRepository.findTripByDestination(destination.name());
 
         Optional<TripEntity> tripEntityOptional = Optional.ofNullable(tripEntity);
         if (tripEntityOptional.isPresent())

@@ -20,11 +20,11 @@ public class ControllerExceptionTranslator {
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorMessage> translateBusinessException(BusinessException bex) {
-        BusinessErrors error=bex.getError();
-        String description = messageSource.getMessage(error.getCode(), bex.getParams(), error.getCode(), LocaleContextHolder.getLocale());
-        HttpStatus httpStatus = HttpStatus.resolve(error.getHttpCode());
+        BusinessErrors error=bex.error();
+        String description = messageSource.getMessage(error.code(), bex.params(), error.code(), LocaleContextHolder.getLocale());
+        HttpStatus httpStatus = HttpStatus.resolve(error.httpCode());
         assert httpStatus != null;
-        return new ResponseEntity<>(new ErrorMessage(error.getCode(), description), httpStatus);
+        return new ResponseEntity<>(new ErrorMessage(error.code(), description), httpStatus);
     }
 
     @ExceptionHandler(Exception.class)

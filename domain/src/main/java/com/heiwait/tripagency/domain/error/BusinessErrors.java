@@ -14,11 +14,11 @@ public enum BusinessErrors {
         this.httpCode = httpCode;
     }
 
-    public String getCode() {
+    public String code() {
         return code;
     }
 
-    public int getHttpCode() {
+    public int httpCode() {
         return httpCode;
     }
 }
