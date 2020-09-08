@@ -64,6 +64,14 @@ public class TripRepositoryTest {
     }
 
     @Test
+    public void findTripByDestinationJdbcTemplate_with_a_invalid_destination_should_return_a_missing_destination() {
+        final Destination pari = new Destination("Pari");
+
+        Trip pariTrip = tripRepositoryJdbcTemplatePort.findTripByDestination(pari);
+        assertThat(pariTrip).isEqualTo(Trip.MISSING_DESTINATION);
+    }
+
+    @Test
     public void findTripByDestination_with_a_invalid_destination_should_return_a_missing_destination() {
         final Destination pari = new Destination("Pari");
 
