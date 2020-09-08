@@ -10,6 +10,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.mockito.*;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CalculateTripFeesSteps {
@@ -19,6 +21,7 @@ public class CalculateTripFeesSteps {
     @InjectMocks
     private TripPricer tripPricer;
 
+    private Trip trip;
     private Destination destination;
     private TravelClass travelClass;
     private Integer agencyFees;
@@ -28,6 +31,11 @@ public class CalculateTripFeesSteps {
     private Integer computedPrice;
     private String errorMessage;
 
+    private final List<Destination> destinations =
+            List.of(new Destination("Paris"), new Destination("Lille"),
+            new Destination("New-York"), new Destination("Tokyo"),
+            new Destination("Beijing"));
+
     @Before
     public void setup() {
         MockitoAnnotations.openMocks(this);
@@ -35,7 +43,7 @@ public class CalculateTripFeesSteps {
 
     @Given("^the customer wants to travel to \"([^\"]*)\"$")
     public void the_customer_wants_to_travel_to(String dest) {
-            destination = new Destination(dest);
+        destination = new Destination(dest);
     }
 
     @Given("^the customer wants to travel in \"([^\"]*)\" class$")
@@ -60,11 +68,10 @@ public class CalculateTripFeesSteps {
 
     @When("^the system calculate the trip price")
     public void the_system_calculate_the_trip_price() {
-        Trip trip;
-        if (destination.getName().equals("Sydney")) {
-            trip = Trip.MISSING_DESTINATION;
-        } else {
+        if (destinations.contains(destination)) {
             trip = new Trip(this.destination, this.agencyFees, this.stayFees, this.ticketPrice);
+        } else {
+            trip = Trip.MISSING_DESTINATION;
         }
 
         Mockito.when(tripRepositoryPort.findTripByDestination(destination)).thenReturn(trip);
@@ -72,7 +79,7 @@ public class CalculateTripFeesSteps {
         try {
             computedPrice = tripPricer.priceTrip(destination, travelClass);
         } catch (BusinessException be) {
-            if (be.getError().equals(BusinessErrors.MISSING_DESTINATION)) {
+            if (BusinessErrors.MISSING_DESTINATION.equals(be.getError())) {
                 errorMessage = "Missing destination!";
             }
         }
