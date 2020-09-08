@@ -2,7 +2,7 @@ package com.heiwait.tripagency.domain.cucumber.steps;
 
 import com.heiwait.tripagency.domain.*;
 
-import com.heiwait.tripagency.domain.error.BusinessErrors;
+import com.heiwait.tripagency.domain.cucumber.ErrorMessagesProperties;
 import com.heiwait.tripagency.domain.error.BusinessException;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -73,9 +73,7 @@ public class CalculateTripFeesSteps {
         try {
             computedPrice = tripPricer.priceTrip(destination, travelClass);
         } catch (BusinessException be) {
-            if (BusinessErrors.MISSING_DESTINATION.equals(be.error())) {
-                errorMessage = "Missing destination!";
-            }
+            errorMessage = ErrorMessagesProperties.getErrorMessageFromErrorCode(be.error().code());
         }
     }
 
