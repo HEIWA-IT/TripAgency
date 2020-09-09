@@ -23,10 +23,6 @@ public class TripEntity implements Serializable {
         return new Trip(agencyFees(), stayFees(), ticketPrice());
     }
 
-    public String destination() {
-        return destination;
-    }
-
     private Integer agencyFees() {
         return agencyFees;
     }
