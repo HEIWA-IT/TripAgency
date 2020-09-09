@@ -10,8 +10,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.mockito.*;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CalculateTripFeesSteps {
@@ -62,18 +60,20 @@ public class CalculateTripFeesSteps {
 
     @When("^the system calculate the trip price")
     public void the_system_calculate_the_trip_price() {
-        Trip trip;
-        if (destination.name().equals("Sydney")) {
-            trip = Trip.MISSING_DESTINATION;
-        } else
-            trip = new Trip(this.destination, this.agencyFees, this.stayFees, this.ticketPrice);
-
-        Mockito.when(tripRepositoryPort.findTripByDestination(destination)).thenReturn(trip);
+        Mockito.when(tripRepositoryPort.findTripByDestination(destination)).thenReturn(trip());
 
         try {
             computedPrice = tripPricer.priceTrip(destination, travelClass);
         } catch (BusinessException be) {
             errorMessage = ErrorMessagesProperties.getErrorMessageFromErrorCode(be.error().code());
+        }
+    }
+
+    private Trip trip() {
+        if (destination.name().equals("Sydney")) {
+            return Trip.MISSING_DESTINATION;
+        } else {
+            return new Trip(this.destination, this.agencyFees, this.stayFees, this.ticketPrice);
         }
     }
 
