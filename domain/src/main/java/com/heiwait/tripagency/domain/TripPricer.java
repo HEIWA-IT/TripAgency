@@ -17,7 +17,7 @@ public class TripPricer implements PriceComputorDriverPort {
 
         Trip trip = tripRepository.findTripByDestination(destination);
 
-        if (trip.equals(Trip.MISSING_DESTINATION)) {
+        if (Trip.MISSING_DESTINATION.equals(trip)) {
             throw new BusinessException(BusinessErrors.MISSING_DESTINATION);
         }
 

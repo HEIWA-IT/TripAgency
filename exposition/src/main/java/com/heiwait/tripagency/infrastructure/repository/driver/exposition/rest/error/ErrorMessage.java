@@ -1,12 +1,8 @@
 package com.heiwait.tripagency.infrastructure.repository.driver.exposition.rest.error;
 
 public class ErrorMessage {
-    private String code;
-    private String description;
-
-    ErrorMessage(String code) {
-        this(code, null);
-    }
+    private final String code;
+    private final String description;
 
     ErrorMessage(String code, String description) {
         this.code = code;

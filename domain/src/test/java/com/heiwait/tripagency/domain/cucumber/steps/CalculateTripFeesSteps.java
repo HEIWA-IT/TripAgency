@@ -10,6 +10,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.mockito.*;
 
+import java.util.Locale;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CalculateTripFeesSteps {
@@ -65,6 +67,8 @@ public class CalculateTripFeesSteps {
         try {
             computedPrice = tripPricer.priceTrip(destination, travelClass);
         } catch (BusinessException be) {
+            Locale usLocale = new Locale("en", "US");
+            Locale.setDefault(usLocale);
             errorMessage = ErrorMessagesProperties.getErrorMessageFromErrorCode(be.error().code());
         }
     }
