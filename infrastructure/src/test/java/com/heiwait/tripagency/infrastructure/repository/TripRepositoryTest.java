@@ -35,7 +35,7 @@ public class TripRepositoryTest {
 
         Trip parisTrip = tripRepositoryMockPort.findTripByDestination(paris);
 
-        Trip expectedTrip = new Trip(paris, 25, 250, 150);
+        Trip expectedTrip = new Trip(25, 250, 150);
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTrip.agencyFees());
         assertThat(parisTrip.ticketPrice()).isEqualTo(expectedTrip.ticketPrice());
     }
@@ -46,7 +46,7 @@ public class TripRepositoryTest {
 
         Trip parisTrip = tripRepositoryJpaPort.findTripByDestination(paris);
 
-        Trip expectedTrip = new Trip(paris, 300, 50, 200);
+        Trip expectedTrip = new Trip(300, 50, 200);
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTrip.agencyFees());
         assertThat(parisTrip.ticketPrice()).isEqualTo(expectedTrip.ticketPrice());
     }
@@ -58,7 +58,7 @@ public class TripRepositoryTest {
 
         Trip parisTrip = tripRepositoryJdbcTemplatePort.findTripByDestination(paris);
 
-        Trip expectedTrip = new Trip(paris, 300, 50, 200);
+        Trip expectedTrip = new Trip(300, 50, 200);
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTrip.agencyFees());
         assertThat(parisTrip.ticketPrice()).isEqualTo(expectedTrip.ticketPrice());
     }

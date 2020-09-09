@@ -27,7 +27,7 @@ public class TripAgencyApplicationTest {
 
         Trip parisTrip = tripRepositoryPort.findTripByDestination(paris);
 
-        Trip expectedTrip = new Trip(paris, 300, 50, 200);
+        Trip expectedTrip = new Trip(300, 50, 200);
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTrip.agencyFees());
         assertThat(parisTrip.travelFees()).isEqualTo(expectedTrip.travelFees());
     }
