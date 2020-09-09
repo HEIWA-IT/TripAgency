@@ -24,7 +24,8 @@ public class ControllerExceptionTranslator {
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorMessage> translateBusinessException(BusinessException bex) {
         BusinessErrors error = bex.error();
-        String description = messageSource.getMessage(error.code(), bex.params(), error.code(), LocaleContextHolder.getLocale());
+        String[] params = null;
+        String description = messageSource.getMessage(error.code(), params, error.code(), LocaleContextHolder.getLocale());
         HttpStatus httpStatus = HttpStatus.resolve(propertiesHttpCode.getHttpCodeFromErrorCode(error.code()));
         assert httpStatus != null;
         return new ResponseEntity<>(new ErrorMessage(error.code(), description), httpStatus);
