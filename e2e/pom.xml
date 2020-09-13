@@ -10,19 +10,21 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>domain</artifactId>
+    <artifactId>e2e</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>com.heiwait</groupId>
+            <artifactId>domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!-- Tests -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -36,10 +38,13 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
         </dependency>
 
         <!-- Reporting -->
@@ -66,7 +71,7 @@
 
     <build>
         <plugins>
-            <plugin>
+            <!--plugin>
                 <groupId>com.github.cukedoctor</groupId>
                 <artifactId>cukedoctor-maven-plugin</artifactId>
                 <version>${maven-cukedoctor-plugin.version}</version>
@@ -86,6 +91,36 @@
                             <goal>execute</goal>
                         </goals>
                         <phase>test</phase>
+                    </execution>
+                </executions>
+            </plugin-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!--Work around. Surefire does not use JUnit's Test Engine discovery functionality -->
+                        <id>CLI-test</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo message="Running JUnit Platform CLI"/>
+                                <java classname="org.junit.platform.console.ConsoleLauncher"
+                                      fork="true"
+                                      failonerror="true"
+                                      newenvironment="true"
+                                      maxmemory="512m"
+                                      classpathref="maven.test.classpath">
+                                    <arg value="--include-engine"/>
+                                    <arg value="cucumber"/>
+                                    <arg value="--scan-classpath"/>
+                                    <arg value="${project.build.testOutputDirectory}"/>
+                                </java>
+                            </target>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

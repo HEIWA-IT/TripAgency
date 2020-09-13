@@ -1,3 +1,3 @@
 rootProject.name = "TripAgency"
 
-include("domain", "infrastructure", "exposition")
+include("domain", "infrastructure", "exposition", "e2e")

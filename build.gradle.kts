@@ -74,11 +74,11 @@ subprojects {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    val PaxleonesBomVersion: String by project
+    val javaRestProjectVersion: String by project
 
     dependencies {
         dependencies {
-            implementation(platform("com.paxleones:PaxleonesBom:$PaxleonesBomVersion"))
+            implementation(platform("com.paxleones:java-rest-project:$javaRestProjectVersion"))
         }
 
         tasks.withType<Test> {

@@ -14,21 +14,22 @@
         <module>domain</module>
         <module>infrastructure</module>
         <module>exposition</module>
+        <module>e2e</module>
     </modules>
 
     <properties>
-        <java-rest-project.version>1.0.0</java-rest-project.version>
-
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
+        <jacoco.version>0.8.5</jacoco.version>
+        <java-rest-project.version>1.0.1</java-rest-project.version>
         <spring-boot.version>2.3.3.RELEASE</spring-boot.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-
-        <jacoco.version>0.8.5</jacoco.version>
+        <maven-cukedoctor-plugin.version>3.1</maven-cukedoctor-plugin.version>
     </properties>
-
 
     <dependencyManagement>
         <dependencies>
@@ -38,14 +39,6 @@
                 <version>${java-rest-project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!--Jacoco required at runtime to build offline coverages-->
-            <dependency>
-                <groupId>org.jacoco</groupId>
-                <artifactId>org.jacoco.agent</artifactId>
-                <version>${jacoco.version}</version>
-                <classifier>runtime</classifier>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -123,11 +116,11 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>paxleones_nexus</id>
+            <id>paxleones_nexus_snapshots</id>
             <url>https://nexus.paxleones.com/repository/paxleones_snapshots/</url>
         </snapshotRepository>
         <repository>
-            <id>paxleones_nexus</id>
+            <id>paxleones_nexus_releases</id>
             <url>https://nexus.paxleones.com/repository/paxleones_releases/</url>
         </repository>
     </distributionManagement>
