@@ -71,8 +71,8 @@
                 <artifactId>cukedoctor-maven-plugin</artifactId>
                 <version>${maven-cukedoctor-plugin.version}</version>
                 <configuration>
-                    <outputFileName>TripAgency_living_documentation-${project.version}</outputFileName>
-                    <outputDir>TripAgency</outputDir>
+                    <outputDir>build/TripAgency</outputDir>
+                    <outputFileName>TripAgencyTripAgency_living_documentation-${project.version}</outputFileName>
                     <format>all</format>
                     <toc>right</toc>
                     <numbered>true</numbered>

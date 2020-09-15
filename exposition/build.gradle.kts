@@ -12,11 +12,12 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
     testImplementation("org.assertj:assertj-core")
-    testImplementation("org.mockito:mockito-core")
+    testImplementation("com.h2database:h2")
+    testImplementation("io.rest-assured:rest-assured")
+    testImplementation("org.assertj:assertj-core")
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-test")
     testImplementation("org.springframework:spring-test")
-    testImplementation("junit:junit:4.13")
-
-    testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
-    testImplementation("io.rest-assured:rest-assured:3.0.7")
+    testImplementation("org.mockito:mockito-junit-jupiter")
 }

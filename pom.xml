@@ -29,6 +29,8 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-cukedoctor-plugin.version>3.1</maven-cukedoctor-plugin.version>
+
+        <project.build.directory>build</project.build.directory>
     </properties>
 
     <dependencyManagement>
@@ -53,6 +55,7 @@
     </dependencies>
 
     <build>
+        <directory>${project.build.directory}</directory>
         <pluginManagement>
             <plugins>
                 <plugin>
