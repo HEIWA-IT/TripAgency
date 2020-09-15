@@ -62,34 +62,14 @@
             <groupId>com.github.cukedoctor</groupId>
             <artifactId>cukedoctor-converter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.cukedoctor</groupId>
+            <artifactId>cukedoctor-main</artifactId>
+            <version>3.2</version>
+        </dependency>
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>com.github.cukedoctor</groupId>
-                <artifactId>cukedoctor-maven-plugin</artifactId>
-                <version>${maven-cukedoctor-plugin.version}</version>
-                <configuration>
-                    <outputDir>build/TripAgency</outputDir>
-                    <outputFileName>TripAgencyTripAgency_living_documentation-${project.version}</outputFileName>
-                    <format>all</format>
-                    <toc>right</toc>
-                    <numbered>true</numbered>
-                    <docVersion>${project.version}</docVersion>
-                    <documentTitle>TripAgency_living_documentation</documentTitle>
-                    <detail>true</detail>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>test</phase>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
