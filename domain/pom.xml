@@ -42,26 +42,6 @@
             <artifactId>mockito-core</artifactId>
         </dependency>
 
-        <!-- Reporting -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-annotations</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.cukedoctor</groupId>
-            <artifactId>cukedoctor-converter</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.github.cukedoctor</groupId>
             <artifactId>cukedoctor-main</artifactId>

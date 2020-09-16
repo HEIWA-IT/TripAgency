@@ -32,7 +32,7 @@ class TripResourceTest {
     @Test
     void testPriceTripWithHardCodedCallForParis() {
         String urlTemplate = "/trip-agency/api/trip/Paris/travelClass/BUSINESS/priceTripWithHardCodedValues";
-        String expectedTripFees = "1025";
+        String expectedTripFees = "1350";
         String response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.OK.value()).and().extract().response().asString();
 
         assertThat(response).isEqualTo(expectedTripFees);

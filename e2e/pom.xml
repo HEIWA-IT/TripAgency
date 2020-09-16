@@ -12,7 +12,6 @@
 
     <artifactId>e2e</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
 
     <dependencies>
         <dependency>
@@ -34,7 +33,6 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -48,84 +46,20 @@
             <artifactId>junit-platform-launcher</artifactId>
         </dependency>
 
-        <!-- Reporting -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-annotations</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.github.cukedoctor</groupId>
-            <artifactId>cukedoctor-converter</artifactId>
+            <artifactId>cukedoctor-main</artifactId>
+            <version>3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>3.0.7</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <plugins>
-            <!--plugin>
-                <groupId>com.github.cukedoctor</groupId>
-                <artifactId>cukedoctor-maven-plugin</artifactId>
-                <version>${maven-cukedoctor-plugin.version}</version>
-                <configuration>
-                    <outputFileName>TripAgency_living_documentation-${project.version}</outputFileName>
-                    <outputDir>TripAgency</outputDir>
-                    <format>all</format>
-                    <toc>right</toc>
-                    <numbered>true</numbered>
-                    <docVersion>${project.version}</docVersion>
-                    <documentTitle>TripAgency_living_documentation</documentTitle>
-                    <detail>true</detail>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>test</phase>
-                    </execution>
-                </executions>
-            </plugin-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <!--Work around. Surefire does not use JUnit's Test Engine discovery functionality -->
-                        <id>CLI-test</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <echo message="Running JUnit Platform CLI"/>
-                                <java classname="org.junit.platform.console.ConsoleLauncher"
-                                      fork="true"
-                                      failonerror="true"
-                                      newenvironment="true"
-                                      maxmemory="512m"
-                                      classpathref="maven.test.classpath">
-                                    <arg value="--include-engine"/>
-                                    <arg value="cucumber"/>
-                                    <arg value="--scan-classpath"/>
-                                    <arg value="${project.build.testOutputDirectory}"/>
-                                </java>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>

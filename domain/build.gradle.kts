@@ -1,7 +1,5 @@
 dependencies {
-    implementation("com.fasterxml.jackson.core:jackson-databind")
-    implementation("com.fasterxml.jackson.core:jackson-annotations")
-    implementation("com.github.cukedoctor:cukedoctor-converter")
+    implementation("com.github.cukedoctor:cukedoctor-main:3.2")
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.mockito:mockito-junit-jupiter")
     testImplementation("org.assertj:assertj-core")

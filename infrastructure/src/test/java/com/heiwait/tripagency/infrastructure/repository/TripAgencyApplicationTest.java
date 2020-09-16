@@ -27,12 +27,12 @@ public class TripAgencyApplicationTest {
 
         Trip parisTrip = tripRepositoryPort.findTripByDestination(paris);
 
-        Trip expectedTrip = new Trip(300, 50, 200);
+        Trip expectedTrip = new Trip(50, 300, 200);
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTrip.agencyFees());
         assertThat(parisTrip.travelFees()).isEqualTo(expectedTrip.travelFees());
     }
 
-     @Test
+    @Test
     public void findTripByDestination_with_a_invalid_destination_should_return_a_destination_not_found_message() {
         final Destination pari = new Destination("Pari");
 

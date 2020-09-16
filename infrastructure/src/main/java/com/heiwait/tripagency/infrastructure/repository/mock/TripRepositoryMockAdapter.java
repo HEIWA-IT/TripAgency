@@ -13,11 +13,11 @@ import java.util.Objects;
 @Qualifier("TripRepositoryMockAdapter")
 public class TripRepositoryMockAdapter implements TripRepositoryPort {
 
-    final Trip parisTrip = new Trip(25, 250, 150);
     final Trip lilleTrip = new Trip(0, 0, 0);
-    final Trip newyorkTrip = new Trip(100, 2000, 1000);
-    final Trip tokyoTrip = new Trip(150, 3000, 1100);
-    final Trip beijingTrip = new Trip(120, 1200, 1200);
+    final Trip parisTrip = new Trip(50, 300, 200);
+    final Trip beijingTrip = new Trip(100, 1000, 1200);
+    final Trip newyorkTrip = new Trip(150, 1500, 1000);
+    final Trip tokyoTrip = new Trip(200, 2000, 1500);
 
     final Map<String, Trip> trips = Map.ofEntries(
             Map.entry("paris", parisTrip),
