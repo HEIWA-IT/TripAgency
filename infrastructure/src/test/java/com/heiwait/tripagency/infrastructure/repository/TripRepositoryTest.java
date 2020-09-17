@@ -4,17 +4,18 @@ import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
 import com.heiwait.tripagency.infrastructure.repository.config.AppConfig;
+import com.heiwait.tripagency.infrastructure.repository.config.QuickPerfSpringConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.quickperf.spring.junit4.QuickPerfSpringRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = AppConfig.class)
+@RunWith(QuickPerfSpringRunner.class)
+@SpringBootTest(classes = {AppConfig.class, QuickPerfSpringConfig.class})
 public class TripRepositoryTest {
 
     @Autowired
