@@ -114,3 +114,8 @@ you can start the rest exposition by executing the following command line in the
 
 The url to use the service is the following:  
 **http://localhost:12378/trip-agency/swagger-ui/**
+
+### Consulting the H2 DB
+Connect to this url:
+**http://localhost:12378/trip-agency/h2-console**
+Fill the information regarding your configuration
