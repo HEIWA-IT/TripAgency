@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.repository.driver.exposition.rest;
+package com.heiwait.tripagency.infrastructure.repository.driver.exposition;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
