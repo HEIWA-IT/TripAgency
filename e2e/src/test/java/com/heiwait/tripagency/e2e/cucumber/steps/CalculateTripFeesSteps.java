@@ -55,9 +55,9 @@ public class CalculateTripFeesSteps {
     public void the_agency_fees_are_€(Integer agencyFees) {
     }
 
-    @When("^the system calculate the trip price")
-    public void the_system_calculate_the_trip_price() {
-        String url = "api/trip/" + destination.name() + "/travelClass/" + travelClass + "/priceTripWithJPA";
+    @When("^the customer asked for the trip price")
+    public void the_customer_asked_for_the_trip_price() {
+        String url = "api/pricer/" + destination.name() + "/travelClass/" + travelClass + "/priceTripWithJPA";
         response = request.get(url);
     }
 

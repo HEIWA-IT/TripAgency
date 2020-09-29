@@ -21,7 +21,7 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
     And the customer wants to travel in <travelClass> class
     And the stay fees are <stayFees>€
     And the agency fees are <agencyFees>€
-    When the system calculate the trip price
+    When the customer asked for the trip price
     Then the trip price is <tripPrice>€
 
     Examples:
@@ -35,7 +35,7 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
   Scenario: returns a missing destination message when the destination is missing
     Given the customer wants to travel to "Sydney"
     And the customer wants to travel in "FIRST" class
-    When the system calculate the trip price
+    When the customer asked for the trip price
     Then the trip price returns the following message "Missing destination!"
 
   Scenario: Determine the fees for travel to Paris in first class with 800€ of stay fees and 50€ of agency fees
@@ -44,7 +44,7 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
     And the customer wants to travel in "FIRST" class
     And the stay fees are 800€
     And the agency fees are 50€
-    When the system calculate the trip price
+    When the customer asked for the trip price
     Then the trip price is 1050€
 
   Scenario: Determine the fees for travel to Lille in economic class with 0€ of stay fees and 0€ of agency fees
@@ -53,7 +53,7 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
     And the customer wants to travel in "ECONOMIC" class
     And the stay fees are 0€
     And the agency fees are 0€
-    When the system calculate the trip price
+    When the customer asked for the trip price
     Then the trip price is 0€
 
   Scenario: Determine the fees for travel to New-York in first class with 800€ of stay fees and 50€ of agency fees
@@ -62,7 +62,7 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
     And the customer wants to travel in "FIRST" class
     And the stay fees are 1000€
     And the agency fees are 100€
-    When the system calculate the trip price
+    When the customer asked for the trip price
     Then the trip price is 2700€
 
   Scenario: Determine the fees for travel to Tokyo in business class with 1000€ of stay fees and 100€ of agency fees
@@ -71,7 +71,7 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
     And the customer wants to travel in "BUSINESS" class
     And the stay fees are 1000€
     And the agency fees are 100€
-    When the system calculate the trip price
+    When the customer asked for the trip price
     Then the trip price is 7100€
 
   Scenario: Determine the fees for travel to Beijing in economic class with 1000€ of stay fees and 100€ of agency fees
@@ -80,5 +80,5 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
     And the customer wants to travel in "ECONOMIC" class
     And the stay fees are 1000€
     And the agency fees are 100€
-    When the system calculate the trip price
+    When the customer asked for the trip price
     Then the trip price is 2100€

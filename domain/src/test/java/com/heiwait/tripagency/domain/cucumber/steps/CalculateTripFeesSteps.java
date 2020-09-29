@@ -60,8 +60,8 @@ public class CalculateTripFeesSteps {
         this.agencyFees = agencyFees;
     }
 
-    @When("^the system calculate the trip price")
-    public void the_system_calculate_the_trip_price() {
+    @When("^the customer asked for the trip price")
+    public void the_customer_asked_for_the_trip_price() {
         Mockito.when(tripRepositoryPort.findTripByDestination(destination)).thenReturn(trip());
 
         try {
