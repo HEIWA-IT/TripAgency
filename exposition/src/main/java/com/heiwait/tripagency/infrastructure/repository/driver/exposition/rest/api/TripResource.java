@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/pricer")
 public class TripResource {
 
     private final TripPricerWithMockRepositoryAdapter tripPricerWithMockRepositoryAdapter;
@@ -29,7 +29,7 @@ public class TripResource {
     }
 
     @ApiOperation(value = "Compute travel fees", notes = "Returns the price of a trip")
-    @GetMapping(value = {"/trip/{destination}/travelClass/{travelClass}/priceTripWithHardCodedValues"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = {"/{destination}/travelClass/{travelClass}/priceTripWithHardCodedValues"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> priceTripWithHardCodedValues(
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
@@ -40,7 +40,7 @@ public class TripResource {
     }
 
     @ApiOperation(value = "Compute travel fees", notes = "Returns the price of a trip")
-    @GetMapping(value = {"/trip/{destination}/travelClass/{travelClass}/priceTripWithJPA"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = {"/{destination}/travelClass/{travelClass}/priceTripWithJPA"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> priceTripWithJPA(
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
@@ -51,7 +51,7 @@ public class TripResource {
     }
 
     @ApiOperation(value = "Compute travel fees", notes = "Returns the price of a trip")
-    @GetMapping(value = {"/trip/{destination}/travelClass/{travelClass}/priceTripWithJdbcTemplate"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = {"/{destination}/travelClass/{travelClass}/priceTripWithJdbcTemplate"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> priceTripWithJdbcTemplate(
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
