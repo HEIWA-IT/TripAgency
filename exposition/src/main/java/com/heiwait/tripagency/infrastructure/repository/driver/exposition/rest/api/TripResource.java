@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/pricer")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TripResource {
 
     private final TripPricerWithMockRepositoryAdapter tripPricerWithMockRepositoryAdapter;
