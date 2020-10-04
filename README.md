@@ -47,7 +47,8 @@ to fill
 to fill
 ### 2-3 Bom for Bills Of Materials
 to fill
-##3 xDD
+
+## 3 xDD
 to fill
 ### 3-1 DDD
 Ubiquitous language
@@ -55,36 +56,43 @@ Ubiquitous language
 Specifications by examples implemented with Cucumber
 ### 3-3 TDD
 to fill
+
+
 ## 4 Living Documentation
 Cukedoctor  
 See in the following repository in the domain module: domain/build/TripAgency   
 You should see a pdf file containing the results of the cucumber tests.
+
 ## 5 Hexagonal architecture
 Multi modules: 
 - domain (the most important module)
 - infrastructure (infrastructure repository) and exposition (infrastructure driver) for the technical ones
+
 ## 6 DataBase Managing tool
 Liquibase: Database version control and deployment
+
 ## 7 I18n
 to fill
+
 ## 8 CI/CD best practices
-to fill
+For all the following parts of this chapter, a better possibility is to encapsulate your command in a shell script.
+You can also use a Makefile. This is what I have done here.
+Create also an alias that can be called from a project and do the work.
+Example **build** or **make build** for a **./mvnw install** or **./gradlew build** command.
 
 ## 9 Let's make it work
-For all th efollowing parts of this chapter, a better possibility is to encapsulate your command in a shell script. 
-Create also an alias that can be called from a project and do the work.
-Example **build** for a **./mvnw install** or **./gradlew build** command.
+Have a look at the **Makefile** file to see the actions you can do.
 
 ### Compilation
 To make the project build, you can use the following commands depending on the tool you want to use:
 **./mvnw install** or **./gradlew build**
 
-### Generate Cukedoctor documentation
-Here is the command to execute Cukedoctor documentation where
+### Generate the living documentation
+Here is the command to generate the living documentation with Cukedoctor where
 - CUKEDOCTOR_MAIN_JAR is the path to 'cukedoctor-main.jar'
 - PROJECT_VERSION is the version number of the project
 
-This command can be executed after the execution of Cucumber tests. You can find some in the domain and e2e modules.
+This command should be executed after the execution of Cucumber tests. You can find some in the **domain** and **e2e** modules.
 
 ``
 java -jar ${CUKEDOCTOR_MAIN_JAR} 
@@ -98,14 +106,16 @@ java -jar ${CUKEDOCTOR_MAIN_JAR}
 ``
 
 ### Generate sonar reports
-Here is the command to execute sonar reports generation where
+Here is the command to execute sonar reports generation where:
 - SONAR_URL is the sonar server url
 - SONAR_CREDENTIALS are the credentials to send the reports
+This two variable have been added in an **.env** file in the home folder.
 
 sonar-scanner has to be installed for this command to work.
 
 ``
-sonar-scanner -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_CREDENTIALS -Dsonar.sourceEncoding=UTF-8
+source ~/.env
+sonar-scanner -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_CREDENTIALS} -Dsonar.sourceEncoding=UTF-8
 ``
 
 ### Launching locally your rest api
