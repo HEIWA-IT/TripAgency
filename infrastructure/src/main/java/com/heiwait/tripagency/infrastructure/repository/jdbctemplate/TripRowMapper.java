@@ -1,6 +1,7 @@
 package com.heiwait.tripagency.infrastructure.repository.jdbctemplate;
 
 import com.heiwait.tripagency.domain.Trip;
+import com.heiwait.tripagency.domain.TripBuilder;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -13,6 +14,6 @@ public class TripRowMapper implements RowMapper<Trip> {
         int stayFees = row.getInt("stay_fees");
         int ticketPrice = row.getInt("ticket_price");
 
-        return new Trip(agencyFees, stayFees, ticketPrice);
+        return new TripBuilder().withAgencyFees(agencyFees).withStayFees(stayFees).withTicketPrice(ticketPrice).build();
     }
 }

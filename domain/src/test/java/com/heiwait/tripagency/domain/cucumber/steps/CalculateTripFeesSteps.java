@@ -77,7 +77,7 @@ public class CalculateTripFeesSteps {
         if (destination.name().equals("Sydney")) {
             return Trip.MISSING_DESTINATION;
         } else {
-            return new Trip(this.agencyFees, this.stayFees, this.ticketPrice);
+            return new TripBuilder().withAgencyFees(this.agencyFees).withStayFees(this.stayFees).withTicketPrice(this.ticketPrice).build();
         }
     }
 

@@ -1,6 +1,7 @@
 package com.heiwait.tripagency.infrastructure.repository.springdata;
 
 import com.heiwait.tripagency.domain.Trip;
+import com.heiwait.tripagency.domain.TripBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ public class TripEntity implements Serializable {
     private Integer ticketPrice;
 
     Trip toTrip() {
-        return new Trip(agencyFees(), stayFees(), ticketPrice());
+        return new TripBuilder().withAgencyFees(agencyFees()).withStayFees(stayFees()).withTicketPrice(ticketPrice()).build();
     }
 
     private Integer agencyFees() {

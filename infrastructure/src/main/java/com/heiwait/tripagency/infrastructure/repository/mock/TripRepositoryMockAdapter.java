@@ -2,6 +2,7 @@ package com.heiwait.tripagency.infrastructure.repository.mock;
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;
+import com.heiwait.tripagency.domain.TripBuilder;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -13,11 +14,11 @@ import java.util.Objects;
 @Qualifier("TripRepositoryMockAdapter")
 public class TripRepositoryMockAdapter implements TripRepositoryPort {
 
-    final Trip lilleTrip = new Trip(0, 0, 0);
-    final Trip parisTrip = new Trip(50, 300, 200);
-    final Trip beijingTrip = new Trip(100, 1000, 1200);
-    final Trip newyorkTrip = new Trip(150, 1500, 1000);
-    final Trip tokyoTrip = new Trip(200, 2000, 1500);
+    final Trip lilleTrip = new TripBuilder().withAgencyFees(0).withStayFees(0).withTicketPrice(0).build();
+    final Trip parisTrip = new TripBuilder().withAgencyFees(50).withStayFees(300).withTicketPrice(200).build();
+    final Trip beijingTrip = new TripBuilder().withAgencyFees(100).withStayFees(1000).withTicketPrice(1200).build();
+    final Trip newyorkTrip = new TripBuilder().withAgencyFees(150).withStayFees(1500).withTicketPrice(1000).build();
+    final Trip tokyoTrip = new TripBuilder().withAgencyFees(200).withStayFees(2000).withTicketPrice(1500).build();
 
     final Map<String, Trip> trips = Map.ofEntries(
             Map.entry("paris", parisTrip),
