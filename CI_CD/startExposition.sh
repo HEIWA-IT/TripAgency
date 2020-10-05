@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd exposition && ../mvnw clean spring-boot:run &
+cd exposition && ../mvnw clean spring-boot:run

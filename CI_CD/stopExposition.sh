@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd exposition && ../mvnw spring-boot:stop &
+cd exposition && ../mvnw spring-boot:stop
