@@ -10,8 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"com.heiwait.tripagency"})
 @EnableJpaRepositories("com.heiwait.tripagency.infrastructure.repository.springdata")
 @EntityScan("com.heiwait.tripagency.infrastructure.repository.springdata")
-public class TripAgencyApplication {
+public class ExpositionApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(TripAgencyApplication.class, args);
+		SpringApplication.run(ExpositionApplication.class, args);
 	}
 }
