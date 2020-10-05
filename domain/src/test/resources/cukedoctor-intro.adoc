@@ -1,22 +1,5 @@
 = *Domain definition chapter*
 
-This chapter is the place where you can find the description of all the element of the domain of trip agency.
+This chapter is the place where you can find the description of all the element of the domain of your appplication.
 
 === Domain definitions
-
-==== Trip
-A trip is composed of an a departure and arrival places. this last one is called a #*destination*#
-Its *fees* are determined depending of the _attractions and services_ done during the #trip#.
-
-==== Fee
-Fees are expremessed in flat attached to a currency.
-It correpsonds to the price of a part of a trip or the whole.
-
-==== Destination
-Desgin the place where the people go during their trip
-
-==== Travel pricer
-This is the service calculating the fees of a trip
-
-==== Travel class
-This is the travel class selected by the traveler. He can choose economic, first and business

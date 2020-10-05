@@ -40,7 +40,7 @@ VERSION=$2
 INITIAL_DIR=$(pwd)
 
 function wait_for_exposition_to_start() {
-  ./scripts/commons/wait-for-it.sh "http://localhost:12378/tripagency/swagger-ui/" -- echo "exposition is up" || exit 1
+  ./scripts/commons/wait-for-it.sh "http://localhost:{{application_port}}/{{project_name}}/swagger-ui/" -- echo "exposition is up" || exit 1
 }
 
 function use_docker() {
@@ -53,9 +53,11 @@ function use_docker() {
 function use_generated_jar() {
   echo "Using the generated jar"
   mkdir -p logs
-  EXPOSITION_PATH="${MAVEN_REPOSITORY}"/com/heiwait/tripagency/pricer/exposition/"${VERSION}"/exposition-"${VERSION}".jar
+  # {{project_namespace}} change separator . by / in the following line
+  EXPOSITION_PATH="${MAVEN_REPOSITORY}"/{{project_namespace_slashed}}/{{project_name}}/{{application_port}}/exposition/"${VERSION}"/exposition-"${VERSION}".jar
+
   echo "exposition-jar path " "${EXPOSITION_PATH}"
-  java -cp "${EXPOSITION_PATH}":./build/lib/* com.heiwait.tripagency.pricer.driver.exposition.ExpositionApplication >>./logs/log.txt &
+  java -cp "${EXPOSITION_PATH}":./build/lib/* {{project_namespace}}.{{project_name}}.driver.exposition.ExpositionApplication >>./logs/log.txt &
   cd "${INITIAL_DIR}" || exit
 }
 

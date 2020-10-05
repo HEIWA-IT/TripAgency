@@ -163,9 +163,9 @@ This command should be executed after the execution of Cucumber tests. You can f
 
 ``
 java -jar ${CUKEDOCTOR_MAIN_JAR} 
-      -o "build/TripAgency/TripAgency_living_documentation-${PROJECT_VERSION}" 
-      -p "build/cucumber/TripAgency.json" 
-  	  -t "TripAgency_living_documentation" 
+      -o "build/{{project_name}}/{{project_name}}_living_documentation-${PROJECT_VERSION}" 
+      -p "build/cucumber/{{project_name}}.json" 
+  	  -t "{{project_name}}_living_documentation" 
   	  -f all 
   	  -numbered 
   	  -hideSummarySection 
@@ -189,12 +189,12 @@ sonar-scanner -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_CREDENTIALS} -
 you can start the rest exposition by executing the following command line in the exposition folder:  
 **./mvnw clean spring-boot:run**  
 
-The url to display the swagger page is the following:  
-**http://localhost:12378/tripagency/api/swagger-ui/**
+The url to display the swagger page is the following: 
+**http://localhost:{{application_port}}/{{project_name}}/api/swagger-ui/**
 
 ### Consulting the H2 DB
 Connect to this url:
-**http://localhost:12378/tripagency/api/backend/h2-console**
+**http://localhost:{{application_port}}/{{project_name}}/api/backend/h2-console**
 Fill the information regarding your configuration
 
 ### Building the docker image of the exposition
@@ -210,8 +210,8 @@ cd exposition
 A docker-compose file is present in the following folder to launch the image: **exposition/docker**
 USe this command to launch it: **docker-compose up -d**
 The url to display the swagger page is the following:  
-**http://localhost:12378/tripagency/api/swagger-ui/**
-Warning with the port. Here it is **12378**
+**http://localhost:{{application_port}}/{{project_name}}/api/swagger-ui/**
+Warning with the port. Here it is **{{application_port}}**
 
 ### e2e testing
 In the e2e testing part we use the script [wait-for-it.sh](https://github.com/vishnubob/wait-for-it/blob/master/wait-for-it.sh).

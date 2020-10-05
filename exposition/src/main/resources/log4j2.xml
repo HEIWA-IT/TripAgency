@@ -5,8 +5,8 @@
             <PatternLayout pattern="%d{dd/MM/yyyy - HH:mm:ss} %5p [%t] %c > %m%n"/>
         </Console>
         <RollingFile name="RollingFile"
-                     fileName="${env:LOG_PATH}/com/heiwait/tripagency/pricer/pricer.log"
-                     filePattern="${env:LOG_PATH}/com/heiwait/tripagency/pricer/$${date:yyyy-MM}/pricer-%d{-dd-MMMM-yyyy}-%i.log.gz">
+                     fileName="${env:LOG_PATH}/{{project_name}}/{{project_name}}-back.log"
+                     filePattern="${env:LOG_PATH}/{{project_name}}/$${date:yyyy-MM}/{{project_name}}-back-%d{-dd-MMMM-yyyy}-%i.log.gz">
             <PatternLayout>
                 <pattern>%d %p %C{1.} [%t] %m%n</pattern>
             </PatternLayout>
@@ -14,8 +14,7 @@
                 <!-- rollover on startup, daily and when the file reaches
                     10 MegaBytes -->
                 <OnStartupTriggeringPolicy />
-                <SizeBasedTriggeringPolicy
-                        size="10 MB" />
+                <SizeBasedTriggeringPolicy size="10 MB" />
                 <TimeBasedTriggeringPolicy />
             </Policies>
         </RollingFile>
@@ -28,7 +27,7 @@
             <AppenderRef ref="RollingFile" />
         </Root>
 
-        <!-- LOG "com.heiwait.tripagency.pricer" at TRACE level -->
-        <Logger name="com.heiwait.tripagency.pricer" level="trace"/>
+        <!-- LOG "{{project_namespace}}.{{project_name}}" at TRACE level -->
+        <Logger name="{{project_namespace}}.{{project_name}}" level="trace"/>
     </Loggers>
 </Configuration>

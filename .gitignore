@@ -9,5 +9,5 @@
 **/*.iml
 .idea
 
-### SONAR ###
-/.scannerwork/
+### Sonar ###
+.scannerwork/

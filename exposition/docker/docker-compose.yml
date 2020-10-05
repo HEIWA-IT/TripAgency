@@ -1,6 +1,6 @@
-tripagency-exposition:
-  container_name: trip
+{{project_name}}-exposition:
+  container_name: {{project_name}}
   image: ${DOCKER_IMAGE}
   restart: unless-stopped
   ports:
-    - 12378:12378
+    - {{project_name}}:{{application_port}}

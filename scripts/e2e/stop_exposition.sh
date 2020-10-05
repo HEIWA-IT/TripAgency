@@ -37,7 +37,7 @@
 INITIAL_DIR=$(pwd)
 
 function stop_expostion() {
-  APP_PORT=12378
+  APP_PORT={{application_port}}
   cd exposition || exit
 
   echo "E2E_TEST_MODE : " "${E2E_TEST_MODE}"
