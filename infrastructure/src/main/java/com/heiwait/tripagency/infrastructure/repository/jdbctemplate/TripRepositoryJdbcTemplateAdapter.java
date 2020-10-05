@@ -2,6 +2,7 @@ package com.heiwait.tripagency.infrastructure.repository.jdbctemplate;
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;
+import com.heiwait.tripagency.domain.TripBuilder;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -26,7 +27,7 @@ public class TripRepositoryJdbcTemplateAdapter implements TripRepositoryPort {
         try {
             return jdbcTemplate.queryForObject(sql, rowMapper, destination.name());
         } catch (EmptyResultDataAccessException e) {
-            return Trip.MISSING_DESTINATION;
+            return TripBuilder.MISSING_DESTINATION;
         }
     }
 }

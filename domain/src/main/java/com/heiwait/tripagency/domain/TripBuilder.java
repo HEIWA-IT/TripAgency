@@ -2,6 +2,8 @@ package com.heiwait.tripagency.domain;
 
 public class TripBuilder {
 
+    public static final Trip MISSING_DESTINATION = new Trip(0, 0, 0);
+
     private Integer agencyFees;
     private Integer stayFees;
     private Integer ticketPrice;

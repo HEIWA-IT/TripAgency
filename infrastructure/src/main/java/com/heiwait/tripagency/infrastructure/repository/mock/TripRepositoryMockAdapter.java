@@ -32,6 +32,6 @@ public class TripRepositoryMockAdapter implements TripRepositoryPort {
     public Trip findTripByDestination(final Destination destination) {
         Trip findedTrip = trips.get(destination.name().toLowerCase());
 
-        return Objects.requireNonNullElse(findedTrip, Trip.MISSING_DESTINATION);
+        return Objects.requireNonNullElse(findedTrip, TripBuilder.MISSING_DESTINATION);
     }
 }
