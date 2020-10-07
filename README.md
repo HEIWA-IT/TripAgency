@@ -129,3 +129,13 @@ The url to use the service is the following:
 Connect to this url:
 **http://localhost:12378/trip-agency/h2-console**
 Fill the information regarding your configuration
+
+### Building the docker image of the exposition
+To build the docker image of the exposition module, we use Jib.
+To be able to do so, don't forget to fill the following file with the good credentials: **~/.docker/config.json**
+
+Here are the commands to build the image:
+``
+cd exposition
+mvn compile jib:build
+``

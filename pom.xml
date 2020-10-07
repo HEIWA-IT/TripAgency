@@ -29,6 +29,8 @@
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
 
         <project.build.directory>build</project.build.directory>
+
+        <jib.version>2.5.2</jib.version>
     </properties>
 
     <dependencyManagement>
