@@ -120,7 +120,7 @@ sonar-scanner -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_CREDENTIALS} -
 
 ### Launching locally your rest api
 you can start the rest exposition by executing the following command line in the exposition folder:  
-**mvn clean spring-boot:run**  
+**./mvnw clean spring-boot:run**  
 
 The url to display the swagger page is the following:  
 **http://localhost:12378/trip-agency/swagger-ui/**
@@ -138,7 +138,7 @@ To be able to do so, don't forget to fill the following file with the good crede
 Here are the commands to build the image:
 ``
 cd exposition
-mvn compile jib:build
+./mvnw compile jib:build
 ``
 
 A docker-compose file is present in the following folder to launch the image: **exposition/docker**
