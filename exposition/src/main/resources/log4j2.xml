@@ -4,17 +4,31 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{dd/MM/yyyy - HH:mm:ss} %5p [%t] %c > %m%n"/>
         </Console>
-        <File name="TripAgency-back" fileName="/opt/apps/logs/TripAgency-back.log" immediateFlush="true" append="true">
-            <PatternLayout pattern="%d{dd/MM/yyyy - HH:mm:ss} %5p [%t] %c > %m%n"/>
-
-        </File>
+        <RollingFile name="RollingFile"
+                     fileName="./logs/spring-boot-logger-log4j2.log"
+                     filePattern="./logs/$${date:yyyy-MM}/spring-boot-logger-log4j2-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <pattern>%d %p %C{1.} [%t] %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- rollover on startup, daily and when the file reaches
+                    10 MegaBytes -->
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy
+                        size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
     </Appenders>
+
     <Loggers>
-        <Root level="INFO">
-            <AppenderRef ref="Console"/>
+        <!-- LOG everything at INFO level -->
+        <Root level="info">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFile" />
         </Root>
-        <Logger name="com.heiwait.tripagency" level="INFO" additivity="false">
-            <AppenderRef ref="TripAgency-back"/>
-        </Logger>
+
+        <!-- LOG "com.heiwait.tripagency" at TRACE level -->
+        <Logger name="com.heiwait.tripagency" level="trace"></Logger>
     </Loggers>
 </Configuration>
