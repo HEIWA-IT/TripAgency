@@ -1,23 +1,23 @@
+ci : build sonarqube_scan generate_living_documentation_for_domain
+.PHONY: ci
 build :
-	./mvnw install
-
+	./CI_CD/build.sh -m
 sonarqube_scan:
-	./CI_CD/sonarqubeScan.sh
+	./CI_CD/sonarqube_scan.sh
+generate_living_documentation_for_domain :
+	./CI_CD/generate_living_documentation.sh domain 1.0.0
 
-generate_domain_living_doc :
-	./CI_CD/generateLivingDocumentation.sh domain 1.0.0
-
+e2e : start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition
+.PHONY: e2e
 start_exposition :
-	./CI_CD/startExposition.sh
-
+	./CI_CD/start_exposition.sh
 launch_e2e_tests :
-	./CI_CD/launchE2eTests.sh
-
-generate_e2e_living_doc :
-	./CI_CD/generateLivingDocumentation.sh e2e 1.0.0
-
+	./CI_CD/launch_e2e_tests.sh
+generate_living_documentation_for_e2e :
+	./CI_CD/generate_living_documentation.sh e2e 1.0.0
 stop_exposition :
-	./CI_CD/stopExposition.sh
+	./CI_CD/stop_exposition.sh
 
+.PHONY: clean
 clean :
-	./mvnw clean && cd e2e && ../mvnw clean
+	./CI_CD/clean.sh
