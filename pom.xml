@@ -5,7 +5,7 @@
 
     <groupId>com.heiwait</groupId>
     <artifactId>tripagency</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <name>TripAgency</name>
     <description>Kata TripAgency</description>
@@ -17,6 +17,8 @@
     </modules>
 
     <properties>
+        <revision>revision</revision>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
@@ -30,7 +32,10 @@
 
         <project.build.directory>build</project.build.directory>
 
-        <jib.version>2.5.2</jib.version>
+        <jib.version>2.6.0</jib.version>
+        <DOCKER_PROJECT_REGISTRY>magierdan</DOCKER_PROJECT_REGISTRY>
+        <DOCKER_BASE_IMAGE_NAME>openjdk</DOCKER_BASE_IMAGE_NAME>
+        <DOCKER_BASE_IMAGE_VERSION>11-jdk-slim</DOCKER_BASE_IMAGE_VERSION>
     </properties>
 
     <dependencyManagement>

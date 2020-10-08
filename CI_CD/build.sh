@@ -33,6 +33,8 @@
 ################################################################################
 ################################################################################
 
+VERSION=$2
+echo Version: "${VERSION}"
 ################################################################################
 # Help                                                                         #
 ################################################################################
@@ -70,7 +72,7 @@ Mvnw()
    # Using Mvnw
    echo "Using Mvnw"
    echo
-   ./mvnw install
+   ./mvnw install -Drevision="$1" -DskipTests
    echo
 }
 
@@ -92,7 +94,8 @@ while getopts ":hgm" option; do
          Gradlew
          exit;;
       m) # build with Maven wrapper
-         Mvnw
+         shift
+         Mvnw $1
          exit;;
      \?) # incorrect option
          echo "Error: Invalid option"

@@ -7,23 +7,27 @@
     <parent>
         <groupId>com.heiwait</groupId>
         <artifactId>tripagency</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>exposition</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
+
+    <properties>
+        <revision>revision</revision>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.heiwait</groupId>
             <artifactId>domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.heiwait</groupId>
             <artifactId>infrastructure</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -118,10 +122,17 @@
                 <version>${jib.version}</version>
                 <configuration>
                     <from>
-                        <image>openjdk:11-jdk-slim</image>
+                        <image>${DOCKER_BASE_IMAGE_NAME}:${DOCKER_BASE_IMAGE_VERSION}</image>
+                        <auth>
+                            <username>${username}</username>
+                            <password>${password}</password>
+                        </auth>
                     </from>
                     <to>
-                        <image>magierdan/tripagency-exposition:${project.version}</image>
+                        <auth>
+                            <username>${username}</username>
+                            <password>${password}</password>
+                        </auth>
                     </to>
                     <allowInsecureRegistries>true</allowInsecureRegistries>
                 </configuration>

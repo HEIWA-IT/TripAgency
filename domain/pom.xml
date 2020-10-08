@@ -7,12 +7,16 @@
     <parent>
         <groupId>com.heiwait</groupId>
         <artifactId>tripagency</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>domain</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
+
+    <properties>
+        <revision>revision</revision>
+    </properties>
 
     <dependencies>
         <!-- Tests -->
