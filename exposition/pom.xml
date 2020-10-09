@@ -122,7 +122,7 @@
                 <version>${jib.version}</version>
                 <configuration>
                     <from>
-                        <image>${DOCKER_BASE_IMAGE_NAME}:${DOCKER_BASE_IMAGE_VERSION}</image>
+                        <image>${docker.baseImage.name}:${docker.baseImage.version}</image>
                         <auth>
                             <username>${username}</username>
                             <password>${password}</password>

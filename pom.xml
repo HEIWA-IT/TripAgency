@@ -14,6 +14,7 @@
         <module>domain</module>
         <module>infrastructure</module>
         <module>exposition</module>
+        <module>e2e</module>
     </modules>
 
     <properties>
@@ -33,9 +34,8 @@
         <project.build.directory>build</project.build.directory>
 
         <jib.version>2.6.0</jib.version>
-        <DOCKER_PROJECT_REGISTRY>magierdan</DOCKER_PROJECT_REGISTRY>
-        <DOCKER_BASE_IMAGE_NAME>openjdk</DOCKER_BASE_IMAGE_NAME>
-        <DOCKER_BASE_IMAGE_VERSION>11-jdk-slim</DOCKER_BASE_IMAGE_VERSION>
+        <docker.baseImage.name>openjdk</docker.baseImage.name>
+        <docker.baseImage.version>11-jdk-slim</docker.baseImage.version>
     </properties>
 
     <dependencyManagement>
@@ -60,6 +60,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <directory>${project.build.directory}</directory>
         <pluginManagement>
             <plugins>

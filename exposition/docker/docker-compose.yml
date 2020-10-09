@@ -1,6 +1,6 @@
 postgresql:
   container_name: trip
-  image: magierdan/tripagency-exposition:0.0.1-SNAPSHOT
+  image: ${DOCKER_IMAGE}
   restart: unless-stopped
   ports:
-    - 12478:12378
+    - 12378:12378

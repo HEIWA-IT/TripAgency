@@ -72,7 +72,7 @@ Mvnw()
    # Using Mvnw
    echo "Using Mvnw"
    echo
-   ./mvnw install -Drevision="$1"
+   ./mvnw --projects domain,infrastructure,exposition install -Drevision="$1"
    echo
 }
 

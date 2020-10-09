@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd e2e && ../mvnw test
+./mvnw -pl e2e test

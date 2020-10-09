@@ -1,5 +1,6 @@
 VERSION := $(shell git describe --tags --always)
 APP_NAME := $(shell ./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
 
 ci : setup_maven build build_docker_image sonarqube_scan generate_living_documentation_for_domain revert_maven_setup
 .PHONY: ci
@@ -8,7 +9,7 @@ setup_maven :
 build :
 	./CI_CD/build.sh -m "${VERSION}"
 build_docker_image :
-	./CI_CD/build_docker_image.sh ${APP_NAME}-exposition "${VERSION}"
+	./CI_CD/build_docker_image.sh "${DOCKER_IMAGE}"
 sonarqube_scan :
 	./CI_CD/sonarqube_scan.sh
 generate_living_documentation_for_domain :
@@ -16,10 +17,10 @@ generate_living_documentation_for_domain :
 revert_maven_setup :
 	./CI_CD/revert_maven_setup.sh
 
-e2e : start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition
+e2e : setup_maven start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition revert_maven_setup
 .PHONY: e2e
 start_exposition :
-	./CI_CD/start_exposition.sh
+	./CI_CD/start_exposition.sh "${DOCKER_IMAGE}"
 launch_e2e_tests :
 	./CI_CD/launch_e2e_tests.sh
 generate_living_documentation_for_e2e :
