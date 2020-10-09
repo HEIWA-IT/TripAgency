@@ -72,7 +72,7 @@ Mvnw()
    # Using Mvnw
    echo "Using Mvnw"
    echo
-   ./mvnw --projects domain,infrastructure,exposition install -Drevision="$1"
+   ./mvnw deploy -pl !e2e -Drevision="$1" -DskipTests
    echo
 }
 

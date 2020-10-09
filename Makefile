@@ -1,4 +1,4 @@
-VERSION := $(shell git describe --tags --always)
+VERSION := $(shell git describe --tags --always)-SNAPSHOT
 APP_NAME := $(shell ./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
 DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
 
