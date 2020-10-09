@@ -1,5 +1,5 @@
 VERSION := $(shell git describe --tags --always)
-APP_NAME = tripagency
+APP_NAME := $(shell ./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
 
 ci : setup_maven build build_docker_image sonarqube_scan generate_living_documentation_for_domain revert_maven_setup
 .PHONY: ci
