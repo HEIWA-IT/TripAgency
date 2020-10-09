@@ -1,4 +1,5 @@
 VERSION := $(shell git describe --tags --always)
+APP_NAME = tripagency
 
 ci : setup_maven build build_docker_image sonarqube_scan generate_living_documentation_for_domain revert_maven_setup
 .PHONY: ci
@@ -7,7 +8,7 @@ setup_maven :
 build :
 	./CI_CD/build.sh -m "${VERSION}"
 build_docker_image :
-	./CI_CD/build_docker_image.sh tripagency-exposition "${VERSION}"
+	./CI_CD/build_docker_image.sh ${APP_NAME}-exposition "${VERSION}"
 sonarqube_scan :
 	./CI_CD/sonarqube_scan.sh
 generate_living_documentation_for_domain :
