@@ -150,6 +150,21 @@ Have a look at the **Makefile** file to see the actions you can do.
 To make the project build, you can use the following commands depending on the tool you want to use:
 **./mvnw install** or **./gradlew build**
 
+You can also us the Makefile included at the root folder of the project.
+To use it, you will need to have the following file **~/.env** with this content:
+```
+export SONARQUBE_URL={{SONARQUBE_URL}}
+export SONARQUBE_CREDS={{SONARQUBE_CREDS}}
+
+export DOCKER_PROJECT_REGISTRY={{DOCKER_PROJECT_REGISTRY}}
+export DOCKER_CREDS_USR={{DOCKER_CREDS_USR}}
+export DOCKER_CREDS_PWD={{DOCKER_CREDS_PWD}}
+
+export MVN_SETTINGS=" -Dusername=${DOCKER_CREDS_USR} -Dpassword=${DOCKER_CREDS_PWD}"
+```
+
+The placeholders (between double brackets) need to be fill with the correct values. 
+
 ### Generate the living documentation
 Here is the command to generate the living documentation with Cukedoctor where
 - CUKEDOCTOR_MAIN_JAR is the path to 'cukedoctor-main.jar'
@@ -207,5 +222,17 @@ cd exposition
 A docker-compose file is present in the following folder to launch the image: **exposition/docker**
 USe this command to launch it: **docker-compose up -d**
 The url to display the swagger page is the following:  
-**http://localhost:12478/trip-agency/swagger-ui/**
-Warning with the port. Here it is **12478**
+**http://localhost:12378/trip-agency/swagger-ui/**
+Warning with the port. Here it is **12378**
+
+### e2e testing
+In the e2e testing part we use the script [wait-for-it.sh](https://github.com/vishnubob/wait-for-it/blob/master/wait-for-it.sh).
+This script allows to wait for the docker image to have finished running the embedded web server.
+You also need to install timeout or gtimeout to make this script works.
+
+On OS X execute the following commands:
+```
+brew install coreutils
+sudo ln -s /usr/local/bin/gtimeout /usr/local/bin/timeout
+```
+
