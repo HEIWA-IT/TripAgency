@@ -72,7 +72,7 @@ Mvnw()
    # Using Mvnw
    echo "Using Mvnw"
    echo
-   ./mvnw install -Drevision="$1" -DskipTests
+   ./mvnw install -Drevision="$1"
    echo
 }
 
