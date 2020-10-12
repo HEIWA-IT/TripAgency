@@ -16,7 +16,6 @@
 
     <properties>
         <revision>revision</revision>
-        <start-class>com/heiwait/tripagency/infrastructure/repository/driver/exposition/ExpositionApplication</start-class>
     </properties>
 
     <dependencies>
@@ -133,9 +132,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
-                <configuration>
-                    <mainClass>${start-class}</mainClass>
-                </configuration>
             </plugin>
 
             <plugin>
