@@ -9,19 +9,19 @@ We can say that we killed two birds with one stone.
 ## Summary
 - [1 Sample goals](#1-sample-goals)
 - [2 Wrappers and practices to build](#2-wrappers-and-practices-to-build)
-  - [2.1 Maven wrapper](#2-1-Maven-wrapper)
-  - [2.2 Gradle wrapper](#2-2-Gradle-wrapper)
-  - [2.3 BOM for Bills of Materials](#2-3-Bom-for-Bills-Of-Materials)
-- [3 xDD](#3-xDD)
-  - [3.1 DDD](#3-1-DDD)
-  - [3.2 BDD](#3-2-BDD)
-  - [3.3 TDD](#3-3-TDD)
-- [4 Living Documentation](#4-Living-Documentation)
-- [5 Hexagonal architecture](#5-Hexagonal-architecture)
-- [6 DataBase Managing tool](#6-DataBase-Managing-tool)
-- [7 I18n](#7-I18n)
-- [8 CI/CD best practices](#8-CICD-best-practices)
-- [9 Let's make it work](#9-Lets-make-it-work)
+  - [2.1 Maven wrapper](#2-1-maven-wrapper)
+  - [2.2 Gradle wrapper](#2-2-gradle-wrapper)
+  - [2.3 BOM for Bills of Materials](#2-3-bom-for-bills-of-materials)
+- [3 xDD](#3-xdd)
+  - [3.1 DDD](#3-1-ddd)
+  - [3.2 BDD](#3-2-bdd)
+  - [3.3 TDD](#3-3-tdd)
+- [4 Living Documentation](#4-living-documentation)
+- [5 Hexagonal architecture](#5-hexagonal-architecture)
+- [6 DataBase Managing tool](#6-dataBase-managing-tool)
+- [7 I18n](#7-i18n)
+- [8 CI/CD best practices](#8-cicd-best-practices)
+- [9 Let's make it work](#9-lets-make-it-work)
 
 ## 1 Sample goals
 This sample was made to provide a concrete example on some best practices of the market regarding a java application providing Rest API.  
@@ -150,21 +150,6 @@ Have a look at the **Makefile** file to see the actions you can do.
 To make the project build, you can use the following commands depending on the tool you want to use:
 **./mvnw install** or **./gradlew build**
 
-You can also us the Makefile included at the root folder of the project.
-To use it, you will need to have the following file **~/.env** with this content:
-```
-export SONARQUBE_URL={{SONARQUBE_URL}}
-export SONARQUBE_CREDS={{SONARQUBE_CREDS}}
-
-export DOCKER_PROJECT_REGISTRY={{DOCKER_PROJECT_REGISTRY}}
-export DOCKER_CREDS_USR={{DOCKER_CREDS_USR}}
-export DOCKER_CREDS_PWD={{DOCKER_CREDS_PWD}}
-
-export MVN_SETTINGS=" -Dusername=${DOCKER_CREDS_USR} -Dpassword=${DOCKER_CREDS_PWD}"
-```
-
-The placeholders (between double brackets) need to be fill with the correct values. 
-
 ### Generate the living documentation
 Here is the command to generate the living documentation with Cukedoctor where
 - CUKEDOCTOR_MAIN_JAR is the path to 'cukedoctor-main.jar'
@@ -202,7 +187,6 @@ you can start the rest exposition by executing the following command line in the
 
 The url to display the swagger page is the following:  
 **http://localhost:12378/trip-agency/swagger-ui/**
-Warning with the port. Here it is **12378**
 
 ### Consulting the H2 DB
 Connect to this url:
@@ -228,11 +212,44 @@ Warning with the port. Here it is **12378**
 ### e2e testing
 In the e2e testing part we use the script [wait-for-it.sh](https://github.com/vishnubob/wait-for-it/blob/master/wait-for-it.sh).
 This script allows to wait for the docker image to have finished running the embedded web server.
-You also need to install timeout or gtimeout to make this script works.
+You also need to install **timeout** or **gtimeout** to make this script works.
 
 On OS X execute the following commands:
 ```
 brew install coreutils
 sudo ln -s /usr/local/bin/gtimeout /usr/local/bin/timeout
 ```
+
+## Use the Makefile to compile and test the project
+
+### Requirements
+
+#### Install the tools necessited to 
+- docker and docker-compose
+- **timeout** or **gtimeout**. Look at this [paragraph](e2e-testing)
+
+#### Fill an .env file
+You can also us the Makefile included at the root folder of the project.
+To use it, you will need to have the following file **~/.env** with this content:
+```
+export SONARQUBE_URL={{SONARQUBE_URL}}
+export SONARQUBE_CREDS={{SONARQUBE_CREDS}}
+
+export DOCKER_PROJECT_REGISTRY={{DOCKER_PROJECT_REGISTRY}}
+export DOCKER_CREDS_USR={{DOCKER_CREDS_USR}}
+export DOCKER_CREDS_PWD={{DOCKER_CREDS_PWD}}
+
+export MVN_SETTINGS=" -Dusername=${DOCKER_CREDS_USR} -Dpassword=${DOCKER_CREDS_PWD}"
+```
+
+The placeholders (between double brackets) need to be fill with the correct values. 
+
+#### Commands to execute
+**make ci** will build the differents components and the docker image.  
+**make e2e** will launch the test by downloading the docker image locally and launch the tests of the module e2e.
+**make clean** clean your local repository.
+
+You can launch the following command **make ci && make e2e**.  
+Check the living documentation generated in the domain and e2e modules.  
+After that you clean it by executing the **make clean** command.  
 
