@@ -1,6 +1,7 @@
 VERSION := $(shell git describe --tags --always)-SNAPSHOT
-APP_NAME := $(shell ./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+APP_NAME := $(shell ./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.name -q -DforceStdout)
 DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
+MODE := DOCKER
 
 ci : setup_maven build build_docker_image sonarqube_scan generate_living_documentation_for_domain revert_maven_setup
 .PHONY: ci
@@ -20,7 +21,7 @@ revert_maven_setup :
 e2e : setup_maven start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition revert_maven_setup
 .PHONY: e2e
 start_exposition :
-	./CI_CD/start_exposition.sh "${DOCKER_IMAGE}"
+	./CI_CD/start_exposition.sh "${DOCKER_IMAGE}" "${VERSION}" "${MODE}"
 launch_e2e_tests :
 	./CI_CD/launch_e2e_tests.sh
 generate_living_documentation_for_e2e :
@@ -28,6 +29,7 @@ generate_living_documentation_for_e2e :
 stop_exposition :
 	./CI_CD/stop_exposition.sh
 
+clean : revert_maven_setup clean
 .PHONY: clean
 clean :
 	./CI_CD/clean.sh
