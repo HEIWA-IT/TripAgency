@@ -1,10 +1,17 @@
 #!/bin/bash
 
+MODE=$1
 
 cd exposition
-# ../mvnw spring-boot:stop
-cd docker && docker-compose stop
-docker rm -v $(docker ps -q -f status=exited)
-#../mvnw clean spring-boot:run
-cd ..
 
+echo " Mode : " "${MODE}"
+
+if [ "${MODE}" = "DOCKER" ]
+then
+        echo "Using Docker"
+        cd docker && docker-compose stop && docker rm -v $(docker ps -q -f status=exited)
+        cd ../..
+else
+        echo "Using CLI"
+
+fi

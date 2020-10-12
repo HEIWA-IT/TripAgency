@@ -27,7 +27,7 @@ launch_e2e_tests :
 generate_living_documentation_for_e2e :
 	./CI_CD/generate_living_documentation.sh e2e "${VERSION}"
 stop_exposition :
-	./CI_CD/stop_exposition.sh
+	./CI_CD/stop_exposition.sh "${MODE}"
 
 clean : revert_maven_setup clean
 .PHONY: clean
