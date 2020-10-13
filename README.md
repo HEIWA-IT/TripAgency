@@ -242,7 +242,7 @@ export DOCKER_SETTINGS=" -Dusername=${DOCKER_CREDS_USR} -Dpassword=${DOCKER_CRED
 
 export MVN_SETTINGS=-DskipTests
 
-export E2E_TEST_MODE=NORMAL
+export E2E_TEST_MODE=DOCKER
 ```
 
 The placeholders (between double brackets) need to be fill with the correct values. 
