@@ -238,8 +238,9 @@ export SONARQUBE_CREDS={{SONARQUBE_CREDS}}
 export DOCKER_PROJECT_REGISTRY={{DOCKER_PROJECT_REGISTRY}}
 export DOCKER_CREDS_USR={{DOCKER_CREDS_USR}}
 export DOCKER_CREDS_PWD={{DOCKER_CREDS_PWD}}
+export DOCKER_SETTINGS=" -Dusername=${DOCKER_CREDS_USR} -Dpassword=${DOCKER_CREDS_PWD}"
 
-export MVN_SETTINGS=" -Dusername=${DOCKER_CREDS_USR} -Dpassword=${DOCKER_CREDS_PWD}"
+export MVN_SETTINGS=
 ```
 
 The placeholders (between double brackets) need to be fill with the correct values. 
