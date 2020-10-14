@@ -28,4 +28,4 @@ else
         cd ..
 fi
 
-./CI_CD/wait-for-it.sh "http://localhost:12378/trip-agency/swagger-ui/" -- echo "exposition is up"
+./CI_CD/wait-for-it.sh "http://localhost:12378/tripagency/swagger-ui/" -- echo "exposition is up"

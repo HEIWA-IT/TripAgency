@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CalculateTripFeesSteps {
 
-    String BASE_URL = "http://localhost:12378/trip-agency/";
+    String BASE_URL = "http://localhost:12378/tripagency/";
     RequestSpecification request;
     Response response;
 

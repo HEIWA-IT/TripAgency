@@ -31,7 +31,7 @@ class TripResourceTest {
 
     @Test
     void testPriceTripWithHardCodedCallForParis() {
-        String urlTemplate = "/trip-agency/api/pricer/Paris/travelClass/BUSINESS/priceTripWithHardCodedValues";
+        String urlTemplate = "/tripagency/api/pricer/Paris/travelClass/BUSINESS/priceTripWithHardCodedValues";
         String expectedTripFees = "1350";
         String response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.OK.value()).and().extract().response().asString();
 
@@ -40,7 +40,7 @@ class TripResourceTest {
 
     @Test
     void testPriceTripWithJPACallForParis() {
-        String urlTemplate = "/trip-agency/api/pricer/Paris/travelClass/BUSINESS/priceTripWithJPA";
+        String urlTemplate = "/tripagency/api/pricer/Paris/travelClass/BUSINESS/priceTripWithJPA";
         String expectedTripFees = "1350";
         String response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.OK.value()).and().extract().response().asString();
 
@@ -49,7 +49,7 @@ class TripResourceTest {
 
     @Test
     void testPriceTripWithJdbcTemplatedCallForParis() {
-        String urlTemplate = "/trip-agency/api/pricer/Paris/travelClass/BUSINESS/priceTripWithJdbcTemplate";
+        String urlTemplate = "/tripagency/api/pricer/Paris/travelClass/BUSINESS/priceTripWithJdbcTemplate";
         String expectedTripFees = "1350";
         String response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.OK.value()).and().extract().response().asString();
 
@@ -58,7 +58,7 @@ class TripResourceTest {
 
     @Test
     void testPriceTripWithJdbcTemplatedCallForSydney() throws JSONException {
-        String urlTemplate = "/trip-agency/api/pricer/Sydney/travelClass/BUSINESS/priceTripWithJdbcTemplate";
+        String urlTemplate = "/tripagency/api/pricer/Sydney/travelClass/BUSINESS/priceTripWithJdbcTemplate";
 
         Response response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.NOT_FOUND.value()).and().extract().response();
         String responseStr = response.asString();

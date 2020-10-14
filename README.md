@@ -186,11 +186,11 @@ you can start the rest exposition by executing the following command line in the
 **./mvnw clean spring-boot:run**  
 
 The url to display the swagger page is the following:  
-**http://localhost:12378/trip-agency/swagger-ui/**
+**http://localhost:12378/tripagency/swagger-ui/**
 
 ### Consulting the H2 DB
 Connect to this url:
-**http://localhost:12378/trip-agency/h2-console**
+**http://localhost:12378/tripagency/h2-console**
 Fill the information regarding your configuration
 
 ### Building the docker image of the exposition
@@ -206,7 +206,7 @@ cd exposition
 A docker-compose file is present in the following folder to launch the image: **exposition/docker**
 USe this command to launch it: **docker-compose up -d**
 The url to display the swagger page is the following:  
-**http://localhost:12378/trip-agency/swagger-ui/**
+**http://localhost:12378/tripagency/swagger-ui/**
 Warning with the port. Here it is **12378**
 
 ### e2e testing
