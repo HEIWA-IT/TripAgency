@@ -10,7 +10,7 @@ E2E_TEST_MODE="${E2E_TEST_MODE}"
 
 cd exposition || exit
 
-echo " E2E_TEST_MODE : " "${E2E_TEST_MODE}"
+echo "E2E_TEST_MODE : " "${E2E_TEST_MODE}"
 
 if [ "${E2E_TEST_MODE}" = "DOCKER" ]
 then
@@ -24,7 +24,7 @@ else
         EXPOSITION_PATH="${MAVEN_REPOSITORY}"/com/heiwait/tripagency/exposition/"${VERSION}"/exposition-"${VERSION}".jar
         echo "exposition-jar path " "${EXPOSITION_PATH}"
 
-        java -cp "${EXPOSITION_PATH}":./build/lib/* com.heiwait.tripagency.infrastructure.repository.driver.exposition.ExpositionApplication >> ./logs/log.txt &
+        java -cp "${EXPOSITION_PATH}":./build/lib/* com.heiwait.tripagency.driver.exposition.ExpositionApplication >> ./logs/log.txt &
         cd ..
 fi
 

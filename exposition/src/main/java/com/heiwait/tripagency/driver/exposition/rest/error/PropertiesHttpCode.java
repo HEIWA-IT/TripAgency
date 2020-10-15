@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.repository.driver.exposition.rest.error;
+package com.heiwait.tripagency.driver.exposition.rest.error;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;

@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler;
+package com.heiwait.tripagency.driver.exposition.handler;
 
 import com.heiwait.tripagency.domain.TripPricer;
 import com.heiwait.tripagency.domain.TripRepositoryPort;

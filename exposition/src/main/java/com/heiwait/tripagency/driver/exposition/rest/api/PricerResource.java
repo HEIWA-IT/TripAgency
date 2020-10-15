@@ -1,10 +1,10 @@
-package com.heiwait.tripagency.infrastructure.repository.driver.exposition.rest.api;
+package com.heiwait.tripagency.driver.exposition.rest.api;
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.TravelClass;
-import com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler.TripPricerWithJdbcTemplateRepositoryAdapter;
-import com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler.TripPricerWithJpaRepositoryAdapter;
-import com.heiwait.tripagency.infrastructure.repository.driver.exposition.handler.TripPricerWithMockRepositoryAdapter;
+import com.heiwait.tripagency.driver.exposition.handler.TripPricerWithJdbcTemplateRepositoryAdapter;
+import com.heiwait.tripagency.driver.exposition.handler.TripPricerWithJpaRepositoryAdapter;
+import com.heiwait.tripagency.driver.exposition.handler.TripPricerWithMockRepositoryAdapter;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/api/pricer")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class TripResource {
+public class PricerResource {
 
     private final TripPricerWithMockRepositoryAdapter tripPricerWithMockRepositoryAdapter;
     private final TripPricerWithJpaRepositoryAdapter tripPricerWithJpaRepositoryAdapter;
     private final TripPricerWithJdbcTemplateRepositoryAdapter tripPricerWithJdbcTemplateRepositoryAdapter;
 
-    public TripResource(
+    public PricerResource(
             final TripPricerWithMockRepositoryAdapter tripPricerWithMockRepositoryAdapter,
             final TripPricerWithJpaRepositoryAdapter tripPricerWithJpaRepositoryAdapter,
             final TripPricerWithJdbcTemplateRepositoryAdapter tripPricerWithJdbcTemplateRepositoryAdapter) {
