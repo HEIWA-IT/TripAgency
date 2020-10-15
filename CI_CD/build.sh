@@ -63,7 +63,7 @@ Gradlew()
    # Using Gradlew
    echo "Using Gradlew"
    echo
-   ./gradlew build
+   ./gradlew build || exit 1
    echo
 }
 
@@ -75,7 +75,7 @@ Mvnw()
    # Using Mvnw
    echo "Using Mvnw"
    echo
-   ./mvnw deploy -pl !e2e -Drevision="$1" "${MVN_SETTINGS}"
+   ./mvnw deploy -pl !e2e -Drevision="$1" "${MVN_SETTINGS}" || exit 1
    echo
 }
 
