@@ -17,7 +17,7 @@ public class TripPricer implements PriceComputorDriverPort {
 
         Trip trip = tripRepository.findTripByDestination(destination);
 
-        if (TripBuilder.MISSING_DESTINATION.equals(trip)) {
+        if (Trip.Builder.MISSING_DESTINATION.equals(trip)) {
             throw new BusinessException(BusinessErrors.MISSING_DESTINATION);
         }
 
@@ -25,7 +25,7 @@ public class TripPricer implements PriceComputorDriverPort {
     }
 
     private int priceTrip(TravelClass travelClass, Trip trip) {
-        return (trip.ticketPrice() * travelClass.coefficient()) + trip.agencyFees() + trip.travelFees();
+        return (trip.ticketPrice() * travelClass.coefficient()) + trip.agencyFees() + trip.stayFees();
     }
 
     private void checkDestination(final Destination destination) {

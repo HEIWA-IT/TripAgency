@@ -2,7 +2,6 @@ package com.heiwait.tripagency.infrastructure.repository;
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;
-import com.heiwait.tripagency.domain.TripBuilder;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
 import com.heiwait.tripagency.infrastructure.repository.config.AppConfig;
 import org.junit.Test;
@@ -28,9 +27,13 @@ public class TripAgencyApplicationTest {
 
         Trip parisTrip = tripRepositoryPort.findTripByDestination(paris);
 
-        Trip expectedTrip = new Trip(50, 300, 200);
+        final Trip expectedTrip = new Trip.Builder().with(builder -> {
+            builder.agencyFees = 50;
+            builder.stayFees = 300;
+            builder.ticketPrice = 200;
+        }).build();
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTrip.agencyFees());
-        assertThat(parisTrip.travelFees()).isEqualTo(expectedTrip.travelFees());
+        assertThat(parisTrip.stayFees()).isEqualTo(expectedTrip.stayFees());
     }
 
     @Test
@@ -38,6 +41,6 @@ public class TripAgencyApplicationTest {
         final Destination pari = new Destination("Pari");
 
         Trip pariTrip = tripRepositoryPort.findTripByDestination(pari);
-        assertThat(pariTrip).isEqualTo(TripBuilder.MISSING_DESTINATION);
+        assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
     }
 }

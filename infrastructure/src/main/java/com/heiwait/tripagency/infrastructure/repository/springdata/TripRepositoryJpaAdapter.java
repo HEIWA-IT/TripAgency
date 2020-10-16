@@ -2,7 +2,6 @@ package com.heiwait.tripagency.infrastructure.repository.springdata;
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;
-import com.heiwait.tripagency.domain.TripBuilder;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -27,6 +26,6 @@ public class TripRepositoryJpaAdapter implements TripRepositoryPort {
         if (tripEntityOptional.isPresent())
             return tripEntityOptional.get().toTrip();
         else
-            return TripBuilder.MISSING_DESTINATION;
+            return Trip.Builder.MISSING_DESTINATION;
     }
 }
