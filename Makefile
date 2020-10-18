@@ -1,3 +1,4 @@
+BUILD_OPTIONS := -mw
 VERSION := $(shell git describe --tags --always)-SNAPSHOT
 APP_NAME := $(shell ./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.name -q -DforceStdout)
 DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
@@ -8,7 +9,7 @@ ci : setup_maven build build_docker_image sonarqube_scan generate_living_documen
 setup_maven :
 	./CI_CD/setup_maven.sh "${VERSION}"
 build :
-	./CI_CD/build.sh -m "${VERSION}"
+	./CI_CD/build.sh "${BUILD_OPTIONS}" "${VERSION}"
 build_docker_image :
 	./CI_CD/build_docker_image.sh "${DOCKER_IMAGE}"
 sonarqube_scan :

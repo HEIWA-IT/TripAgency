@@ -1,6 +1,6 @@
 #!/bin/bash
 ################################################################################
-#                                   build.sh                                   #
+#                               build.sh                                       #
 #                                                                              #
 # This script goal is to build of the project                                  #
 #                                                                              #
@@ -34,9 +34,11 @@
 ################################################################################
 
 VERSION=$2
-echo Version: "${VERSION}"
+echo Version: ${VERSION}
 
 source ~/.env
+
+
 
 ################################################################################
 # Help                                                                         #
@@ -46,12 +48,13 @@ Help()
    # Display Help
    echo "Display the options of this script."
    echo
-   echo "Syntax: build.sh [-g|m|h|v]"
+   echo "Syntax: build.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
    echo "options:"
-   echo "g     Use Gradle wrapper to build the project."
-   echo "m     Use Maven wrapper to build the project."
-   echo "h     Print this Help."
-   echo "v     Verbose mode."
+   echo "-gw|--gradlew      Use Gradle wrapper to build the project."
+   echo "-g|--gradle        Use Gradle to build the project."
+   echo "-g|--gradle        Use Maven wrapper to build the project."
+   echo "-m|--mvn           Use Maven  to build the project."
+   echo "-h|--help          Print this Help."
    echo
 }
 
@@ -60,10 +63,20 @@ Help()
 ################################################################################
 Gradlew()
 {
-   # Using Gradlew
    echo "Using Gradlew"
    echo
    ./gradlew build || exit 1
+   echo
+}
+
+################################################################################
+# Gradle                                                                       #
+################################################################################
+Gradle()
+{
+   echo "Using Gradle"
+   echo
+   gradle build || exit 1
    echo
 }
 
@@ -72,10 +85,20 @@ Gradlew()
 ################################################################################
 Mvnw()
 {
-   # Using Mvnw
    echo "Using Mvnw"
    echo
    ./mvnw deploy -pl !e2e -Drevision="$1" ${MVN_SETTINGS} || exit 1
+   echo
+}
+
+################################################################################
+# Mvn                                                                          #
+################################################################################
+Mvn()
+{
+   echo "Using Mvnw"
+   echo
+   mvn deploy -pl !e2e -Drevision="$1" ${MVN_SETTINGS} || exit 1
    echo
 }
 
@@ -88,20 +111,26 @@ Mvnw()
 # Process the input options. Add options as needed.                            #
 ################################################################################
 # Get the options
-while getopts ":hgm" option; do
-   case $option in
-      h) # display Help
-         Help
-         exit;;
-      g) # build with Gradle wrapper
-         Gradlew
-         exit;;
-      m) # build with Maven wrapper
-         shift
-         Mvnw $1
-         exit;;
-     \?) # incorrect option
-         echo "Error: Invalid option"
-         exit;;
-   esac
-done
+
+case $1 in
+  -h|--help) # display Help
+     Help
+     exit;;
+  -mw|--mvnw) # build with Maven wrapper
+     shift
+     Mvnw "$1"
+     exit;;
+  -m|--mvn) # build with Maven
+     shift
+     Mvn "$1"
+     exit;;
+  -gw|--gradlew) # build with Gradle wrapper
+     Gradlew
+     exit;;
+  -g|--gradle) # build with Gradle
+     Gradle
+     exit;;
+  \?) # incorrect option
+     echo "Error: Invalid option"
+     exit;;
+esac
