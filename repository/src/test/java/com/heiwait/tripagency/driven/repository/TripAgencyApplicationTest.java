@@ -1,9 +1,9 @@
-package com.heiwait.tripagency.infrastructure.repository;
+package com.heiwait.tripagency.driven.repository;
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;
 import com.heiwait.tripagency.domain.TripRepositoryPort;
-import com.heiwait.tripagency.infrastructure.repository.config.AppConfig;
+import com.heiwait.tripagency.driven.repository.config.AppConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

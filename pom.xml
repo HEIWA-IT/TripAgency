@@ -12,7 +12,7 @@
 
     <modules>
         <module>domain</module>
-        <module>infrastructure</module>
+        <module>repository</module>
         <module>exposition</module>
         <module>e2e</module>
     </modules>

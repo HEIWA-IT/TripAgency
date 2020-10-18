@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.repository.jdbctemplate;
+package com.heiwait.tripagency.driven.repository.jdbctemplate;
 
 import com.heiwait.tripagency.domain.Destination;
 import com.heiwait.tripagency.domain.Trip;

@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.repository.springdata;
+package com.heiwait.tripagency.driven.repository.springdata;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

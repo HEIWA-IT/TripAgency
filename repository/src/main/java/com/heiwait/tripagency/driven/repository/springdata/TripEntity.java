@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.infrastructure.repository.springdata;
+package com.heiwait.tripagency.driven.repository.springdata;
 
 import com.heiwait.tripagency.domain.Trip;
 
