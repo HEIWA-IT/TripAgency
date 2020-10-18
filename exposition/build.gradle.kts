@@ -1,6 +1,6 @@
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":infrastructure"))
+    implementation(project(":repository"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
