@@ -1,13 +1,11 @@
 #!/bin/bash
 
-MODE=$1
-
 APP_PORT=12378
 cd exposition || exit
 
-echo " Mode : " "${MODE}"
+echo " E2E_TEST_MODE : " "${E2E_TEST_MODE}"
 
-if [ "${MODE}" = "DOCKER" ]
+if [ "${E2E_TEST_MODE}" = "DOCKER" ]
 then
         echo "Using Docker"
         cd docker && docker-compose stop && docker rm -v "$(docker ps -q -f status=exited)"

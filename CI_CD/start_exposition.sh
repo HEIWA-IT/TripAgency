@@ -2,11 +2,6 @@
 
 DOCKER_IMAGE=$1
 VERSION=$2
-MODE=$3
-
-source ~/.env
-
-E2E_TEST_MODE="${E2E_TEST_MODE}"
 
 cd exposition || exit
 

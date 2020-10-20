@@ -36,26 +36,22 @@
 VERSION=$2
 echo Version: ${VERSION}
 
-source ~/.env
-
-
-
 ################################################################################
 # Help                                                                         #
 ################################################################################
 Help()
 {
-   # Display Help
-   echo "Display the options of this script."
-   echo
-   echo "Syntax: build.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
-   echo "options:"
-   echo "-gw|--gradlew      Use Gradle wrapper to build the project."
-   echo "-g|--gradle        Use Gradle to build the project."
-   echo "-g|--gradle        Use Maven wrapper to build the project."
-   echo "-m|--mvn           Use Maven  to build the project."
-   echo "-h|--help          Print this Help."
-   echo
+  # Display Help
+  echo "Display the options of this script."
+  echo
+  echo "Syntax: build.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
+  echo "options:"
+  echo "-gw|--gradlew      Use Gradle wrapper to build the project."
+  echo "-g|--gradle        Use Gradle to build the project."
+  echo "-mw|--mvnw          Use Maven wrapper to revert the poms to its former state."
+  echo "-m|--mvn            Use Maven  to revert the poms to its former state."
+  echo "-h|--help          Print this Help."
+  echo
 }
 
 ################################################################################
@@ -63,10 +59,8 @@ Help()
 ################################################################################
 Gradlew()
 {
-   echo "Using Gradlew"
-   echo
-   ./gradlew build || exit 1
-   echo
+  echo "Using Gradlew"
+  ./gradlew build || exit 1
 }
 
 ################################################################################
@@ -74,10 +68,8 @@ Gradlew()
 ################################################################################
 Gradle()
 {
-   echo "Using Gradle"
-   echo
-   gradle build || exit 1
-   echo
+  echo "Using Gradle"
+  gradle build || exit 1
 }
 
 ################################################################################
@@ -85,10 +77,8 @@ Gradle()
 ################################################################################
 Mvnw()
 {
-   echo "Using Mvnw"
-   echo
-   ./mvnw deploy -pl !e2e -Drevision="$1" ${MVN_SETTINGS} || exit 1
-   echo
+  echo "Using Mvnw"
+  ./mvnw deploy -pl !e2e -Drevision="$1" ${MVN_SETTINGS} || exit 1
 }
 
 ################################################################################
@@ -96,10 +86,8 @@ Mvnw()
 ################################################################################
 Mvn()
 {
-   echo "Using Mvnw"
-   echo
-   mvn deploy -pl !e2e -Drevision="$1" ${MVN_SETTINGS} || exit 1
-   echo
+  echo "Using Mvnw"
+  mvn deploy -pl !e2e -Drevision="$1" ${MVN_SETTINGS} || exit 1
 }
 
 ################################################################################
@@ -114,23 +102,23 @@ Mvn()
 
 case $1 in
   -h|--help) # display Help
-     Help
-     exit;;
+    Help
+    exit;;
   -mw|--mvnw) # build with Maven wrapper
-     shift
-     Mvnw "$1"
-     exit;;
+    shift
+    Mvnw "$1"
+    exit;;
   -m|--mvn) # build with Maven
-     shift
-     Mvn "$1"
-     exit;;
+    shift
+    Mvn "$1"
+    exit;;
   -gw|--gradlew) # build with Gradle wrapper
-     Gradlew
-     exit;;
+    Gradlew
+    exit;;
   -g|--gradle) # build with Gradle
-     Gradle
-     exit;;
+    Gradle
+    exit;;
   \?) # incorrect option
-     echo "Error: Invalid option"
-     exit;;
+    echo "Error: Invalid option"
+    exit;;
 esac
