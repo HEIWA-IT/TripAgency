@@ -11,31 +11,34 @@ all : 	setup_maven build build_docker_image sonarqube_scan generate_living_docum
 
 ci : 	setup_maven build build_docker_image sonarqube_scan generate_living_documentation_for_domain revert_maven_setup
 .PHONY: ci
-setup_maven :
-	./CI_CD/setup_maven.sh "${OPTIONS}" "${VERSION}"
-build :
-	./CI_CD/build.sh "${OPTIONS}" "${VERSION}"
-build_docker_image :
-	./CI_CD/build_docker_image.sh "${OPTIONS}" "${DOCKER_IMAGE}"
-sonarqube_scan :
-	./CI_CD/sonarqube_scan.sh
-generate_living_documentation_for_domain :
-	./CI_CD/generate_living_documentation.sh domain "${VERSION}"
-revert_maven_setup :
-	./CI_CD/revert_maven_setup.sh "${OPTIONS}"
 
 e2e : 	setup_maven start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition revert_maven_setup
 .PHONY: e2e
-start_exposition :
-	./CI_CD/start_exposition.sh "${DOCKER_IMAGE}" "${VERSION}"
-launch_e2e_tests :
-	./CI_CD/launch_e2e_tests.sh "${OPTIONS}"
-generate_living_documentation_for_e2e :
-	./CI_CD/generate_living_documentation.sh e2e "${VERSION}"
-stop_exposition :
-	./CI_CD/stop_exposition.sh
 
 clean : revert_maven_setup cleaning
 .PHONY: clean
+
+build :
+	./scripts/ci/build.sh "${OPTIONS}" "${VERSION}"
+build_docker_image :
+	./scripts/ci/build_docker_image.sh "${OPTIONS}" "${DOCKER_IMAGE}"
+sonarqube_scan :
+	./scripts/ci/sonarqube_scan.sh
+
 cleaning :
-	./CI_CD/clean.sh "${OPTIONS}"
+	./scripts/commons/clean.sh "${OPTIONS}"
+generate_living_documentation_for_domain :
+	./scripts/commons/generate_living_documentation.sh domain "${VERSION}"
+revert_maven_setup :
+	./scripts/commons/revert_maven_setup.sh "${OPTIONS}"
+setup_maven :
+	./scripts/commons/setup_maven.sh "${OPTIONS}" "${VERSION}"
+
+launch_e2e_tests :
+	./scripts/e2e/launch_e2e_tests.sh "${OPTIONS}"
+start_exposition :
+	./scripts/e2e/start_exposition.sh "${DOCKER_IMAGE}" "${VERSION}"
+generate_living_documentation_for_e2e :
+	./scripts/commons/generate_living_documentation.sh e2e "${VERSION}"
+stop_exposition :
+	./scripts/e2e/stop_exposition.sh
