@@ -30,8 +30,8 @@ Be kind and don't hesitate to do some PR/MR ^^
 Everyone is welcome!  
 
 This sample has many goals:
-- to use best building tools practices: use of BOM (Bills Of Materials) and wrapper (MavenWrapper and GradleWrapper in this sample)
-- to teach the basis of automated tests based on Cucumber (Behaviour Driven Development)
+- to use best building tools practices: use of BOM (Bill Of Materials) and wrapper (MavenWrapper and GradleWrapper in this sample)
+- to teach the basis of automated tests with Cucumber (third phase of Behaviour Driven Development)
 - to generate a living documentation based on the tests
 - to use the hexagonal architecture, an architectural pattern that allows dissociating the domain code from the technical 
 code and ease also the tests implementation without infrastructure
@@ -240,7 +240,7 @@ export DOCKER_CREDS_USR={{DOCKER_CREDS_USR}}
 export DOCKER_CREDS_PWD={{DOCKER_CREDS_PWD}}
 export DOCKER_SETTINGS=" -Dusername=${DOCKER_CREDS_USR} -Dpassword=${DOCKER_CREDS_PWD}"
 
-export MVN_SETTINGS=-DskipTests
+export MVN_SETTINGS=
 
 export E2E_TEST_MODE=DOCKER
 ```
@@ -248,7 +248,7 @@ export E2E_TEST_MODE=DOCKER
 The placeholders (between double brackets) need to be fill with the correct values. 
 
 #### Commands to execute
-**make ci** will build the differents components and the docker image.  
+**make ci** will build the different components, and the docker image.  
 **make e2e** will launch the test by downloading the docker image locally and launch the tests of the module e2e.
 **make clean** clean your local repository.
 
