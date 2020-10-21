@@ -33,7 +33,7 @@
 ################################################################################
 ################################################################################
 
-VERSION=$2
+VERSION=$1
 
 ################################################################################
 # Help                                                                         #
@@ -101,25 +101,21 @@ Mvn()
 ################################################################################
 # Get the options
 
-case $1 in
+case ${OPTIONS} in
   -h|--help) # display Help
     Help
     exit;;
   -mw|--mvnw) # build with Maven wrapper
-    shift
-    Mvnw "$1"
+    Mvnw
     exit;;
   -m|--mvn) # build with Maven
-    shift
-    Mvn "$1"
+    Mvn
     exit;;
   -gw|--gradlew) # build with Gradle wrapper
-    shift
-    Gradlew "$1"
+    Gradlew
     exit;;
   -g|--gradle) # build with Gradle
-    shift
-    Gradle "$1"
+    Gradle
     exit;;
   \?) # incorrect option
     echo "Error: Invalid option"

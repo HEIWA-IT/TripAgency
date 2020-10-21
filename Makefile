@@ -1,6 +1,5 @@
 include $(HOME)/.env
 
-OPTIONS := -mw
 VERSION := $(shell git describe --tags --always)-SNAPSHOT
 APP_NAME := $(shell ./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.name -q -DforceStdout)
 DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
@@ -19,23 +18,23 @@ clean : revert_maven_setup cleaning
 .PHONY: clean
 
 build :
-	./scripts/ci/build.sh "${OPTIONS}" "${VERSION}"
+	./scripts/ci/build.sh "${VERSION}"
 build_docker_image :
-	./scripts/ci/build_docker_image.sh "${OPTIONS}" "${DOCKER_IMAGE}"
+	./scripts/ci/build_docker_image.sh "${DOCKER_IMAGE}"
 sonarqube_scan :
 	./scripts/ci/sonarqube_scan.sh
 
 cleaning :
-	./scripts/commons/clean.sh "${OPTIONS}"
+	./scripts/commons/clean.sh
 generate_living_documentation_for_domain :
 	./scripts/commons/generate_living_documentation.sh domain "${VERSION}"
 revert_maven_setup :
-	./scripts/commons/revert_maven_setup.sh "${OPTIONS}"
+	./scripts/commons/revert_maven_setup.sh
 setup_maven :
-	./scripts/commons/setup_maven.sh "${OPTIONS}" "${VERSION}"
+	./scripts/commons/setup_maven.sh "${VERSION}"
 
 launch_e2e_tests :
-	./scripts/e2e/launch_e2e_tests.sh "${OPTIONS}"
+	./scripts/e2e/launch_e2e_tests.sh
 start_exposition :
 	./scripts/e2e/start_exposition.sh "${DOCKER_IMAGE}" "${VERSION}"
 generate_living_documentation_for_e2e :

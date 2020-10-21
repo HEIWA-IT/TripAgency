@@ -33,7 +33,7 @@
 ################################################################################
 ################################################################################
 
-VERSION=$2
+VERSION=$1
 echo Version: ${VERSION}
 
 ################################################################################
@@ -78,7 +78,7 @@ Gradle()
 Mvnw()
 {
   echo "Using Mvnw"
-  ./mvnw deploy -pl !e2e -Drevision="$1" ${MVN_SETTINGS} || exit 1
+  ./mvnw deploy -pl !e2e -Drevision="$VERSION" ${MVN_SETTINGS} || exit 1
 }
 
 ################################################################################
@@ -87,7 +87,7 @@ Mvnw()
 Mvn()
 {
   echo "Using Mvnw"
-  mvn deploy -pl !e2e -Drevision="$1" ${MVN_SETTINGS} || exit 1
+  mvn deploy -pl !e2e -Drevision="$VERSION" ${MVN_SETTINGS} || exit 1
 }
 
 ################################################################################
@@ -100,17 +100,15 @@ Mvn()
 ################################################################################
 # Get the options
 
-case $1 in
+case ${OPTIONS} in
   -h|--help) # display Help
     Help
     exit;;
   -mw|--mvnw) # build with Maven wrapper
-    shift
-    Mvnw "$1"
+    Mvnw
     exit;;
   -m|--mvn) # build with Maven
-    shift
-    Mvn "$1"
+    Mvn
     exit;;
   -gw|--gradlew) # build with Gradle wrapper
     Gradlew

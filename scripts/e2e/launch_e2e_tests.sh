@@ -97,7 +97,7 @@ Mvn()
 ################################################################################
 # Get the options
 
-case $1 in
+case ${OPTIONS} in
   -h|--help) # display Help
     Help
     exit;;
