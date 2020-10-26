@@ -37,6 +37,8 @@
         <jib.version>2.6.0</jib.version>
         <docker.baseImage.name>openjdk</docker.baseImage.name>
         <docker.baseImage.version>11-jdk-slim</docker.baseImage.version>
+        <docker.registry.username></docker.registry.username>
+        <docker.registry.password></docker.registry.password>
     </properties>
 
     <dependencyManagement>

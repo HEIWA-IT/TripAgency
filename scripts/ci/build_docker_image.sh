@@ -81,10 +81,10 @@ Gradle()
 Mvnw()
 {
   echo "Using Mvnw"
-  echo ./mvnw compile ${MVN_SETTINGS} jib:build -pl exposition ${DOCKER_SETTINGS} -Dimage=${DOCKER_IMAGE} -Djib.console=plain \
-  -Djib.httpTimeout=600000
-  ./mvnw compile ${MVN_SETTINGS} jib:build -pl exposition ${DOCKER_SETTINGS} -Dimage=${DOCKER_IMAGE} -Djib.console=plain \
-  -Djib.httpTimeout=600000 || exit 1
+  echo ./mvnw compile ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
+  -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000
+  ./mvnw compile ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
+  -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000 || exit 1
 }
 
 ################################################################################
@@ -93,10 +93,10 @@ Mvnw()
 Mvn()
 {
   echo "Using Mvn"
-  echo mvn ${MVN_SETTINGS} jib:build -pl exposition ${DOCKER_SETTINGS} -Dimage=${DOCKER_IMAGE} -Djib.console=plain \
-  -Djib.httpTimeout=600000
-  mvn ${MVN_SETTINGS} jib:build -pl exposition ${DOCKER_SETTINGS} -Dimage=${DOCKER_IMAGE} -Djib.console=plain \
-  -Djib.httpTimeout=600000 || exit 1
+  echo mvn ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
+  -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000
+  mvn ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
+  -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000 || exit 1
 }
 
 ################################################################################

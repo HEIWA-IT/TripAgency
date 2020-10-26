@@ -4,14 +4,17 @@ VERSION := $(shell git describe --tags --always)-SNAPSHOT
 APP_NAME := $(shell ./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.name -q -DforceStdout)
 DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
 
-all : 	setup_maven build build_docker_image sonarqube_scan generate_living_documentation_for_domain \
+check : 	check_variables
+.PHONY: check
+
+all : 	check_variables setup_maven build build_docker_image sonarqube_scan generate_living_documentation_for_domain \
 		start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition clean
 .PHONY: all
 
-ci : 	setup_maven build build_docker_image sonarqube_scan generate_living_documentation_for_domain revert_maven_setup
+ci : 	check_variables setup_maven build build_docker_image sonarqube_scan generate_living_documentation_for_domain revert_maven_setup
 .PHONY: ci
 
-e2e : 	setup_maven start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition revert_maven_setup
+e2e : 	check_variables setup_maven start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition revert_maven_setup
 .PHONY: e2e
 
 clean : revert_maven_setup cleaning
@@ -24,6 +27,8 @@ build_docker_image :
 sonarqube_scan :
 	./scripts/ci/sonarqube_scan.sh
 
+check_variables :
+	./scripts/commons/check_pipeline_variables.sh
 cleaning :
 	./scripts/commons/clean.sh
 generate_living_documentation_for_domain :

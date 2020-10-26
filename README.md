@@ -232,16 +232,15 @@ sudo ln -s /usr/local/bin/gtimeout /usr/local/bin/timeout
 You can also us the Makefile included at the root folder of the project.
 To use it, you will need to have the following file **~/.env** with this content:
 ```
-export OPTIONS = -mw
+export OPTIONS=-mw
 export MVN_SETTINGS=
 
 export SONARQUBE_URL={{SONARQUBE_URL}}
 export SONARQUBE_CREDS={{SONARQUBE_CREDS}}
 
 export DOCKER_PROJECT_REGISTRY={{DOCKER_PROJECT_REGISTRY}}
-export DOCKER_CREDS_USR={{DOCKER_CREDS_USR}}
-export DOCKER_CREDS_PWD={{DOCKER_CREDS_PWD}}
-export DOCKER_SETTINGS=" -Dusername=${DOCKER_CREDS_USR} -Dpassword=${DOCKER_CREDS_PWD}"
+export DOCKER_REGISTRY_USERNAME={{DOCKER_REGISTRY_USERNAME}}
+export DOCKER_REGISTRY_PASSWORD={{DOCKER_REGISTRY_PASSWORD}}
 
 export E2E_TEST_MODE=DOCKER
 ```

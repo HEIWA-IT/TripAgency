@@ -142,14 +142,14 @@
                     <from>
                         <image>${docker.baseImage.name}:${docker.baseImage.version}</image>
                         <auth>
-                            <username>${username}</username>
-                            <password>${password}</password>
+                            <username>${docker.registry.username}</username>
+                            <password>${docker.registry.password}</password>
                         </auth>
                     </from>
                     <to>
                         <auth>
-                            <username>${username}</username>
-                            <password>${password}</password>
+                            <username>${docker.registry.username}</username>
+                            <password>${docker.registry.password}</password>
                         </auth>
                     </to>
                     <allowInsecureRegistries>true</allowInsecureRegistries>
