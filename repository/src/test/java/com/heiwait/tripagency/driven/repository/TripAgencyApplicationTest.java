@@ -28,9 +28,9 @@ public class TripAgencyApplicationTest {
         Trip parisTrip = tripRepositoryPort.findTripByDestination(paris);
 
         final Trip expectedTrip = new Trip.Builder().with(builder -> {
-            builder.agencyFees = 50;
-            builder.stayFees = 300;
-            builder.ticketPrice = 200;
+            builder.setAgencyFees(50);
+            builder.setStayFees(300);
+            builder.setTicketPrice(200);
         }).build();
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTrip.agencyFees());
         assertThat(parisTrip.stayFees()).isEqualTo(expectedTrip.stayFees());

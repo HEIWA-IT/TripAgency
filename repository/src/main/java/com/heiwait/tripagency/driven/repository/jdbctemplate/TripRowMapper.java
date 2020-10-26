@@ -14,9 +14,9 @@ public class TripRowMapper implements RowMapper<Trip> {
         int ticketPrice = row.getInt("ticket_price");
 
         return new Trip.Builder().with(builder -> {
-            builder.agencyFees = agencyFees;
-            builder.stayFees = stayFees;
-            builder.ticketPrice = ticketPrice;
+            builder.setAgencyFees(agencyFees);
+            builder.setStayFees(stayFees);
+            builder.setTicketPrice(ticketPrice);
         }).build();
     }
 }

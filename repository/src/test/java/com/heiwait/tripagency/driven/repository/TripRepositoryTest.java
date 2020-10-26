@@ -33,9 +33,9 @@ public class TripRepositoryTest {
     final Destination pari = new Destination("Pari");
     final Destination paris = new Destination("Paris");
     final Trip expectedTripForParis = new Trip.Builder().with(builder -> {
-        builder.agencyFees = 50;
-        builder.stayFees = 300;
-        builder.ticketPrice = 200;
+        builder.setAgencyFees(50);
+        builder.setStayFees(300);
+        builder.setTicketPrice(200);
     }).build();
 
     @Test

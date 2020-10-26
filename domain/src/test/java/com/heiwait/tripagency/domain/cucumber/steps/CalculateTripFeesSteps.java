@@ -78,9 +78,9 @@ public class CalculateTripFeesSteps {
             return Trip.Builder.MISSING_DESTINATION;
         } else {
             return new Trip.Builder().with(builder -> {
-                builder.agencyFees = this.agencyFees;
-                builder.stayFees = this.stayFees;
-                builder.ticketPrice = this.ticketPrice;
+                builder.setAgencyFees(this.agencyFees);
+                builder.setStayFees(this.stayFees);
+                builder.setTicketPrice(this.ticketPrice);
             }).build();
         }
     }

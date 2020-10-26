@@ -9,9 +9,9 @@ public class Trip {
     private final Integer ticketPrice;
 
     private Trip(Builder builder) {
-        this.agencyFees = builder.agencyFees;
-        this.stayFees = builder.stayFees;
-        this.ticketPrice = builder.ticketPrice;
+        this.agencyFees = builder.agencyFees();
+        this.stayFees = builder.stayFees();
+        this.ticketPrice = builder.ticketPrice();
     }
 
     private Trip(Integer agencyFees, Integer stayFees, Integer ticketPrice) {
@@ -36,9 +36,9 @@ public class Trip {
 
         public static final Trip MISSING_DESTINATION = new Trip(0, 0, 0);
 
-        public Integer agencyFees;
-        public Integer stayFees;
-        public Integer ticketPrice;
+        private Integer agencyFees;
+        private Integer stayFees;
+        private Integer ticketPrice;
 
         public Builder with(Consumer<Builder> consumer) {
             consumer.accept(this);
@@ -47,6 +47,30 @@ public class Trip {
 
         public Trip build() {
             return new Trip(this);
+        }
+
+        public Integer agencyFees() {
+            return agencyFees;
+        }
+
+        public Integer stayFees() {
+            return stayFees;
+        }
+
+        public int ticketPrice() {
+            return ticketPrice;
+        }
+
+        public void setAgencyFees(Integer agencyFees) {
+            this.agencyFees = agencyFees;
+        }
+
+        public void setStayFees(Integer stayFees) {
+            this.stayFees = stayFees;
+        }
+
+        public void setTicketPrice(Integer ticketPrice) {
+            this.ticketPrice = ticketPrice;
         }
     }
 }
