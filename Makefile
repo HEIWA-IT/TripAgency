@@ -7,11 +7,11 @@ DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:
 check : 	check_variables
 .PHONY: check
 
-all : 	check_variables setup_maven build build_docker_image sonarqube_scan generate_living_documentation_for_domain \
+all : 	check_variables setup_maven build build_docker_image launch_quality_scan generate_living_documentation_for_domain \
 		start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition clean
 .PHONY: all
 
-ci : 	check_variables setup_maven build build_docker_image sonarqube_scan generate_living_documentation_for_domain revert_maven_setup
+ci : 	check_variables setup_maven build build_docker_image launch_quality_scan generate_living_documentation_for_domain revert_maven_setup
 .PHONY: ci
 
 e2e : 	check_variables setup_maven start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition revert_maven_setup
@@ -24,8 +24,8 @@ build :
 	./scripts/ci/build.sh "${VERSION}"
 build_docker_image :
 	./scripts/ci/build_docker_image.sh "${DOCKER_IMAGE}"
-sonarqube_scan :
-	./scripts/ci/sonarqube_scan.sh
+launch_quality_scan :
+	./scripts/ci/launch_quality_scan.sh
 
 check_variables :
 	./scripts/commons/check_pipeline_variables.sh

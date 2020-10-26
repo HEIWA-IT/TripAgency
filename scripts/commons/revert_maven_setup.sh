@@ -34,9 +34,9 @@
 ################################################################################
 
 ################################################################################
-# Help                                                                         #
+# help                                                                         #
 ################################################################################
-Help()
+function help()
 {
   # Display Help
   echo "Display the options of this script."
@@ -52,20 +52,20 @@ Help()
 }
 
 ################################################################################
-# Mvnw                                                                         #
+# mvnw                                                                         #
 ################################################################################
-Mvnw()
+function mvnw()
 {
-  echo "Using Mvnw"
+  echo "Using mvnw"
   ./mvnw versions:revert || exit 1
 }
 
 ################################################################################
-# Mvn                                                                          #
+# mvn                                                                          #
 ################################################################################
-Mvn()
+function mvn()
 {
-  echo "Using Mvn"
+  echo "Using mvn"
   mvn versions:revert || exit 1
 }
 
@@ -85,16 +85,16 @@ case ${OPTIONS} in
     Help
     exit;;
   -mw|--mvnw) # build with Maven wrapper
-    Mvnw
+    mvnw
     exit;;
   -m|--mvn) # build with Maven
-    Mvn
+    mvn
     exit;;
   -gw|--gradlew) # build with Gradle wrapper
-    Gradlew
+    gradlew
     exit;;
   -g|--gradle) # build with Gradle
-    Gradle
+    gradle
     exit;;
   \?) # incorrect option
     echo "Error: Invalid option"

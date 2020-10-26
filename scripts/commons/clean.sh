@@ -34,10 +34,9 @@
 ################################################################################
 
 ################################################################################
-# Help                                                                         #
+# help                                                                         #
 ################################################################################
-Help()
-{
+function help() {
   # Display Help
   echo "Display the options of this script."
   echo
@@ -52,53 +51,43 @@ Help()
 }
 
 ################################################################################
-# Help                                                                         #
+# delete_exposition_fogs_folder                                                                          #
 ################################################################################
-DeleteExpositionLogsFolder()
-{
+function delete_exposition_fogs_folder() {
   echo "Deleting the logs folder in the exposition module."
   cd exposition && rm -rf ./logs && cd .. || exit 1
 }
 
-
 ################################################################################
-# Gradlew                                                                      #
+# gradlew                                                                      #
 ################################################################################
-Gradlew()
-{
-  echo "Using Gradlew"
+function gradlew() {
+  echo "Using gradlew"
   ./gradlew clean || exit 1
-  DeleteExpositionLogsFolder
 }
 
 ################################################################################
-# Gradle                                                                       #
+# gradle                                                                       #
 ################################################################################
-Gradle()
-{
+function gradle() {
   echo "Using Gradle"
   gradle clean || exit 1
-  DeleteExpositionLogsFolder
 }
 
 ################################################################################
-# Mvnw                                                                         #
+# mvnw                                                                         #
 ################################################################################
-Mvnw()
-{
-  echo "Using Mvnw"
+function mvnw() {
+  echo "Using mvnw"
   ./mvnw clean || exit 1
-  DeleteExpositionLogsFolder
 }
 
 ################################################################################
-# Mvn                                                                          #
+# mvn                                                                          #
 ################################################################################
-Mvn()
-{
-  echo "Using Mvn"
+function mvn() {
+  echo "Using mvn"
   mvn clean || exit 1
-  DeleteExpositionLogsFolder
 }
 
 ################################################################################
@@ -112,22 +101,33 @@ Mvn()
 # Get the options
 
 case $OPTIONS in
-  -h|--help) # display Help
-    Help
-    exit;;
-  -mw|--mvnw) # build with Maven wrapper
-    Mvnw
-    exit;;
-  -m|--mvn) # build with Maven
-    Mvn
-    exit;;
-  -gw|--gradlew) # build with Gradle wrapper
-    Gradlew
-    exit;;
-  -g|--gradle) # build with Gradle
-    Gradle
-    exit;;
-  \?) # incorrect option
-    echo "Error: Invalid option"
-    exit;;
+-h | --help) # display Help
+  help
+  delete_exposition_fogs_folder
+  exit
+  ;;
+-mw | --mvnw) # build with Maven wrapper
+  mvnw
+  delete_exposition_fogs_folder
+  exit
+  ;;
+-m | --mvn) # build with Maven
+  mvn
+  delete_exposition_fogs_folder
+  exit
+  ;;
+-gw | --gradlew) # build with Gradle wrapper
+  gradlew
+  delete_exposition_fogs_folder
+  exit
+  ;;
+-g | --gradle) # build with Gradle
+  gradle
+  delete_exposition_fogs_folder
+  exit
+  ;;
+\?) # incorrect option
+  echo "Error: Invalid option"
+  exit
+  ;;
 esac

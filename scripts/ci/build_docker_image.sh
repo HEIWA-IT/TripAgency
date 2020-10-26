@@ -38,9 +38,9 @@ DOCKER_IMAGE=$1
 echo ${DOCKER_IMAGE}
 
 ################################################################################
-# Help                                                                         #
+# help                                                                         #
 ################################################################################
-Help()
+function help()
 {
   # Display Help
   echo "Display the options of this script."
@@ -56,31 +56,31 @@ Help()
 }
 
 ################################################################################
-# Gradlew                                                                      #
+# gradlew                                                                      #
 ################################################################################
-Gradlew()
+function gradlew()
 {
-  echo "Using Gradlew"
+  echo "Using gradlew"
   echo "To implement with gradlew"
   exit 1
 }
 
 ################################################################################
-# Gradle                                                                       #
+# gradle                                                                       #
 ################################################################################
-Gradle()
+function  gradle()
 {
-  echo "Using Gradle"
+  echo "Using gradle"
   echo "To implement with gradle"
   exit 1
 }
 
 ################################################################################
-# Mvnw                                                                         #
+# mvnw                                                                         #
 ################################################################################
-Mvnw()
+function  mvnw()
 {
-  echo "Using Mvnw"
+  echo "Using mvnw"
   echo ./mvnw compile ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
   -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000
   ./mvnw compile ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
@@ -88,11 +88,11 @@ Mvnw()
 }
 
 ################################################################################
-# Mvn                                                                          #
+# mvn                                                                          #
 ################################################################################
-Mvn()
+function mvn()
 {
-  echo "Using Mvn"
+  echo "Using mvn"
   echo mvn ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
   -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000
   mvn ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
@@ -111,19 +111,19 @@ Mvn()
 
 case $OPTIONS in
   -h|--help) # display Help
-    Help
+    help
     exit;;
   -mw|--mvnw) # build with Maven wrapper
-    Mvnw
+    mvnw
     exit;;
   -m|--mvn) # build with Maven
-    Mvn
+    mvn
     exit;;
   -gw|--gradlew) # build with Gradle wrapper
-    Gradlew
+    gradlew
     exit;;
   -g|--gradle) # build with Gradle
-    Gradle
+    gradle
     exit;;
   \?) # incorrect option
     echo "Error: Invalid option"

@@ -34,14 +34,20 @@
 ################################################################################
 ################################################################################
 
-################################################################################
-# Check                                                                        #
-################################################################################=0
-
 MANDATORY_VARIABLE=true
 NOT_MANDATORY_VARIABLE=false
 
-check_variable() {
+#######################################
+# Check if the variable as argument is filled
+# Arguments:
+#   - Variable name to check
+#   - Is the variable mandatory
+# Outputs:
+#   Writes if the variable is filled or not
+# Returns:
+#   0 if the mandatory variable is filled or if it is a not mandatory variable,  else 1.
+#######################################
+function check_variable() {
   var_name=$1
   is_mandatory=$2
 
@@ -49,7 +55,15 @@ check_variable() {
   ([ -z "${var_value}" ] && echo "${var_name}" is empty!!! && if ${is_mandatory}; then exit 1; fi || echo "${var_name}" filled)
 }
 
-check_variables() {
+#######################################
+# Check all the variables for the makefile to execute the rules
+# Outputs:
+#   Writes the number of variables that are not filled
+# Returns:
+#   0 if all the mandatory variables are set,
+#   else the number of mandatory variables not set.
+#######################################
+function check_variables() {
   declare -i status=0
 
   check_variable "OPTIONS" $MANDATORY_VARIABLE
@@ -76,4 +90,8 @@ check_variables() {
   exit ${status}
 }
 
+################################################################################
+################################################################################
+# Main program                                                                 #
+################################################################################
 check_variables

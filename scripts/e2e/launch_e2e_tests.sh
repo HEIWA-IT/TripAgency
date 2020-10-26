@@ -34,9 +34,9 @@
 ################################################################################
 
 ################################################################################
-# Help                                                                         #
+# help                                                                         #
 ################################################################################
-Help()
+help()
 {
   # Display Help
   echo "Display the options of this script."
@@ -52,36 +52,36 @@ Help()
 }
 
 ################################################################################
-# Gradlew                                                                      #
+# gradlew                                                                      #
 ################################################################################
-Gradlew()
+gradlew()
 {
   echo "Using Gradlew"
   ./gradlew -p :e2e:test || exit 1
 }
 
 ################################################################################
-# Gradle                                                                       #
+# gradle                                                                       #
 ################################################################################
-Gradle()
+gradle()
 {
   echo "Using Gradle"
   gradle -p :e2e:test || exit 1
 }
 
 ################################################################################
-# Mvnw                                                                         #
+# mvnw                                                                         #
 ################################################################################
-Mvnw()
+mvnw()
 {
   echo "Using Mvnw"
   ./mvnw -pl e2e test || exit 1
 }
 
 ################################################################################
-# Mvn                                                                          #
+# mvn                                                                          #
 ################################################################################
-Mvn()
+mvn()
 {
   echo "Using Mvnw"
   mvn -pl e2e test || exit 1
@@ -99,19 +99,19 @@ Mvn()
 
 case ${OPTIONS} in
   -h|--help) # display Help
-    Help
+    help
     exit;;
   -mw|--mvnw) # build with Maven wrapper
-    Mvnw
+    mvnw
     exit;;
   -m|--mvn) # build with Maven
-    Mvn
+    mvn
     exit;;
   -gw|--gradlew) # build with Gradle wrapper
-    Gradlew
+    gradlew
     exit;;
   -g|--gradle) # build with Gradle
-    Gradle
+    gradle
     exit;;
   \?) # incorrect option
     echo "Error: Invalid option"

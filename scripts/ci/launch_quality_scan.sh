@@ -1,12 +1,12 @@
 #!/bin/bash
 ################################################################################
-#                      generate_living_documentation.sh                        #
+#                               sonarqube_scan.sh                              #
 #                                                                              #
-# This script goal is to generate the living documentation of the project      #
+# This script goal is to launch the quality scan of the project                #
 #                                                                              #
 # Change History                                                               #
-# 01/10/2020  Dan MAGIER           Script to generate the living documentation #
-#                                  of the project                              #
+# 01/10/2020  Dan MAGIER           Script to launch the quality scan of        #
+#                                  the project                                 #
 #                                                                              #
 #                                                                              #
 ################################################################################
@@ -34,26 +34,22 @@
 ################################################################################
 ################################################################################
 
-MODULE=$1
-PROJECT_VERSION=$2
-CUKEDOCTOR_MAIN_VERSION=3.2
-
-MAVEN_REPOSITORY=$(./mvnw help:evaluate -Dexpression=settings.localRepository -q -DforceStdout)
-CUKEDOCTOR_MAIN_JAR=${MAVEN_REPOSITORY}/com/github/cukedoctor/cukedoctor-main/${CUKEDOCTOR_MAIN_VERSION}/cukedoctor-main-${CUKEDOCTOR_MAIN_VERSION}.jar
-
-function generate_living_documentation() {
-  cd $MODULE && java -jar $CUKEDOCTOR_MAIN_JAR \
-    -o "build/TripAgency/TripAgency_living_documentation-${PROJECT_VERSION}" \
-    -p "build/cucumber/TripAgency.json" \
-    -t "TripAgency_living_documentation" \
-    -f all \
-    -numbered \
-    -hideSummarySection \
-    -hideScenarioKeyword
+#######################################
+# Check if the variable as argument is filled
+# Globals:
+#   - SONARQUBE_URL   : Sonarqube url
+#   - SONARQUBE_CREDS : Sonarqube credentials
+# Outputs:
+#   Genrates report
+# Returns:
+#   0 if the scan is executed normally,  else 1.
+#######################################
+function launch_quality_scan() {
+  sonar-scanner -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_CREDS} -Dsonar.sourceEncoding=UTF-8 || exit 1
 }
 
 ################################################################################
 ################################################################################
 # Main program                                                                 #
 ################################################################################
-generate_living_documentation
+launch_quality_scan

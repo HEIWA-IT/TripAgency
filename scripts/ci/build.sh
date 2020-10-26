@@ -37,9 +37,9 @@ VERSION=$1
 echo Version: ${VERSION}
 
 ################################################################################
-# Help                                                                         #
+# help                                                                         #
 ################################################################################
-Help()
+function help()
 {
   # Display Help
   echo "Display the options of this script."
@@ -55,38 +55,38 @@ Help()
 }
 
 ################################################################################
-# Gradlew                                                                      #
+# gradlew                                                                      #
 ################################################################################
-Gradlew()
+function gradlew()
 {
-  echo "Using Gradlew"
+  echo "Using gradlew"
   ./gradlew build || exit 1
 }
 
 ################################################################################
-# Gradle                                                                       #
+# gradle                                                                       #
 ################################################################################
-Gradle()
+function gradle()
 {
-  echo "Using Gradle"
+  echo "Using gradle"
   gradle build || exit 1
 }
 
 ################################################################################
-# Mvnw                                                                         #
+# mvnw                                                                         #
 ################################################################################
-Mvnw()
+function mvnw()
 {
-  echo "Using Mvnw"
+  echo "Using mvnw"
   ./mvnw deploy -pl !e2e -Drevision="$VERSION" ${MVN_SETTINGS} || exit 1
 }
 
 ################################################################################
-# Mvn                                                                          #
+# mvn                                                                          #
 ################################################################################
-Mvn()
+function mvn()
 {
-  echo "Using Mvnw"
+  echo "Using mvnw"
   mvn deploy -pl !e2e -Drevision="$VERSION" ${MVN_SETTINGS} || exit 1
 }
 
@@ -102,19 +102,19 @@ Mvn()
 
 case ${OPTIONS} in
   -h|--help) # display Help
-    Help
+    help
     exit;;
   -mw|--mvnw) # build with Maven wrapper
-    Mvnw
+    mvnw
     exit;;
   -m|--mvn) # build with Maven
-    Mvn
+    mvn
     exit;;
   -gw|--gradlew) # build with Gradle wrapper
-    Gradlew
+    gradlew
     exit;;
   -g|--gradle) # build with Gradle
-    Gradle
+    gradle
     exit;;
   \?) # incorrect option
     echo "Error: Invalid option"

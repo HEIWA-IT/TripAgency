@@ -232,6 +232,7 @@ sudo ln -s /usr/local/bin/gtimeout /usr/local/bin/timeout
 You can also us the Makefile included at the root folder of the project.
 To use it, you will need to have the following file **~/.env** with this content:
 ```
+############################### CI ###############################
 export OPTIONS=-mw
 export MVN_SETTINGS=
 
@@ -242,6 +243,7 @@ export DOCKER_PROJECT_REGISTRY={{DOCKER_PROJECT_REGISTRY}}
 export DOCKER_REGISTRY_USERNAME={{DOCKER_REGISTRY_USERNAME}}
 export DOCKER_REGISTRY_PASSWORD={{DOCKER_REGISTRY_PASSWORD}}
 
+############################## E2E ###############################
 export E2E_TEST_MODE=DOCKER
 ```
 
