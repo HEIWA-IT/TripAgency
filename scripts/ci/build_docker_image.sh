@@ -46,8 +46,7 @@ MVN_JIB_COMMAND="compile ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${D
 function help() {
   # Display Help
   echo "Display the options of this script."
-  echo
-  echo "Syntax: build.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
+  echo "Syntax: build_docker_image.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
   echo "options:"
   echo "-gw|--gradlew      Use Gradle wrapper to build the docker image."
   echo "-g|--gradle        Use Gradle to build the docker image."
@@ -123,7 +122,7 @@ case $OPTIONS in
   gradle
   exit
   ;;
-\?) # incorrect option
+*) # incorrect option
   echo "Error: Invalid option"
   exit
   ;;

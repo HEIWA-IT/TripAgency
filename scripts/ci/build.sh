@@ -121,7 +121,7 @@ case ${OPTIONS} in
   -g|--gradle) # build with Gradle
     gradle
     exit;;
-  \?) # incorrect option
+  *) # incorrect option
     echo "Error: Invalid option"
     exit;;
 esac

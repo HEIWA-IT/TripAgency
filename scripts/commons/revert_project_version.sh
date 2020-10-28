@@ -36,12 +36,10 @@
 ################################################################################
 # help                                                                         #
 ################################################################################
-function help()
-{
+function help() {
   # Display Help
   echo "Display the options of this script."
-  echo
-  echo "Syntax: build.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
+  echo "Syntax: revert_project_version.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
   echo "options:"
   echo "-gw|--gradlew       Use Gradle wrapper to revert the poms to its former state."
   echo "-g|--gradle         Use Gradle to revert the poms to its former state."
@@ -54,8 +52,7 @@ function help()
 ################################################################################
 # mvnw                                                                         #
 ################################################################################
-function mvnw()
-{
+function mvnw() {
   echo "Using mvnw"
   ./mvnw versions:revert || exit 1
 }
@@ -63,12 +60,10 @@ function mvnw()
 ################################################################################
 # mvn                                                                          #
 ################################################################################
-function mvn()
-{
+function mvn() {
   echo "Using mvn"
   mvn versions:revert || exit 1
 }
-
 
 ################################################################################
 ################################################################################
@@ -81,22 +76,28 @@ function mvn()
 # Get the options
 
 case ${OPTIONS} in
-  -h|--help) # display Help
-    Help
-    exit;;
-  -mw|--mvnw) # build with Maven wrapper
-    mvnw
-    exit;;
-  -m|--mvn) # build with Maven
-    mvn
-    exit;;
-  -gw|--gradlew) # build with Gradle wrapper
-    gradlew
-    exit;;
-  -g|--gradle) # build with Gradle
-    gradle
-    exit;;
-  \?) # incorrect option
-    echo "Error: Invalid option"
-    exit;;
+-h | --help) # display Help
+  help
+  exit
+  ;;
+-mw | --mvnw) # build with Maven wrapper
+  mvnw
+  exit
+  ;;
+-m | --mvn) # build with Maven
+  mvn
+  exit
+  ;;
+-gw | --gradlew) # build with Gradle wrapper
+  gradlew
+  exit
+  ;;
+-g | --gradle) # build with Gradle
+  gradle
+  exit
+  ;;
+*) # incorrect option
+  echo "Error: Invalid option"
+  exit
+  ;;
 esac

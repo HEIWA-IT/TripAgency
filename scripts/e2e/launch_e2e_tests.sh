@@ -40,8 +40,7 @@ help()
 {
   # Display Help
   echo "Display the options of this script."
-  echo
-  echo "Syntax: build.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
+  echo "Syntax: launch_e2e_tests.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
   echo "options:"
   echo "-gw|--gradlew       Use Gradle wrapper to build the project."
   echo "-g|--gradle         Use Gradle to build the project."
@@ -113,7 +112,7 @@ case ${OPTIONS} in
   -g|--gradle) # build with Gradle
     gradle
     exit;;
-  \?) # incorrect option
+  *) # incorrect option
     echo "Error: Invalid option"
     exit;;
 esac

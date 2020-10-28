@@ -41,13 +41,12 @@ INITIAL_DIR=$(pwd)
 function help() {
   # Display Help
   echo "Display the options of this script."
-  echo
-  echo "Syntax: build.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
+  echo "Syntax: clean.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
   echo "options:"
   echo "-gw|--gradlew      Use Gradle wrapper to build the docker image."
   echo "-g|--gradle        Use Gradle to build the docker image."
-  echo "-mw|--mvnw          Use Maven wrapper to revert the poms to its former state."
-  echo "-m|--mvn            Use Maven  to revert the poms to its former state."
+  echo "-mw|--mvnw         Use Maven wrapper to revert the poms to its former state."
+  echo "-m|--mvn           Use Maven  to revert the poms to its former state."
   echo "-h|--help          Print this Help."
   echo
 }
@@ -108,22 +107,14 @@ case $OPTIONS in
   exit
   ;;
 -mw | --mvnw) # build with Maven wrapper
-  mvnw
-  exit
-  ;;
+  mvnw ;;
 -m | --mvn) # build with Maven
-  mvn
-  exit
-  ;;
+  mvn ;;
 -gw | --gradlew) # build with Gradle wrapper
-  gradlew
-  exit
-  ;;
+  gradlew ;;
 -g | --gradle) # build with Gradle
-  gradle
-  exit
-  ;;
-\?) # incorrect option
+  gradle ;;
+*) # incorrect option
   echo "Error: Invalid option"
   exit
   ;;
