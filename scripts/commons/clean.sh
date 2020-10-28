@@ -33,6 +33,8 @@
 ################################################################################
 ################################################################################
 
+INITIAL_DIR=$(pwd)
+
 ################################################################################
 # help                                                                         #
 ################################################################################
@@ -51,11 +53,11 @@ function help() {
 }
 
 ################################################################################
-# delete_exposition_fogs_folder                                                                          #
+# delete_exposition_logs_folder                                                                          #
 ################################################################################
-function delete_exposition_fogs_folder() {
+function delete_exposition_logs_folder() {
   echo "Deleting the logs folder in the exposition module."
-  cd exposition && rm -rf ./logs && cd .. || exit 1
+  cd exposition && rm -rf ./logs && cd "${INITIAL_DIR}" || exit 1
 }
 
 ################################################################################
@@ -103,27 +105,22 @@ function mvn() {
 case $OPTIONS in
 -h | --help) # display Help
   help
-  delete_exposition_fogs_folder
   exit
   ;;
 -mw | --mvnw) # build with Maven wrapper
   mvnw
-  delete_exposition_fogs_folder
   exit
   ;;
 -m | --mvn) # build with Maven
   mvn
-  delete_exposition_fogs_folder
   exit
   ;;
 -gw | --gradlew) # build with Gradle wrapper
   gradlew
-  delete_exposition_fogs_folder
   exit
   ;;
 -g | --gradle) # build with Gradle
   gradle
-  delete_exposition_fogs_folder
   exit
   ;;
 \?) # incorrect option
@@ -131,3 +128,5 @@ case $OPTIONS in
   exit
   ;;
 esac
+
+delete_exposition_logs_folder

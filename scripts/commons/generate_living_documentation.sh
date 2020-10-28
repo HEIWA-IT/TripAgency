@@ -36,10 +36,7 @@
 
 MODULE=$1
 PROJECT_VERSION=$2
-CUKEDOCTOR_MAIN_VERSION=3.2
 
-MAVEN_REPOSITORY=$(./mvnw help:evaluate -Dexpression=settings.localRepository -q -DforceStdout)
-CUKEDOCTOR_MAIN_JAR=${MAVEN_REPOSITORY}/com/github/cukedoctor/cukedoctor-main/${CUKEDOCTOR_MAIN_VERSION}/cukedoctor-main-${CUKEDOCTOR_MAIN_VERSION}.jar
 
 function generate_living_documentation() {
   cd $MODULE && java -jar $CUKEDOCTOR_MAIN_JAR \

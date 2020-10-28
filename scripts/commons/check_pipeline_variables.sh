@@ -70,6 +70,8 @@ function check_variables() {
   status+=$?
   check_variable "MVN_SETTINGS" $NOT_MANDATORY_VARIABLE
   status+=$?
+  check_variable "MAVEN_REPOSITORY" $MANDATORY_VARIABLE
+  status+=$?
 
   check_variable "SONARQUBE_URL" $MANDATORY_VARIABLE
   status+=$?
@@ -81,6 +83,11 @@ function check_variables() {
   check_variable "DOCKER_REGISTRY_USERNAME" $MANDATORY_VARIABLE
   status+=$?
   check_variable "DOCKER_REGISTRY_PASSWORD" $MANDATORY_VARIABLE
+  status+=$?
+
+  check_variable "MAVEN_REPOSITORY" $MANDATORY_VARIABLE
+  status+=$?
+  check_variable "CUKEDOCTOR_MAIN_JAR" $MANDATORY_VARIABLE
   status+=$?
 
   check_variable "E2E_TEST_MODE" $NOT_MANDATORY_VARIABLE

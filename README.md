@@ -224,7 +224,7 @@ sudo ln -s /usr/local/bin/gtimeout /usr/local/bin/timeout
 
 ### Requirements
 
-#### Install the tools necessited to 
+#### Install the needed tools to 
 - docker and docker-compose
 - **timeout** or **gtimeout**. Look at this [paragraph](e2e-testing)
 
@@ -235,6 +235,7 @@ To use it, you will need to have the following file **~/.env** with this content
 ############################### CI ###############################
 export OPTIONS=-mw
 export MVN_SETTINGS=
+export MAVEN_REPOSITORY=${HOME}/.m2/repository
 
 export SONARQUBE_URL={{SONARQUBE_URL}}
 export SONARQUBE_CREDS={{SONARQUBE_CREDS}}
@@ -243,11 +244,16 @@ export DOCKER_PROJECT_REGISTRY={{DOCKER_PROJECT_REGISTRY}}
 export DOCKER_REGISTRY_USERNAME={{DOCKER_REGISTRY_USERNAME}}
 export DOCKER_REGISTRY_PASSWORD={{DOCKER_REGISTRY_PASSWORD}}
 
+############################# COMMONS #############################
+export CUKEDOCTOR_MAIN_VERSION=3.2
+export CUKEDOCTOR_MAIN_JAR=${MAVEN_REPOSITORY}/com/github/cukedoctor/cukedoctor-main/${CUKEDOCTOR_MAIN_VERSION}/cukedoctor-main-${CUKEDOCTOR_MAIN_VERSION}.jar
+
 ############################## E2E ###############################
 export E2E_TEST_MODE=DOCKER
 ```
 
 The placeholders (between double brackets) need to be fill with the correct values. 
+Some values have been set (for example CUKEDOCTOR_MAIN_VERSION). You can change the value if it does not fit your environment.  
 
 #### Commands to execute
 **make ci** will build the different components, and the docker image.  

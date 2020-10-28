@@ -95,10 +95,15 @@ function mvn()
 # Main program                                                                 #
 ################################################################################
 ################################################################################
-################################################################################
-# Process the input options. Add options as needed.                            #
-################################################################################
-# Get the options
+
+###################################################
+# Launch the build of the project depending of the
+# options provided.
+# Outputs:
+#   Different artifacts stored in the build folder
+# Returns:
+#   0 if everything went fine, else 1
+####################################################
 
 case ${OPTIONS} in
   -h|--help) # display Help

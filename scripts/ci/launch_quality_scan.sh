@@ -34,16 +34,18 @@
 ################################################################################
 ################################################################################
 
-#######################################
-# Check if the variable as argument is filled
+##################################################
+# Generates quality report
 # Globals:
 #   - SONARQUBE_URL   : Sonarqube url
 #   - SONARQUBE_CREDS : Sonarqube credentials
 # Outputs:
-#   Genrates report
+#   Generates report in the build folder of module
+#   filled as argument and exports it to a remote
+#   server.
 # Returns:
-#   0 if the scan is executed normally,  else 1.
-#######################################
+#   0 if the scan is executed normally, else 1.
+##################################################
 function launch_quality_scan() {
   sonar-scanner -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_CREDS} -Dsonar.sourceEncoding=UTF-8 || exit 1
 }

@@ -35,13 +35,15 @@
 ################################################################################
 
 DOCKER_IMAGE=$1
-echo ${DOCKER_IMAGE}
+echo "${DOCKER_IMAGE}"
+
+MVN_JIB_COMMAND="compile ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
+-Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000"
 
 ################################################################################
 # help                                                                         #
 ################################################################################
-function help()
-{
+function help() {
   # Display Help
   echo "Display the options of this script."
   echo
@@ -58,8 +60,7 @@ function help()
 ################################################################################
 # gradlew                                                                      #
 ################################################################################
-function gradlew()
-{
+function gradlew() {
   echo "Using gradlew"
   echo "To implement with gradlew"
   exit 1
@@ -68,8 +69,7 @@ function gradlew()
 ################################################################################
 # gradle                                                                       #
 ################################################################################
-function  gradle()
-{
+function gradle() {
   echo "Using gradle"
   echo "To implement with gradle"
   exit 1
@@ -78,54 +78,53 @@ function  gradle()
 ################################################################################
 # mvnw                                                                         #
 ################################################################################
-function  mvnw()
-{
+function mvnw() {
   echo "Using mvnw"
-  echo ./mvnw compile ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
-  -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000
-  ./mvnw compile ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
-  -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000 || exit 1
+  echo ./mvnw ${MVN_JIB_COMMAND}
+  ./mvnw ${MVN_JIB_COMMAND} || exit 1
 }
 
 ################################################################################
 # mvn                                                                          #
 ################################################################################
-function mvn()
-{
+function mvn() {
   echo "Using mvn"
-  echo mvn ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
-  -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000
-  mvn ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
-  -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000 || exit 1
+  echo mvn ${MVN_JIB_COMMAND}
+  mvn ${MVN_JIB_COMMAND} || exit 1
 }
 
-################################################################################
-################################################################################
-# Main program                                                                 #
-################################################################################
-################################################################################
-################################################################################
-# Process the input options. Add options as needed.                            #
-################################################################################
-# Get the options
+###################################################
+# Launch the build of the docker image of the
+# exposition module depending of the options provided.
+# Outputs:
+#   A docker image of the exposition module
+# Returns:
+#   0 if everything went fine, else 1
+####################################################
 
 case $OPTIONS in
-  -h|--help) # display Help
-    help
-    exit;;
-  -mw|--mvnw) # build with Maven wrapper
-    mvnw
-    exit;;
-  -m|--mvn) # build with Maven
-    mvn
-    exit;;
-  -gw|--gradlew) # build with Gradle wrapper
-    gradlew
-    exit;;
-  -g|--gradle) # build with Gradle
-    gradle
-    exit;;
-  \?) # incorrect option
-    echo "Error: Invalid option"
-    exit;;
+-h | --help) # display Help
+  help
+  exit
+  ;;
+-mw | --mvnw) # build with Maven wrapper
+  mvnw
+  exit
+  ;;
+-m | --mvn) # build with Maven
+  mvn
+  exit
+  ;;
+-gw | --gradlew) # build with Gradle wrapper
+  gradlew
+  exit
+  ;;
+-g | --gradle) # build with Gradle
+  gradle
+  exit
+  ;;
+\?) # incorrect option
+  echo "Error: Invalid option"
+  exit
+  ;;
 esac
