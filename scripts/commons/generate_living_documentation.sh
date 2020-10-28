@@ -37,10 +37,16 @@
 MODULE=$1
 PROJECT_VERSION=$2
 
-
+###################################################
+# Generate the project living documentation
+# Outputs:
+#   Different living documentation files inside a folder in the build folder
+# Returns:
+#   0 if everything went fine, else 1
+####################################################
 function generate_living_documentation() {
-  cd $MODULE && java -jar $CUKEDOCTOR_MAIN_JAR \
-    -o "build/TripAgency/TripAgency_living_documentation-${PROJECT_VERSION}" \
+  cd "${MODULE}" && java -jar "${CUKEDOCTOR_MAIN_JAR}" \
+    -o "build/TripAgency/TripAgency_living_documentation-""${PROJECT_VERSION}" \
     -p "build/cucumber/TripAgency.json" \
     -t "TripAgency_living_documentation" \
     -f all \

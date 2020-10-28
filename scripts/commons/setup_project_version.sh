@@ -95,10 +95,13 @@ function mvn()
 # Main program                                                                 #
 ################################################################################
 ################################################################################
-################################################################################
-# Process the input options. Add options as needed.                            #
-################################################################################
-# Get the options
+###################################################
+# Setup the version in the different files to build the project.
+# The methods will depends of the chosen option
+# Returns:
+#   0 if everything went fine, else 1
+####################################################
+
 
 case ${OPTIONS} in
   -h|--help) # display Help

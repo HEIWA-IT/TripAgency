@@ -75,7 +75,7 @@ function check_variables() {
 
   check_variable "SONARQUBE_URL" $MANDATORY_VARIABLE
   status+=$?
-  check_variable "SONARQUBE_CREDS" $MANDATORY_VARIABLE
+  check_variable "SONARQUBE_CREDENTIALS" $MANDATORY_VARIABLE
   status+=$?
 
   check_variable "DOCKER_PROJECT_REGISTRY" $MANDATORY_VARIABLE

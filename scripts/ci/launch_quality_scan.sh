@@ -38,7 +38,7 @@
 # Generates quality report
 # Globals:
 #   - SONARQUBE_URL   : Sonarqube url
-#   - SONARQUBE_CREDS : Sonarqube credentials
+#   - SONARQUBE_CREDENTIALS : Sonarqube credentials
 # Outputs:
 #   Generates report in the build folder of module
 #   filled as argument and exports it to a remote
@@ -47,7 +47,7 @@
 #   0 if the scan is executed normally, else 1.
 ##################################################
 function launch_quality_scan() {
-  sonar-scanner -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_CREDS} -Dsonar.sourceEncoding=UTF-8 || exit 1
+  sonar-scanner -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_CREDENTIALS} -Dsonar.sourceEncoding=UTF-8 || exit 1
 }
 
 ################################################################################
