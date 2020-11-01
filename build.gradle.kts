@@ -14,6 +14,7 @@ allprojects {
 
     apply { plugin("java") }
     apply { plugin("maven-publish") }
+    apply { plugin("jacoco") }
 
     repositories {
         jcenter()
@@ -61,6 +62,27 @@ allprojects {
                 artifactId = tasks.jar.get().archiveBaseName.get()
             }
         }
+    }
+
+    jacoco {
+        toolVersion = "0.8.6"
+        reportsDir = file("$buildDir/jacoco")
+    }
+
+    tasks.jacocoTestReport {
+        reports {
+            xml.isEnabled = true
+            csv.isEnabled = false
+            html.isEnabled = true
+        }
+    }
+
+    tasks.test {
+        finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+    }
+
+    tasks.jacocoTestReport {
+        dependsOn(tasks.test) // tests are required to run before generating the report
     }
 }
 
