@@ -64,14 +64,12 @@ allprojects {
     }
 }
 
-version = "0.0.1-SNAPSHOT"
 tasks.compileJava {
     // use the project's version or define one directly
     options.javaModuleVersion.set(provider { project.version as String })
 }
 
 subprojects {
-
     java {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
