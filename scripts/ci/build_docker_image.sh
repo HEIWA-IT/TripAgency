@@ -61,8 +61,14 @@ function help() {
 ################################################################################
 function gradlew() {
   echo "Using gradlew"
-  echo "To implement with gradlew"
-  exit 1
+  ./gradlew jib \
+    -Djib.from.image=openjdk:11-jdk-slim \
+    -Djib.from.auth.username="${DOCKER_REGISTRY_USERNAME}" \
+    -Djib.from.auth.password="${DOCKER_REGISTRY_PASSWORD}" \
+    -Djib.to.image="${DOCKER_IMAGE}" \
+    -Djib.to.auth.username="${DOCKER_REGISTRY_USERNAME}" \
+    -Djib.to.auth.password="${DOCKER_REGISTRY_PASSWORD}" \
+    -Djib.console=plain -Djib.httpTimeout=600000 || exit 1
 }
 
 ################################################################################
@@ -70,8 +76,14 @@ function gradlew() {
 ################################################################################
 function gradle() {
   echo "Using gradle"
-  echo "To implement with gradle"
-  exit 1
+  gradle jib \
+    -Djib.from.image=openjdk:11-jdk-slim \
+    -Djib.from.auth.username="${DOCKER_REGISTRY_USERNAME}" \
+    -Djib.from.auth.password="${DOCKER_REGISTRY_PASSWORD}" \
+    -Djib.to.image="${DOCKER_IMAGE}" \
+    -Djib.to.auth.username="${DOCKER_REGISTRY_USERNAME}" \
+    -Djib.to.auth.password="${DOCKER_REGISTRY_PASSWORD}" \
+    -Djib.console=plain -Djib.httpTimeout=600000 || exit 1
 }
 
 ################################################################################

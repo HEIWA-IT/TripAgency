@@ -6,8 +6,11 @@ plugins {
 }
 
 allprojects {
-    group = "com.heiwait"
-    version = "0.0.1-SNAPSHOT"
+    val groupId: String by project
+    val projectVersion: String by project
+
+    group = groupId
+    version = projectVersion
 
     apply { plugin("java") }
     apply { plugin("maven-publish") }

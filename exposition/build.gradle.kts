@@ -1,3 +1,7 @@
+plugins {
+    id("com.google.cloud.tools.jib") version "2.6.0"
+}
+
 dependencies {
     implementation(project(":domain"))
     implementation(project(":repository"))

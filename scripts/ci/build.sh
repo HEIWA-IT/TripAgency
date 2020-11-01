@@ -48,8 +48,8 @@ function help()
   echo "options:"
   echo "-gw|--gradlew      Use Gradle wrapper to build the project."
   echo "-g|--gradle        Use Gradle to build the project."
-  echo "-mw|--mvnw          Use Maven wrapper to revert the poms to its former state."
-  echo "-m|--mvn            Use Maven  to revert the poms to its former state."
+  echo "-mw|--mvnw         Use Maven wrapper to revert the poms to its former state."
+  echo "-m|--mvn           Use Maven  to revert the poms to its former state."
   echo "-h|--help          Print this Help."
   echo
 }
@@ -60,7 +60,7 @@ function help()
 function gradlew()
 {
   echo "Using gradlew"
-  ./gradlew build || exit 1
+  ./gradlew :exposition:buildNeeded -PprojectVersion="${VERSION}" ${GRADLE_SETTINGS} || exit 1
 }
 
 ################################################################################
@@ -69,7 +69,7 @@ function gradlew()
 function gradle()
 {
   echo "Using gradle"
-  gradle build || exit 1
+  gradle :exposition:buildNeeded -PprojectVersion="${VERSION}" ${GRADLE_SETTINGS} || exit 1
 }
 
 ################################################################################
@@ -78,7 +78,7 @@ function gradle()
 function mvnw()
 {
   echo "Using mvnw"
-  ./mvnw deploy -pl !e2e -Drevision="$VERSION" ${MVN_SETTINGS} || exit 1
+  ./mvnw deploy -pl !e2e -Drevision="${VERSION}" ${MVN_SETTINGS} || exit 1
 }
 
 ################################################################################
@@ -87,7 +87,7 @@ function mvnw()
 function mvn()
 {
   echo "Using mvnw"
-  mvn deploy -pl !e2e -Drevision="$VERSION" ${MVN_SETTINGS} || exit 1
+  mvn deploy -pl !e2e -Drevision="${VERSION}" ${MVN_SETTINGS} || exit 1
 }
 
 ################################################################################
@@ -119,7 +119,6 @@ case ${OPTIONS} in
     gradlew
     exit;;
   -g|--gradle) # build with Gradle
-    gradle
     exit;;
   *) # incorrect option
     echo "Error: Invalid option"

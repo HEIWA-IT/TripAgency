@@ -46,8 +46,8 @@ function help()
   echo "options:"
   echo "-gw|--gradlew      Use Gradle wrapper to build the project."
   echo "-g|--gradle        Use Gradle to build the project."
-  echo "-mw|--mvnw          Use Maven wrapper to revert the poms to its former state."
-  echo "-m|--mvn            Use Maven  to revert the poms to its former state."
+  echo "-mw|--mvnw         Use Maven wrapper to revert the poms to its former state."
+  echo "-m|--mvn           Use Maven  to revert the poms to its former state."
   echo "-h|--help          Print this Help."
   echo
 }
@@ -57,9 +57,7 @@ function help()
 ################################################################################
 function gradlew()
 {
-  echo "Using Gradlew"
-  echo "To implement with gradle"
-  exit 1
+  echo "Gradlew N/A"
 }
 
 ################################################################################
@@ -67,9 +65,7 @@ function gradlew()
 ################################################################################
 function gradle()
 {
-  echo "Using Gradle"
-  echo "To implement with gradle"
-  exit 1
+  echo "Gradle N/A"
 }
 
 ################################################################################
