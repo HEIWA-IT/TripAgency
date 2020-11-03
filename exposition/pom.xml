@@ -139,6 +139,9 @@
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>${jib.version}</version>
                 <configuration>
+                    <container>
+                        <mainClass>com.heiwait.tripagency.driver.exposition.ExpositionApplication</mainClass>
+                    </container>
                     <from>
                         <image>${docker.baseImage.name}:${docker.baseImage.version}</image>
                         <auth>
