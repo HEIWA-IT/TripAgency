@@ -1,7 +1,6 @@
 dependencies {
     implementation("com.github.cukedoctor:cukedoctor-main")
-
-    testImplementation("com.heiwait:domain")
+    testImplementation(project(":domain"))
     testImplementation("io.cucumber:cucumber-java")
     testImplementation("io.cucumber:cucumber-junit-platform-engine")
     testImplementation("io.rest-assured:json-path")

@@ -56,7 +56,7 @@ help()
 gradlew()
 {
   echo "Using Gradlew"
-  ./gradlew -p :e2e:test || exit 1
+  ./gradlew :e2e:test || exit 1
 }
 
 ################################################################################
@@ -65,7 +65,7 @@ gradlew()
 gradle()
 {
   echo "Using Gradle"
-  gradle -p :e2e:test || exit 1
+  gradle :e2e:test || exit 1
 }
 
 ################################################################################

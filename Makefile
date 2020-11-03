@@ -4,26 +4,25 @@ VERSION := $(shell git describe --tags --always)-SNAPSHOT
 APP_NAME := $(shell ./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.name -q -DforceStdout)
 DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
 
-all : 	check_variables setup_project_version build build_docker_image launch_quality_scan generate_living_documentation_for_domain \
-		start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition clean
+all : 	ci e2e clean
 .PHONY: all
 
-ci : 	check_variables setup_project_version build build_docker_image launch_quality_scan generate_living_documentation_for_domain revert_project_version
+ci : 	setup build build_docker_image launch_quality_scan generate_living_documentation_for_domain
 .PHONY: ci
 
-e2e : 	check_variables setup_project_version start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition revert_project_version
+e2e : 	setup start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition
 .PHONY: e2e
 
 clean : revert_project_version cleaning
 .PHONY: clean
 
-check : 	check_variables
-.PHONY: check
+setup : check_variables setup_project_version
+.PHONY: setup
 
 build :
 	./scripts/ci/build.sh "${VERSION}"
 build_docker_image :
-	./scripts/ci/build_docker_image.sh "${DOCKER_IMAGE}"
+	./scripts/ci/build_docker_image.sh "${DOCKER_IMAGE}" "${VERSION}"
 launch_quality_scan :
 	./scripts/ci/launch_quality_scan.sh
 

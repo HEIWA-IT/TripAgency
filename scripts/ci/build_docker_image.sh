@@ -37,8 +37,19 @@
 DOCKER_IMAGE=$1
 echo "${DOCKER_IMAGE}"
 
+VERSION=$2
+
 MVN_JIB_COMMAND="compile ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
 -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000"
+
+GRADLE_JIB_COMMAND="jib \
+    -Djib.from.image=openjdk:11-jdk-slim \
+    -Djib.from.auth.username=${DOCKER_REGISTRY_USERNAME} \
+    -Djib.from.auth.password=${DOCKER_REGISTRY_PASSWORD} \
+    -Djib.to.image=${DOCKER_IMAGE} \
+    -Djib.to.auth.username=${DOCKER_REGISTRY_USERNAME} \
+    -Djib.to.auth.password=${DOCKER_REGISTRY_PASSWORD} \
+    -Djib.console=plain -Djib.httpTimeout=600000"
 
 ################################################################################
 # help                                                                         #
@@ -50,8 +61,8 @@ function help() {
   echo "options:"
   echo "-gw|--gradlew      Use Gradle wrapper to build the docker image."
   echo "-g|--gradle        Use Gradle to build the docker image."
-  echo "-mw|--mvnw          Use Maven wrapper to revert the poms to its former state."
-  echo "-m|--mvn            Use Maven  to revert the poms to its former state."
+  echo "-mw|--mvnw         Use Maven wrapper to revert the poms to its former state."
+  echo "-m|--mvn           Use Maven  to revert the poms to its former state."
   echo "-h|--help          Print this Help."
   echo
 }
@@ -61,14 +72,11 @@ function help() {
 ################################################################################
 function gradlew() {
   echo "Using gradlew"
-  ./gradlew jib \
-    -Djib.from.image=openjdk:11-jdk-slim \
-    -Djib.from.auth.username="${DOCKER_REGISTRY_USERNAME}" \
-    -Djib.from.auth.password="${DOCKER_REGISTRY_PASSWORD}" \
-    -Djib.to.image="${DOCKER_IMAGE}" \
-    -Djib.to.auth.username="${DOCKER_REGISTRY_USERNAME}" \
-    -Djib.to.auth.password="${DOCKER_REGISTRY_PASSWORD}" \
-    -Djib.console=plain -Djib.httpTimeout=600000 || exit 1
+  #./gradlew ${GRADLE_JIB_COMMAND} || exit 1
+  ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
+  mvnw
+  ./mvnw versions:revert || exit 1
+
 }
 
 ################################################################################
@@ -76,14 +84,10 @@ function gradlew() {
 ################################################################################
 function gradle() {
   echo "Using gradle"
-  gradle jib \
-    -Djib.from.image=openjdk:11-jdk-slim \
-    -Djib.from.auth.username="${DOCKER_REGISTRY_USERNAME}" \
-    -Djib.from.auth.password="${DOCKER_REGISTRY_PASSWORD}" \
-    -Djib.to.image="${DOCKER_IMAGE}" \
-    -Djib.to.auth.username="${DOCKER_REGISTRY_USERNAME}" \
-    -Djib.to.auth.password="${DOCKER_REGISTRY_PASSWORD}" \
-    -Djib.console=plain -Djib.httpTimeout=600000 || exit 1
+  #gradle ${GRADLE_JIB_COMMAND} || exit 1
+  ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
+  mvnw
+  ./mvnw versions:revert || exit 1
 }
 
 ################################################################################

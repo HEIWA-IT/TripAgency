@@ -6,6 +6,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":repository"))
 
+    implementation("com.h2database:h2")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.liquibase:liquibase-core")
@@ -13,10 +14,8 @@ dependencies {
     implementation("io.springfox:springfox-boot-starter")
 
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("org.postgresql:postgresql")
 
     testImplementation("org.assertj:assertj-core")
-    testImplementation("com.h2database:h2")
     testImplementation("io.rest-assured:rest-assured")
     testImplementation("org.assertj:assertj-core")
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -25,3 +24,8 @@ dependencies {
     testImplementation("org.springframework:spring-test")
     testImplementation("org.mockito:mockito-junit-jupiter")
 }
+
+/*task copyDependencies (type: Copy) {
+    from configurations.compile
+            into 'dependencies'
+}*/
