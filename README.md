@@ -7,6 +7,7 @@ And this for two reasons:
 We can say that we killed two birds with one stone.
 
 ## Summary
+- [0 Requirements](#0-requirements)
 - [1 Sample goals](#1-sample-goals)
 - [2 Wrappers and practices to build](#2-wrappers-and-practices-to-build)
   - [2.1 Maven wrapper](#2-1-maven-wrapper)
@@ -22,6 +23,9 @@ We can say that we killed two birds with one stone.
 - [7 I18n](#7-i18n)
 - [8 CI/CD best practices](#8-cicd-best-practices)
 - [9 Let's make it work](#9-lets-make-it-work)
+
+## 0 Requirements
+
 
 ## 1 Sample goals
 This sample was made to provide a concrete example on some best practices of the market regarding a java application providing Rest API.  
@@ -220,6 +224,9 @@ brew install coreutils
 sudo ln -s /usr/local/bin/gtimeout /usr/local/bin/timeout
 ```
 
+### logs
+The logs are stored in the following folder : /var/log/tripagency
+
 ## Use the Makefile to compile and test the project
 
 ### Requirements
@@ -233,9 +240,11 @@ You can also us the Makefile included at the root folder of the project.
 To use it, you will need to have the following file **~/.env** with this content:
 ```
 ############################### CI ###############################
-export OPTIONS=-mw
-export MVN_SETTINGS=
 export MAVEN_REPOSITORY=${HOME}/.m2/repository
+export OPTIONS=-mw
+export DOCKER_BUILD_OPTIONS=-d
+export MVN_SETTINGS=
+export GRADLE_SETTINGS=
 
 export SONARQUBE_URL={{SONARQUBE_URL}}
 export SONARQUBE_CREDENTIALS={{SONARQUBE_CREDS}}
@@ -263,4 +272,3 @@ Some values have been set (for example CUKEDOCTOR_MAIN_VERSION). You can change 
 You can launch the following command **make ci && make e2e**.  
 Check the living documentation generated in the domain and e2e modules.  
 After that you clean it by executing the **make clean** command.  
-

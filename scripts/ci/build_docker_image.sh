@@ -38,6 +38,7 @@ DOCKER_IMAGE=$1
 echo "${DOCKER_IMAGE}"
 
 VERSION=$2
+APP_NAME=$3
 
 MVN_JIB_COMMAND="compile ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
 -Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000"
@@ -108,6 +109,17 @@ function mvn() {
   mvn ${MVN_JIB_COMMAND} || exit 1
 }
 
+################################################################################
+# docker                                                                         #
+################################################################################
+function use_docker() {
+  echo "Using docker"
+  echo exposition && docker build --tag "${APP_NAME}":"${VERSION}" .
+  cd exposition && docker build --tag "${DOCKER_IMAGE}" . || exit 1
+  docker login -u="${DOCKER_REGISTRY_USERNAME}" -p="${DOCKER_REGISTRY_PASSWORD}"
+  docker push "${DOCKER_IMAGE}"
+}
+
 ###################################################
 # Launch the build of the docker image of the
 # exposition module depending of the options provided.
@@ -117,7 +129,7 @@ function mvn() {
 #   0 if everything went fine, else 1
 ####################################################
 
-case $OPTIONS in
+case $DOCKER_BUILD_OPTIONS in
 -h | --help) # display Help
   help
   exit
@@ -136,6 +148,10 @@ case $OPTIONS in
   ;;
 -g | --gradle) # build with Gradle
   gradle
+  exit
+  ;;
+-d | --docker)  # build with Docker
+  use_docker
   exit
   ;;
 *) # incorrect option

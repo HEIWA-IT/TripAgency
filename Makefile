@@ -22,7 +22,7 @@ setup : check_variables setup_project_version
 build :
 	./scripts/ci/build.sh "${VERSION}"
 build_docker_image :
-	./scripts/ci/build_docker_image.sh "${DOCKER_IMAGE}" "${VERSION}"
+	./scripts/ci/build_docker_image.sh "${DOCKER_IMAGE}" "${VERSION}" "${APP_NAME}"
 launch_quality_scan :
 	./scripts/ci/launch_quality_scan.sh
 

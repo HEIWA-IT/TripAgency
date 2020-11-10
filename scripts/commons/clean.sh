@@ -52,14 +52,6 @@ function help() {
 }
 
 ################################################################################
-# delete_exposition_logs_folder                                                                          #
-################################################################################
-function delete_exposition_logs_folder() {
-  echo "Deleting the logs folder in the exposition module."
-  cd exposition && rm -rf ./logs && cd "${INITIAL_DIR}" || exit 1
-}
-
-################################################################################
 # gradlew                                                                      #
 ################################################################################
 function gradlew() {
@@ -120,5 +112,3 @@ case $OPTIONS in
   exit
   ;;
 esac
-
-delete_exposition_logs_folder
