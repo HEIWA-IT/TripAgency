@@ -12,6 +12,10 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,11 +68,8 @@ class PricerResourceTest {
         String responseStr = response.asString();
         JSONObject obj = new JSONObject(responseStr);
         String code = obj.getString("code");
-        String description = obj.getString("description");
 
         String expectedCode = "error.destination.missing";
-        String expectedDescription = "Destination manquante!";
         assertThat(code).isEqualTo(expectedCode);
-        assertThat(description).isEqualTo(expectedDescription);
     }
 }
