@@ -17,14 +17,14 @@ public class TripPricer implements PriceComputorDriverPort {
 
         Trip trip = tripRepository.findTripByDestination(destination);
 
-        if (Trip.Builder.MISSING_DESTINATION.equals(trip)) {
-            throw new BusinessException(BusinessErrors.MISSING_DESTINATION);
-        }
-
         return priceTrip(travelClass, trip);
     }
 
     private int priceTrip(TravelClass travelClass, Trip trip) {
+        if (Trip.Builder.MISSING_DESTINATION.equals(trip)) {
+            throw new BusinessException(BusinessErrors.MISSING_DESTINATION);
+        }
+
         return (trip.ticketPrice() * travelClass.coefficient()) + trip.agencyFees() + trip.stayFees();
     }
 
