@@ -40,8 +40,9 @@ public class TripRepositoryTest {
         builder.setTicketPrice(200);
     }).build();
 
+    /**********************************************************************************************************************/
     @Test
-    public void findTripByDestinationMock_with_a_valid_destination_should_find_a_trip() {
+    public void should_find_a_trip_with_the_mock_adapter_and_a_valid_destination() {
         Trip parisTrip = tripRepositoryMockPort.findTripByDestination(paris);
 
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTripForParis.agencyFees());
@@ -49,16 +50,27 @@ public class TripRepositoryTest {
     }
 
     @Test
-    public void findTripByDestinationSpringData_with_a_valid_destination_should_find_a_trip() {
+    public void should_return_a_missing_destination_with_the_mock_adapter_and_an_invalid_destination() {
+        Trip pariTrip = tripRepositoryMockPort.findTripByDestination(pari);
+        assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
+    }
+    /**********************************************************************************************************************/
+    @Test
+    public void findTripByDestination_should_find_a_trip_with_the_jpa_adapter_and_a_valid_destination() {
         Trip parisTrip = tripRepositoryJpaPort.findTripByDestination(paris);
 
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTripForParis.agencyFees());
         assertThat(parisTrip.ticketPrice()).isEqualTo(expectedTripForParis.ticketPrice());
     }
 
-
     @Test
-    public void findTripByDestinationJdbcTemplate_with_a_valid_destination_should_find_a_trip() {
+    public void should_return_a_missing_destination_with_the_jpa_adapter_and_an_invalid_destination() {
+        Trip pariTrip = tripRepositoryJpaPort.findTripByDestination(pari);
+        assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
+    }
+    /**********************************************************************************************************************/
+    @Test
+    public void should_find_a_trip_with_the_jdbc_adapter_and_a_valid_destination() {
         Trip parisTrip = tripRepositoryJdbcTemplatePort.findTripByDestination(paris);
 
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTripForParis.agencyFees());
@@ -66,14 +78,8 @@ public class TripRepositoryTest {
     }
 
     @Test
-    public void findTripByDestinationJdbcTemplate_with_a_invalid_destination_should_return_a_missing_destination() {
+    public void should_return_a_missing_destination_with_the_jdbc_adapter_and_an_invalid_destination() {
         Trip pariTrip = tripRepositoryJdbcTemplatePort.findTripByDestination(pari);
-        assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
-    }
-
-    @Test
-    public void findTripByDestination_with_a_invalid_destination_should_return_a_missing_destination() {
-        Trip pariTrip = tripRepositoryJpaPort.findTripByDestination(pari);
         assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
     }
 }
