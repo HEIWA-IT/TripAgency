@@ -50,7 +50,7 @@ public class TripRepositoryTest {
     }
 
     @Test
-    public void should_return_a_missing_destination_with_the_mock_adapter_and_an_invalid_destination() {
+    public void should_return_a_missing_destination_with_the_mock_adapter_and_a_missing_destination() {
         Trip pariTrip = tripRepositoryMockPort.findTripByDestination(pari);
         assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
     }
@@ -64,7 +64,7 @@ public class TripRepositoryTest {
     }
 
     @Test
-    public void should_return_a_missing_destination_with_the_jpa_adapter_and_an_invalid_destination() {
+    public void should_return_a_missing_destination_with_the_jpa_adapter_and_a_missing_destination() {
         Trip pariTrip = tripRepositoryJpaPort.findTripByDestination(pari);
         assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
     }
@@ -78,7 +78,7 @@ public class TripRepositoryTest {
     }
 
     @Test
-    public void should_return_a_missing_destination_with_the_jdbc_adapter_and_an_invalid_destination() {
+    public void should_return_a_missing_destination_with_the_jdbc_adapter_and_a_missing_destination() {
         Trip pariTrip = tripRepositoryJdbcTemplatePort.findTripByDestination(pari);
         assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
     }

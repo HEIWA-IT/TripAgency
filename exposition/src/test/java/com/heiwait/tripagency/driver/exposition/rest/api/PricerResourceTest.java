@@ -34,7 +34,7 @@ class PricerResourceTest {
     }
 
     @Test
-    void testPriceTripWithHardCodedCallForParis() {
+    void should_find_a_trip_with_the_mock_adapter_and_a_valid_destination() {
         String urlTemplate = "/tripagency/api/pricer/Paris/travelClass/BUSINESS/priceTripWithHardCodedValues";
         String expectedTripFees = "1350";
         String response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.OK.value()).and().extract().response().asString();
@@ -43,7 +43,20 @@ class PricerResourceTest {
     }
 
     @Test
-    void testPriceTripWithJPACallForParis() {
+    void should_return_a_missing_destination_with_the_mock_adapter_and_a_missing_destination() throws JSONException {
+        String urlTemplate = "/tripagency/api/pricer/Sydney/travelClass/BUSINESS/priceTripWithHardCodedValues";
+
+        Response response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.NOT_FOUND.value()).and().extract().response();
+        String responseStr = response.asString();
+        JSONObject obj = new JSONObject(responseStr);
+        String code = obj.getString("code");
+
+        String expectedCode = "error.destination.missing";
+        assertThat(code).isEqualTo(expectedCode);
+    }
+    /**********************************************************************************************************************/
+    @Test
+    void findTripByDestination_should_find_a_trip_with_the_jpa_adapter_and_a_valid_destination() {
         String urlTemplate = "/tripagency/api/pricer/Paris/travelClass/BUSINESS/priceTripWithJPA";
         String expectedTripFees = "1350";
         String response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.OK.value()).and().extract().response().asString();
@@ -52,7 +65,20 @@ class PricerResourceTest {
     }
 
     @Test
-    void testPriceTripWithJdbcTemplatedCallForParis() {
+    void should_return_a_missing_destination_with_the_jpa_adapter_and_a_missing_destination() throws JSONException {
+        String urlTemplate = "/tripagency/api/pricer/Sydney/travelClass/BUSINESS/priceTripWithJPA";
+
+        Response response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.NOT_FOUND.value()).and().extract().response();
+        String responseStr = response.asString();
+        JSONObject obj = new JSONObject(responseStr);
+        String code = obj.getString("code");
+
+        String expectedCode = "error.destination.missing";
+        assertThat(code).isEqualTo(expectedCode);
+    }
+    /**********************************************************************************************************************/
+    @Test
+    void should_find_a_trip_with_the_jdbc_adapter_and_a_valid_destination() {
         String urlTemplate = "/tripagency/api/pricer/Paris/travelClass/BUSINESS/priceTripWithJdbcTemplate";
         String expectedTripFees = "1350";
         String response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.OK.value()).and().extract().response().asString();
@@ -61,7 +87,7 @@ class PricerResourceTest {
     }
 
     @Test
-    void testPriceTripWithJdbcTemplatedCallForSydney() throws JSONException {
+    void should_return_a_missing_destination_with_the_jdbc_adapter_and_a_missing_destination() throws JSONException {
         String urlTemplate = "/tripagency/api/pricer/Sydney/travelClass/BUSINESS/priceTripWithJdbcTemplate";
 
         Response response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.NOT_FOUND.value()).and().extract().response();
