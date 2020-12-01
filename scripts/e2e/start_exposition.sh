@@ -53,9 +53,9 @@ function use_docker() {
 function use_generated_jar() {
   echo "Using the generated jar"
   mkdir -p logs
-  EXPOSITION_PATH="${MAVEN_REPOSITORY}"/com/heiwait/tripagency/exposition/"${VERSION}"/exposition-"${VERSION}".jar
+  EXPOSITION_PATH="${MAVEN_REPOSITORY}"/com/heiwait/tripagency/pricer/exposition/"${VERSION}"/exposition-"${VERSION}".jar
   echo "exposition-jar path " "${EXPOSITION_PATH}"
-  java -cp "${EXPOSITION_PATH}":./build/lib/* com.heiwait.tripagency.driver.exposition.ExpositionApplication >>./logs/log.txt &
+  java -cp "${EXPOSITION_PATH}":./build/lib/* com.heiwait.tripagency.pricer.driver.exposition.ExpositionApplication >>./logs/log.txt &
   cd "${INITIAL_DIR}" || exit
 }
 

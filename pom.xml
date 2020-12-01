@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.heiwait.tripagency</groupId>
+    <groupId>com.heiwait.tripagency.pricer</groupId>
     <artifactId>parent</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
-    <name>tripagency</name>
-    <description>TripAgency</description>
+    <name>pricer</name>
+    <description>Pricer that is used to determine the price of a trip</description>
 
     <modules>
         <module>domain</module>

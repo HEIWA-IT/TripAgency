@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.heiwait.tripagency</groupId>
+        <groupId>com.heiwait.tripagency.pricer</groupId>
         <artifactId>parent</artifactId>
         <version>${revision}</version>
     </parent>
@@ -20,7 +20,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.heiwait.tripagency</groupId>
+            <groupId>com.heiwait.tripagency.pricer</groupId>
             <artifactId>domain</artifactId>
             <version>${project.version}</version>
         </dependency>

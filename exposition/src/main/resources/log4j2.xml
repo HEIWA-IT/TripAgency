@@ -28,7 +28,7 @@
             <AppenderRef ref="RollingFile" />
         </Root>
 
-        <!-- LOG "com.heiwait.tripagency" at TRACE level -->
-        <Logger name="com.heiwait.tripagency" level="trace"></Logger>
+        <!-- LOG "com.heiwait.tripagency.pricer" at TRACE level -->
+        <Logger name="com.heiwait.tripagency.pricer" level="trace"></Logger>
     </Loggers>
 </Configuration>
