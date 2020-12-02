@@ -2,19 +2,19 @@ package com.heiwait.tripagency.pricer.driven.repository.springdata;
 
 import com.heiwait.tripagency.pricer.domain.Destination;
 import com.heiwait.tripagency.pricer.domain.Trip;
-import com.heiwait.tripagency.pricer.domain.TripRepositoryPort;
+import com.heiwait.tripagency.pricer.driven.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-@Qualifier("TripRepositoryJpaAdapter")
-public class TripRepositoryJpaAdapter implements TripRepositoryPort {
+@Qualifier("TripRepositoryJpa")
+public class TripRepositoryJpa implements TripRepository {
 
     private final TripJpaRepository tripJpaRepository;
 
-    public TripRepositoryJpaAdapter(final TripJpaRepository tripJpaRepository) {
+    public TripRepositoryJpa(final TripJpaRepository tripJpaRepository) {
         this.tripJpaRepository = tripJpaRepository;
     }
 

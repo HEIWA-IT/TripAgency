@@ -12,10 +12,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,6 +29,17 @@ class PricerResourceTest {
         RestAssured.port = port;
     }
 
+
+    /*
+    @Test
+    void computeTravelPrice_should_return_an_invalid_argument_exception_if_destination_is_null() {
+        String urlTemplate = "/tripagency/api/pricer/Paris/travelClass/BUSINESS/priceTripWithHardCodedValues";
+
+        assertThatThrownBy(() -> travelPricer.priceTrip(null, null))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+    */
+    /**********************************************************************************************************************/
     @Test
     void should_find_a_trip_with_the_mock_adapter_and_a_valid_destination() {
         String urlTemplate = "/tripagency/api/pricer/Paris/travelClass/BUSINESS/priceTripWithHardCodedValues";

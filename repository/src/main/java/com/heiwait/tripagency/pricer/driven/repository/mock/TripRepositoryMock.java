@@ -2,7 +2,7 @@ package com.heiwait.tripagency.pricer.driven.repository.mock;
 
 import com.heiwait.tripagency.pricer.domain.Destination;
 import com.heiwait.tripagency.pricer.domain.Trip;
-import com.heiwait.tripagency.pricer.domain.TripRepositoryPort;
+import com.heiwait.tripagency.pricer.driven.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.Objects;
 
 @Repository
-@Qualifier("TripRepositoryMockAdapter")
-public class TripRepositoryMockAdapter implements TripRepositoryPort {
+@Qualifier("TripRepositoryMock")
+public class TripRepositoryMock implements TripRepository {
 
     final Trip lilleTrip = new Trip.Builder().with(builder -> {
         builder.setTicketPrice(0);

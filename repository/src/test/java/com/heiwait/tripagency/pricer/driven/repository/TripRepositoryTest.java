@@ -2,7 +2,6 @@ package com.heiwait.tripagency.pricer.driven.repository;
 
 import com.heiwait.tripagency.pricer.domain.Destination;
 import com.heiwait.tripagency.pricer.domain.Trip;
-import com.heiwait.tripagency.pricer.domain.TripRepositoryPort;
 import com.heiwait.tripagency.pricer.driven.repository.config.AppConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,16 +19,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TripRepositoryTest {
 
     @Autowired
-    @Qualifier("TripRepositoryJpaAdapter")
-    private TripRepositoryPort tripRepositoryJpa;
+    @Qualifier("TripRepositoryJpa")
+    private TripRepository tripRepositoryJpa;
 
     @Autowired
-    @Qualifier("TripRepositoryJdbcTemplateAdapter")
-    private TripRepositoryPort tripRepositoryJdbcTemplate;
+    @Qualifier("TripRepositoryJdbcTemplate")
+    private TripRepository tripRepositoryJdbcTemplate;
 
     @Autowired
-    @Qualifier("TripRepositoryMockAdapter")
-    private TripRepositoryPort tripRepositoryMock;
+    @Qualifier("TripRepositoryMock")
+    private TripRepository tripRepositoryMock;
 
 
     final Destination pari = new Destination("Pari");
@@ -54,7 +53,6 @@ public class TripRepositoryTest {
         Trip pariTrip = tripRepositoryMock.findTripByDestination(pari);
         assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
     }
-
     /**********************************************************************************************************************/
     @Test
     public void findTripByDestination_should_find_a_trip_with_the_jpa_adapter_and_a_valid_destination() {
@@ -69,7 +67,6 @@ public class TripRepositoryTest {
         Trip pariTrip = tripRepositoryJpa.findTripByDestination(pari);
         assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
     }
-
     /**********************************************************************************************************************/
     @Test
     public void should_find_a_trip_with_the_jdbc_adapter_and_a_valid_destination() {

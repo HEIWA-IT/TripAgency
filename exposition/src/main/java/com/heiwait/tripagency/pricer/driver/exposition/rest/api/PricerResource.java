@@ -1,10 +1,7 @@
 package com.heiwait.tripagency.pricer.driver.exposition.rest.api;
 
-import com.heiwait.tripagency.pricer.domain.Destination;
+import com.heiwait.tripagency.pricer.application.PricerHandler;
 import com.heiwait.tripagency.pricer.domain.TravelClass;
-import com.heiwait.tripagency.pricer.driver.exposition.handler.TripPricerWithJdbcTemplateRepositoryAdapter;
-import com.heiwait.tripagency.pricer.driver.exposition.handler.TripPricerWithJpaRepositoryAdapter;
-import com.heiwait.tripagency.pricer.driver.exposition.handler.TripPricerWithMockRepositoryAdapter;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,17 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PricerResource {
 
-    private final TripPricerWithMockRepositoryAdapter tripPricerWithMockRepositoryAdapter;
-    private final TripPricerWithJpaRepositoryAdapter tripPricerWithJpaRepositoryAdapter;
-    private final TripPricerWithJdbcTemplateRepositoryAdapter tripPricerWithJdbcTemplateRepositoryAdapter;
+    private final PricerHandler pricerHandler;
 
     public PricerResource(
-            final TripPricerWithMockRepositoryAdapter tripPricerWithMockRepositoryAdapter,
-            final TripPricerWithJpaRepositoryAdapter tripPricerWithJpaRepositoryAdapter,
-            final TripPricerWithJdbcTemplateRepositoryAdapter tripPricerWithJdbcTemplateRepositoryAdapter) {
-        this.tripPricerWithMockRepositoryAdapter = tripPricerWithMockRepositoryAdapter;
-        this.tripPricerWithJpaRepositoryAdapter = tripPricerWithJpaRepositoryAdapter;
-        this.tripPricerWithJdbcTemplateRepositoryAdapter = tripPricerWithJdbcTemplateRepositoryAdapter;
+            PricerHandler pricerHandler) {
+        this.pricerHandler = pricerHandler;
     }
 
     @ApiOperation(value = "Compute travel fees", notes = "Returns the price of a trip")
@@ -34,9 +25,7 @@ public class PricerResource {
     public ResponseEntity<Integer> priceTripWithHardCodedValues(
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
-
-        Destination destination = new Destination(destinationName);
-        Integer travelPrice = tripPricerWithMockRepositoryAdapter.priceTrip(destination, travelClass);
+        Integer travelPrice = pricerHandler.priceTripWithHardCodedValues(destinationName, travelClass);
         return new ResponseEntity<>(travelPrice, HttpStatus.OK);
     }
 
@@ -45,9 +34,7 @@ public class PricerResource {
     public ResponseEntity<Integer> priceTripWithJPA(
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
-
-        Destination destination = new Destination(destinationName);
-        Integer travelPrice = tripPricerWithJpaRepositoryAdapter.priceTrip(destination, travelClass);
+        Integer travelPrice = pricerHandler.priceTripWithJpa(destinationName, travelClass);
         return new ResponseEntity<>(travelPrice, HttpStatus.OK);
     }
 
@@ -56,9 +43,7 @@ public class PricerResource {
     public ResponseEntity<Integer> priceTripWithJdbcTemplate(
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
-
-        Destination destination = new Destination(destinationName);
-        Integer travelPrice = tripPricerWithJdbcTemplateRepositoryAdapter.priceTrip(destination, travelClass);
+        Integer travelPrice = pricerHandler.priceTripWithJdbcTemplate(destinationName, travelClass);
         return new ResponseEntity<>(travelPrice, HttpStatus.OK);
     }
 }

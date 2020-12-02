@@ -13,6 +13,7 @@
     <modules>
         <module>domain</module>
         <module>repository</module>
+        <module>application</module>
         <module>exposition</module>
         <module>e2e</module>
     </modules>
