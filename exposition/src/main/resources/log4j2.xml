@@ -5,8 +5,8 @@
             <PatternLayout pattern="%d{dd/MM/yyyy - HH:mm:ss} %5p [%t] %c > %m%n"/>
         </Console>
         <RollingFile name="RollingFile"
-                     fileName="/var/log/tripagency/tripagency.log"
-                     filePattern="/var/log/tripagency/$${date:yyyy-MM}/tripagency-%d{-dd-MMMM-yyyy}-%i.log.gz">
+                     fileName="/var/log/com/heiwait/tripagency/pricer/pricer.log"
+                     filePattern="/var/log/com/heiwait/tripagency/pricer/$${date:yyyy-MM}/pricer-%d{-dd-MMMM-yyyy}-%i.log.gz">
             <PatternLayout>
                 <pattern>%d %p %C{1.} [%t] %m%n</pattern>
             </PatternLayout>
