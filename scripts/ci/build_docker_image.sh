@@ -89,8 +89,12 @@ function gradle() {
 ################################################################################
 function mvnw() {
   echo "Using mvnw"
+  ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
+
   echo ./mvnw ${MVN_JIB_COMMAND}
   ./mvnw ${MVN_JIB_COMMAND} || exit 1
+
+  ./mvnw versions:revert || exit 1
 }
 
 ################################################################################
@@ -98,8 +102,13 @@ function mvnw() {
 ################################################################################
 function mvn() {
   echo "Using mvn"
+
+  mvn versions:set -DnewVersion="${VERSION}" || exit 1
+
   echo mvn ${MVN_JIB_COMMAND}
   mvn ${MVN_JIB_COMMAND} || exit 1
+
+  mvn versions:revert || exit 1
 }
 
 ################################################################################
