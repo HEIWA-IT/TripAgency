@@ -13,6 +13,7 @@ dependencies {
     implementation("javax.xml.bind:jaxb-api")
     implementation("io.springfox:springfox-boot-starter")
 
+    runtimeOnly("com.h2database:h2")
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
 
     testImplementation("org.assertj:assertj-core")

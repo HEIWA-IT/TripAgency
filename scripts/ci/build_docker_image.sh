@@ -73,11 +73,7 @@ function help() {
 ################################################################################
 function gradlew() {
   echo "Using gradlew"
-  #./gradlew ${GRADLE_JIB_COMMAND} || exit 1
-  ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
-  mvnw
-  ./mvnw versions:revert || exit 1
-
+  ./gradlew ${GRADLE_JIB_COMMAND} || exit 1
 }
 
 ################################################################################
@@ -85,10 +81,7 @@ function gradlew() {
 ################################################################################
 function gradle() {
   echo "Using gradle"
-  #gradle ${GRADLE_JIB_COMMAND} || exit 1
-  ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
-  mvnw
-  ./mvnw versions:revert || exit 1
+  gradle ${GRADLE_JIB_COMMAND} || exit 1
 }
 
 ################################################################################
