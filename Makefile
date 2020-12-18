@@ -10,7 +10,7 @@ all : 	ci e2e clean
 ci : 	setup build build_docker_image launch_quality_scan generate_living_documentation_for_domain
 .PHONY: ci
 
-e2e : 	setup start_exposition launch_e2e_tests generate_living_documentation_for_e2e stop_exposition
+e2e : 	setup start_exposition launch_e2e_tests stop_exposition generate_living_documentation_for_e2e
 .PHONY: e2e
 
 clean : revert_project_version cleaning
