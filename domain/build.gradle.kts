@@ -1,5 +1,5 @@
 dependencies {
-    implementation("com.github.cukedoctor:cukedoctor-main")
+    testImplementation("com.github.cukedoctor:cukedoctor-main")
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.mockito:mockito-junit-jupiter")
     testImplementation("org.assertj:assertj-core")

@@ -1,5 +1,5 @@
 dependencies {
-    implementation("com.github.cukedoctor:cukedoctor-main")
+    testImplementation("com.github.cukedoctor:cukedoctor-main")
     testImplementation(project(":domain"))
     testImplementation("io.cucumber:cucumber-java")
     testImplementation("io.cucumber:cucumber-junit-platform-engine")

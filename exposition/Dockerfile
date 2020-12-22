@@ -2,7 +2,7 @@ FROM openjdk:11-jdk-slim
 MAINTAINER Dan MAGIER <dan@heiwa-it.com>
 
 ARG BUILD=build
-COPY ${BUILD}/lib /app/lib
+COPY ${BUILD}/libs /app/lib
 COPY ${BUILD}/classes /app
 
 RUN groupadd -r spring && useradd -r -g spring spring \

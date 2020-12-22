@@ -60,7 +60,7 @@ function help()
 function gradlew()
 {
   echo "Using gradlew"
-  ./gradlew :exposition:buildNeeded -PprojectVersion="${VERSION}" ${GRADLE_SETTINGS} || exit 1
+  ./gradlew :exposition:buildWithDependencies -PprojectVersion="${VERSION}" ${GRADLE_SETTINGS} || exit 1
 }
 
 ################################################################################
@@ -69,7 +69,7 @@ function gradlew()
 function gradle()
 {
   echo "Using gradle"
-  gradle :exposition:buildNeeded -PprojectVersion="${VERSION}" ${GRADLE_SETTINGS} || exit 1
+  gradle :exposition:buildWithDependencies -PprojectVersion="${VERSION}" ${GRADLE_SETTINGS} || exit 1
 }
 
 ################################################################################
