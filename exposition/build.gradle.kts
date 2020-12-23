@@ -12,9 +12,18 @@ dependencies {
     implementation ("org.hibernate:hibernate-core")
     implementation("org.liquibase:liquibase-core")
     implementation ("org.mapstruct:mapstruct:1.3.1.Final")
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation ("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation ("org.springframework.boot:spring-boot-starter-log4j2:2.4.1")
+    implementation ("org.springframework.boot:spring-boot-devtools:2.4.1")
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    implementation ("org.slf4j:jul-to-slf4j:1.7.30")
+    implementation ("org.apache.logging.log4j:log4j-api:2.14.0")
+    implementation ("org.apache.logging.log4j:log4j-core:2.14.0")
+    implementation ("org.apache.logging.log4j:log4j-jul:2.14.0")
+    implementation ("org.apache.logging.log4j:log4j-slf4j-impl:2.14.0")
 
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
