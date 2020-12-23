@@ -1,3 +1,6 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 plugins {
     `java-library`
     `maven-publish`
@@ -106,6 +109,20 @@ subprojects {
 
         tasks.withType<Test> {
             useJUnitPlatform()
+            testLogging {
+                showExceptions = true
+                exceptionFormat = TestExceptionFormat.FULL
+                showStackTraces = true
+                showCauses = true
+                showStandardStreams = true
+                events = setOf(
+                        TestLogEvent.PASSED,
+                        TestLogEvent.SKIPPED,
+                        TestLogEvent.FAILED,
+                        TestLogEvent.STANDARD_OUT,
+                        TestLogEvent.STANDARD_ERROR
+                )
+            }
         }
     }
 }
