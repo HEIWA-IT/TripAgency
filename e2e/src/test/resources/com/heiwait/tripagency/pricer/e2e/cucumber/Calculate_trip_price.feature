@@ -25,12 +25,12 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
     Then the trip price is <tripPrice>€
 
     Examples:
-      | destination | travelClass | agencyFees | stayFees | ticketPrice | tripPrice |
-      | "Lille"     | "ECONOMIC"  | 0          | 0        | 0           | 0         |
-      | "Paris"     | "FIRST"     | 50         | 300      | 200         | 750       |
-      | "Beijing"   | "ECONOMIC"  | 100        | 1000     | 1200        | 2300      |
-      | "New-York"  | "FIRST"     | 150        | 1500     | 1000        | 3650      |
-      | "Tokyo"     | "BUSINESS"  | 200        | 2000     | 1500        | 9700      |
+      | destination | travelClass | ticketPrice | stayFees | agencyFees | tripPrice |
+      | "Paris"     | "FIRST"     | 100         | 800      | 50         | 1050      |
+      | "Lille"     | "ECONOMIC"  | 0           | 0        | 0          | 0         |
+      | "New-York"  | "FIRST"     | 800         | 1000     | 100        | 2700      |
+      | "Tokyo"     | "BUSINESS"  | 1200        | 1000     | 100        | 7100      |
+      | "Beijing"   | "ECONOMIC"  | 1000        | 1000     | 100        | 2100      |
 
   Scenario: returns a missing destination message when the destination is missing
     Given the customer wants to travel to "Sydney"
@@ -38,7 +38,16 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
     When the customer asked for the trip price
     Then the trip price returns the following message "Missing destination!"
 
-  Scenario: Determine the fees for travel to Lille in economic class
+  Scenario: Determine the fees for travel to Paris in first class with 800€ of stay fees and 50€ of agency fees
+    Given the customer wants to travel to "Paris"
+    And the economic travel ticket price is 100€
+    And the customer wants to travel in "FIRST" class
+    And the stay fees are 800€
+    And the agency fees are 50€
+    When the customer asked for the trip price
+    Then the trip price is 1050€
+
+  Scenario: Determine the fees for travel to Lille in economic class with 0€ of stay fees and 0€ of agency fees
     Given the customer wants to travel to "Lille"
     And the economic travel ticket price is 0€
     And the customer wants to travel in "ECONOMIC" class
@@ -47,38 +56,29 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
     When the customer asked for the trip price
     Then the trip price is 0€
 
-  Scenario: Determine the fees for travel to Paris in first class
-    Given the customer wants to travel to "Paris"
-    And the economic travel ticket price is 200€
+  Scenario: Determine the fees for travel to New-York in first class with 800€ of stay fees and 50€ of agency fees
+    Given the customer wants to travel to "New-York"
+    And the economic travel ticket price is 800€
     And the customer wants to travel in "FIRST" class
-    And the stay fees are 300€
-    And the agency fees are 50€
+    And the stay fees are 1000€
+    And the agency fees are 100€
     When the customer asked for the trip price
-    Then the trip price is 750€
+    Then the trip price is 2700€
 
-  Scenario: Determine the fees for travel to Beijing in economic class
-    Given the customer wants to travel to "Beijing"
+  Scenario: Determine the fees for travel to Tokyo in business class with 1000€ of stay fees and 100€ of agency fees
+    Given the customer wants to travel to "Tokyo"
     And the economic travel ticket price is 1200€
+    And the customer wants to travel in "BUSINESS" class
+    And the stay fees are 1000€
+    And the agency fees are 100€
+    When the customer asked for the trip price
+    Then the trip price is 7100€
+
+  Scenario: Determine the fees for travel to Beijing in economic class with 1000€ of stay fees and 100€ of agency fees
+    Given the customer wants to travel to "Beijing"
+    And the economic travel ticket price is 1000€
     And the customer wants to travel in "ECONOMIC" class
     And the stay fees are 1000€
     And the agency fees are 100€
     When the customer asked for the trip price
-    Then the trip price is 2300€
-
-  Scenario: Determine the fees for travel to New-York in first class
-    Given the customer wants to travel to "New-York"
-    And the economic travel ticket price is 1000€
-    And the customer wants to travel in "FIRST" class
-    And the stay fees are 1500€
-    And the agency fees are 150€
-    When the customer asked for the trip price
-    Then the trip price is 3650€
-
-  Scenario: Determine the fees for travel to Tokyo in business class
-    Given the customer wants to travel to "Tokyo"
-    And the economic travel ticket price is 1500€
-    And the customer wants to travel in "BUSINESS" class
-    And the stay fees are 2000€
-    And the agency fees are 200€
-    When the customer asked for the trip price
-    Then the trip price is 9700€
+    Then the trip price is 2100€
