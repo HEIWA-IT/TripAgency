@@ -6,7 +6,6 @@ import com.heiwait.tripagency.pricer.driven.repository.config.AppConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -17,18 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = AppConfig.class)
 @TestPropertySource(locations = "classpath:test.properties")
 public class TripRepositoryTest {
-
     @Autowired
-    @Qualifier("TripRepositoryJpa")
-    private TripRepository tripRepositoryJpa;
-
-    @Autowired
-    @Qualifier("TripRepositoryJdbcTemplate")
-    private TripRepository tripRepositoryJdbcTemplate;
-
-    @Autowired
-    @Qualifier("TripRepositoryMock")
-    private TripRepository tripRepositoryMock;
+    private TripRepositoryHandler tripRepositoryHandler;
 
 
     final Destination pari = new Destination("Pari");
@@ -41,44 +30,58 @@ public class TripRepositoryTest {
 
     /**********************************************************************************************************************/
     @Test
-    public void should_find_a_trip_with_the_mock_adapter_and_a_valid_destination() {
-        Trip parisTrip = tripRepositoryMock.findTripByDestination(paris);
+    public void should_find_a_trip_with_the_mock_repository_type_and_a_valid_destination() {
+        Trip parisTrip = tripRepositoryHandler.findTripByDestination(paris, TripRepositoryType.MOCK);
 
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTripForParis.agencyFees());
         assertThat(parisTrip.ticketPrice()).isEqualTo(expectedTripForParis.ticketPrice());
     }
 
     @Test
-    public void should_return_a_missing_destination_with_the_mock_adapter_and_a_missing_destination() {
-        Trip pariTrip = tripRepositoryMock.findTripByDestination(pari);
+    public void should_return_a_missing_destination_with_the_mock_repository_type_and_a_missing_destination() {
+        Trip pariTrip = tripRepositoryHandler.findTripByDestination(pari, TripRepositoryType.MOCK);
         assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
     }
     /**********************************************************************************************************************/
     @Test
-    public void findTripByDestination_should_find_a_trip_with_the_jpa_adapter_and_a_valid_destination() {
-        Trip parisTrip = tripRepositoryJpa.findTripByDestination(paris);
+    public void findTripByDestination_should_find_a_trip_with_the_jpa_repository_type_and_a_valid_destination() {
+        Trip parisTrip = tripRepositoryHandler.findTripByDestination(paris, TripRepositoryType.JPA);
 
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTripForParis.agencyFees());
         assertThat(parisTrip.ticketPrice()).isEqualTo(expectedTripForParis.ticketPrice());
     }
 
     @Test
-    public void should_return_a_missing_destination_with_the_jpa_adapter_and_a_missing_destination() {
-        Trip pariTrip = tripRepositoryJpa.findTripByDestination(pari);
+    public void should_return_a_missing_destination_with_the_jpa_repository_type_and_a_missing_destination() {
+        Trip pariTrip = tripRepositoryHandler.findTripByDestination(pari, TripRepositoryType.JPA);
         assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
     }
     /**********************************************************************************************************************/
     @Test
-    public void should_find_a_trip_with_the_jdbc_adapter_and_a_valid_destination() {
-        Trip parisTrip = tripRepositoryJdbcTemplate.findTripByDestination(paris);
+    public void should_find_a_trip_with_the_jdbc_repository_type_and_a_valid_destination() {
+        Trip parisTrip = tripRepositoryHandler.findTripByDestination(paris, TripRepositoryType.JDBC);
 
         assertThat(parisTrip.agencyFees()).isEqualTo(expectedTripForParis.agencyFees());
         assertThat(parisTrip.ticketPrice()).isEqualTo(expectedTripForParis.ticketPrice());
     }
 
     @Test
-    public void should_return_a_missing_destination_with_the_jdbc_adapter_and_a_missing_destination() {
-        Trip pariTrip = tripRepositoryJdbcTemplate.findTripByDestination(pari);
+    public void should_return_a_missing_destination_with_the_jdbc_repository_type_and_a_missing_destination() {
+        Trip pariTrip = tripRepositoryHandler.findTripByDestination(pari, TripRepositoryType.JDBC);
+        assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
+    }
+    /**********************************************************************************************************************/
+    @Test
+    public void should_find_a_trip_with_no_repository_type_adapter_and_a_valid_destination() {
+        Trip parisTrip = tripRepositoryHandler.findTripByDestination(paris, TripRepositoryType.UNDEFINED);
+
+        assertThat(parisTrip.agencyFees()).isEqualTo(expectedTripForParis.agencyFees());
+        assertThat(parisTrip.ticketPrice()).isEqualTo(expectedTripForParis.ticketPrice());
+    }
+
+    @Test
+    public void should_return_a_missing_destination_with_no_repository_type_and_a_missing_destination() {
+        Trip pariTrip = tripRepositoryHandler.findTripByDestination(pari, TripRepositoryType.UNDEFINED);
         assertThat(pariTrip).isEqualTo(Trip.Builder.MISSING_DESTINATION);
     }
 }

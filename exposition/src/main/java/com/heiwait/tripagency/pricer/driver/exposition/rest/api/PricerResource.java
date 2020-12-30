@@ -1,7 +1,8 @@
 package com.heiwait.tripagency.pricer.driver.exposition.rest.api;
 
-import com.heiwait.tripagency.pricer.application.PricerHandler;
+import com.heiwait.tripagency.pricer.application.PricerApplication;
 import com.heiwait.tripagency.pricer.domain.TravelClass;
+import com.heiwait.tripagency.pricer.driven.repository.TripRepositoryType;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PricerResource {
 
-    private final PricerHandler pricerHandler;
+    private final PricerApplication pricerApplication;
 
     public PricerResource(
-            PricerHandler pricerHandler) {
-        this.pricerHandler = pricerHandler;
+            PricerApplication pricerApplication) {
+        this.pricerApplication = pricerApplication;
     }
 
     @ApiOperation(value = "Compute travel fees", notes = "Returns the price of a trip")
@@ -25,7 +26,7 @@ public class PricerResource {
     public ResponseEntity<Integer> priceTripWithHardCodedValues(
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
-        Integer travelPrice = pricerHandler.priceTripWithHardCodedValues(destinationName, travelClass);
+        Integer travelPrice = pricerApplication.priceTrip(destinationName, travelClass, TripRepositoryType.MOCK);
         return new ResponseEntity<>(travelPrice, HttpStatus.OK);
     }
 
@@ -34,7 +35,7 @@ public class PricerResource {
     public ResponseEntity<Integer> priceTripWithJPA(
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
-        Integer travelPrice = pricerHandler.priceTripWithJpa(destinationName, travelClass);
+        Integer travelPrice = pricerApplication.priceTrip(destinationName, travelClass, TripRepositoryType.JPA);
         return new ResponseEntity<>(travelPrice, HttpStatus.OK);
     }
 
@@ -43,7 +44,7 @@ public class PricerResource {
     public ResponseEntity<Integer> priceTripWithJdbcTemplate(
             @PathVariable(value = "destination") String destinationName,
             @PathVariable(value = "travelClass") TravelClass travelClass) {
-        Integer travelPrice = pricerHandler.priceTripWithJdbcTemplate(destinationName, travelClass);
+        Integer travelPrice = pricerApplication.priceTrip(destinationName, travelClass, TripRepositoryType.JDBC);
         return new ResponseEntity<>(travelPrice, HttpStatus.OK);
     }
 }

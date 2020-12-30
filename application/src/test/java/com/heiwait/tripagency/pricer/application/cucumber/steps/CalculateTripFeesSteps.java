@@ -1,11 +1,11 @@
 package com.heiwait.tripagency.pricer.application.cucumber.steps;
 
-import com.heiwait.tripagency.pricer.application.PricerHandler;
+import com.heiwait.tripagency.pricer.application.PricerApplication;
 import com.heiwait.tripagency.pricer.application.config.AppConfig;
 import com.heiwait.tripagency.pricer.domain.TravelClass;
 import com.heiwait.tripagency.pricer.domain.error.ErrorMessagesProperties;
 import com.heiwait.tripagency.pricer.domain.error.BusinessException;
-import com.heiwait.tripagency.pricer.driven.repository.TripRepository;
+import com.heiwait.tripagency.pricer.driven.repository.TripRepositoryType;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -22,9 +22,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = {AppConfig.class})
 @TestPropertySource(locations = "classpath:test.properties")
 public class CalculateTripFeesSteps {
-    private final PricerHandler priceHandler;
+    private final PricerApplication priceHandler;
 
-    public CalculateTripFeesSteps(PricerHandler priceHandler) {
+    public CalculateTripFeesSteps(PricerApplication priceHandler) {
         this.priceHandler = priceHandler;
     }
 
@@ -61,7 +61,7 @@ public class CalculateTripFeesSteps {
     public void the_customer_asked_for_the_trip_price() {
 
         try {
-            computedPrice = priceHandler.priceTripWithHardCodedValues(destination, travelClass);
+            computedPrice = priceHandler.priceTrip(destination, travelClass, TripRepositoryType.MOCK);
         } catch (BusinessException be) {
             Locale usLocale = new Locale("en", "US");
             Locale.setDefault(usLocale);
