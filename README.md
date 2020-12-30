@@ -239,6 +239,9 @@ The logs are stored in the following folder : /var/log/tripagency
 You can also us the Makefile included at the root folder of the project.
 To use it, you will need to have the following file **~/.env** with this content:
 ```
+############################### LOG ###############################
+export LOG_PATH=/Volumes/DATA/var/log
+
 ############################### CI ###############################
 export MAVEN_REPOSITORY=${HOME}/.m2/repository
 export OPTIONS=-mw

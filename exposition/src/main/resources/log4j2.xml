@@ -5,8 +5,8 @@
             <PatternLayout pattern="%d{dd/MM/yyyy - HH:mm:ss} %5p [%t] %c > %m%n"/>
         </Console>
         <RollingFile name="RollingFile"
-                     fileName="/var/log/com/heiwait/tripagency/pricer/pricer.log"
-                     filePattern="/var/log/com/heiwait/tripagency/pricer/$${date:yyyy-MM}/pricer-%d{-dd-MMMM-yyyy}-%i.log.gz">
+                     fileName="${env:LOG_PATH}/com/heiwait/tripagency/pricer/pricer.log"
+                     filePattern="${env:LOG_PATH}/com/heiwait/tripagency/pricer/$${date:yyyy-MM}/pricer-%d{-dd-MMMM-yyyy}-%i.log.gz">
             <PatternLayout>
                 <pattern>%d %p %C{1.} [%t] %m%n</pattern>
             </PatternLayout>
@@ -29,6 +29,6 @@
         </Root>
 
         <!-- LOG "com.heiwait.tripagency.pricer" at TRACE level -->
-        <Logger name="com.heiwait.tripagency.pricer" level="trace"></Logger>
+        <Logger name="com.heiwait.tripagency.pricer" level="trace"/>
     </Loggers>
 </Configuration>
