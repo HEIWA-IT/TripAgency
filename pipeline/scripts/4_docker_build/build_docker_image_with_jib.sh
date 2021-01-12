@@ -1,12 +1,12 @@
 #!/bin/bash
 ################################################################################
-#                      generate_living_documentation.sh                        #
+#                       build_docker_image_with_jib.sh                                  #
 #                                                                              #
-# This script goal is to generate the living documentation of the project      #
+# This script goal is to build the docker image of the exposition module       #
 #                                                                              #
 # Change History                                                               #
-# 01/10/2020  Dan MAGIER           Script to generate the living documentation #
-#                                  of the project                              #
+# 01/10/2020  Dan MAGIER           Script to build the docker image of the     #
+#                                  exposition module depending on options      #
 #                                                                              #
 #                                                                              #
 ################################################################################
@@ -33,30 +33,33 @@
 ################################################################################
 ################################################################################
 ################################################################################
+DOCKER_IMAGE=$1-SNAPSHOT
+echo "${DOCKER_IMAGE}"
 
-MODULE=$1
-PROJECT_VERSION=$2
+VERSION=$VERSION
+echo "${VERSION}"
+################################################################################
+# gradlew                                                                      #
+################################################################################
+function build_docker_image() {
+  echo "Building Docker image"
+  if [[ "${BUILD_TYPE}" = "maven" ]]
+  then
+    ./pipeline/scripts/4_docker_build/build_docker_image_with_jib_and_maven.sh "${DOCKER_IMAGE}" "${VERSION}"
+  elif [[ "${BUILD_TYPE}" = "gradle" ]]
+  then
+    ./pipeline/scripts/4_docker_build/build_docker_image_with_jib_and_gradle.sh "${DOCKER_IMAGE}"
+  else
+      exit 1
+  fi
+}
 
 ###################################################
-# Generate the project living documentation
+# Launch the build of the docker image of the
+# exposition module depending of the options provided.
 # Outputs:
-#   Different living documentation files inside a folder in the build folder
+#   A docker image of the exposition module
 # Returns:
 #   0 if everything went fine, else 1
 ####################################################
-function generate_living_documentation() {
-  cd "${MODULE}" && java -jar "${CUKEDOCTOR_MAIN_JAR}" \
-    -o "build/TripAgency/TripAgency_living_documentation-""${PROJECT_VERSION}" \
-    -p "build/cucumber/TripAgency.json" \
-    -t "TripAgency_living_documentation" \
-    -f all \
-    -numbered \
-    -hideSummarySection \
-    -hideScenarioKeyword
-}
-
-################################################################################
-################################################################################
-# Main program                                                                 #
-################################################################################
-generate_living_documentation
+build_docker_image

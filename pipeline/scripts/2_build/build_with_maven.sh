@@ -1,11 +1,11 @@
 #!/bin/bash
 ################################################################################
-#                               build.sh                                       #
+#                               build_with_maven.sh                            #
 #                                                                              #
 # This script goal is to build of the project                                  #
 #                                                                              #
 # Change History                                                               #
-# 01/10/2020  Dan MAGIER           Script to build the project                 #
+# 01/10/2020  Dan MAGIER           Script to build the project with maven      #
 #                                                                              #
 #                                                                              #
 ################################################################################
@@ -33,44 +33,8 @@
 ################################################################################
 ################################################################################
 
-VERSION=$1
+VERSION=$1-SNAPSHOT
 echo Version: ${VERSION}
-
-################################################################################
-# help                                                                         #
-################################################################################
-function help()
-{
-  # Display Help
-  echo "Display the options of this script."
-  echo
-  echo "Syntax: build.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
-  echo "options:"
-  echo "-gw|--gradlew      Use Gradle wrapper to build the project."
-  echo "-g|--gradle        Use Gradle to build the project."
-  echo "-mw|--mvnw         Use Maven wrapper to revert the poms to its former state."
-  echo "-m|--mvn           Use Maven  to revert the poms to its former state."
-  echo "-h|--help          Print this Help."
-  echo
-}
-
-################################################################################
-# gradlew                                                                      #
-################################################################################
-function gradlew()
-{
-  echo "Using gradlew"
-  ./gradlew :exposition:buildWithDependencies -PprojectVersion="${VERSION}" ${GRADLE_SETTINGS} || exit 1
-}
-
-################################################################################
-# gradle                                                                       #
-################################################################################
-function gradle()
-{
-  echo "Using gradle"
-  gradle :exposition:buildWithDependencies -PprojectVersion="${VERSION}" ${GRADLE_SETTINGS} || exit 1
-}
 
 ################################################################################
 # mvnw                                                                         #
@@ -81,17 +45,6 @@ function mvnw()
   ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
   ./mvnw deploy -pl !e2e -Drevision="${VERSION}" ${MVN_SETTINGS} || exit 1
   ./mvnw versions:revert || exit 1
-}
-
-################################################################################
-# mvn                                                                          #
-################################################################################
-function mvn()
-{
-  echo "Using mvnw"
-  mvn versions:set -DnewVersion="${VERSION}" || exit 1
-  mvn deploy -pl !e2e -Drevision="${VERSION}" ${MVN_SETTINGS} || exit 1
-  mvn versions:revert || exit 1
 }
 
 ################################################################################
@@ -108,23 +61,4 @@ function mvn()
 # Returns:
 #   0 if everything went fine, else 1
 ####################################################
-
-case ${OPTIONS} in
-  -h|--help) # display Help
-    help
-    exit;;
-  -mw|--mvnw) # build with Maven wrapper
-    mvnw
-    exit;;
-  -m|--mvn) # build with Maven
-    mvn
-    exit;;
-  -gw|--gradlew) # build with Gradle wrapper
-    gradlew
-    exit;;
-  -g|--gradle) # build with Gradle
-    exit;;
-  *) # incorrect option
-    echo "Error: Invalid option"
-    exit;;
-esac
+mvnw

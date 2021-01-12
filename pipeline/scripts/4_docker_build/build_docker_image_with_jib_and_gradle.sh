@@ -1,12 +1,12 @@
 #!/bin/bash
 ################################################################################
-#                       build_docker_image.sh                                  #
+#                       build_docker_image_with_jib_and_gradle.sh              #
 #                                                                              #
 # This script goal is to build the docker image of the exposition module       #
 #                                                                              #
 # Change History                                                               #
 # 01/10/2020  Dan MAGIER           Script to build the docker image of the     #
-#                                  exposition module using JIB                 #
+#                                  exposition module using Maven and JIB       #
 #                                                                              #
 #                                                                              #
 ################################################################################
@@ -33,15 +33,8 @@
 ################################################################################
 ################################################################################
 ################################################################################
-
-DOCKER_IMAGE=$1
+DOCKER_IMAGE=$1-SNAPSHOT
 echo "${DOCKER_IMAGE}"
-
-VERSION=$2
-APP_NAME=$3
-
-MVN_JIB_COMMAND="compile ${MVN_SETTINGS} jib:build -pl exposition -Dusername=${DOCKER_REGISTRY_USERNAME} \
--Dpassword=${DOCKER_REGISTRY_PASSWORD} -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000"
 
 GRADLE_JIB_COMMAND="jib \
     -Djib.from.image=openjdk:11-jdk-slim \
@@ -53,73 +46,11 @@ GRADLE_JIB_COMMAND="jib \
     -Djib.console=plain -Djib.httpTimeout=600000"
 
 ################################################################################
-# help                                                                         #
-################################################################################
-function help() {
-  # Display Help
-  echo "Display the options of this script."
-  echo "Syntax: build_docker_image.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
-  echo "options:"
-  echo "-gw|--gradlew      Use Gradle wrapper to build the docker image."
-  echo "-g|--gradle        Use Gradle to build the docker image."
-  echo "-mw|--mvnw         Use Maven wrapper to revert the poms to its former state."
-  echo "-m|--mvn           Use Maven  to revert the poms to its former state."
-  echo "-h|--help          Print this Help."
-  echo
-}
-
-################################################################################
 # gradlew                                                                      #
 ################################################################################
-function gradlew() {
+function build_docker_image_with_jib_and_gradle() {
   echo "Using gradlew"
   ./gradlew ${GRADLE_JIB_COMMAND} || exit 1
-}
-
-################################################################################
-# gradle                                                                       #
-################################################################################
-function gradle() {
-  echo "Using gradle"
-  gradle ${GRADLE_JIB_COMMAND} || exit 1
-}
-
-################################################################################
-# mvnw                                                                         #
-################################################################################
-function mvnw() {
-  echo "Using mvnw"
-  ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
-
-  echo ./mvnw ${MVN_JIB_COMMAND}
-  ./mvnw ${MVN_JIB_COMMAND} || exit 1
-
-  ./mvnw versions:revert || exit 1
-}
-
-################################################################################
-# mvn                                                                          #
-################################################################################
-function mvn() {
-  echo "Using mvn"
-
-  mvn versions:set -DnewVersion="${VERSION}" || exit 1
-
-  echo mvn ${MVN_JIB_COMMAND}
-  mvn ${MVN_JIB_COMMAND} || exit 1
-
-  mvn versions:revert || exit 1
-}
-
-################################################################################
-# docker                                                                         #
-################################################################################
-function use_docker() {
-  echo "Using docker"
-  echo exposition && docker build --tag "${APP_NAME}":"${VERSION}" .
-  cd exposition && docker build --tag "${DOCKER_IMAGE}" . || exit 1
-  docker login -u="${DOCKER_REGISTRY_USERNAME}" -p="${DOCKER_REGISTRY_PASSWORD}"
-  docker push "${DOCKER_IMAGE}"
 }
 
 ###################################################
@@ -130,34 +61,4 @@ function use_docker() {
 # Returns:
 #   0 if everything went fine, else 1
 ####################################################
-
-case $DOCKER_BUILD_OPTIONS in
--h | --help) # display Help
-  help
-  exit
-  ;;
--mw | --mvnw) # build with Maven wrapper
-  mvnw
-  exit
-  ;;
--m | --mvn) # build with Maven
-  mvn
-  exit
-  ;;
--gw | --gradlew) # build with Gradle wrapper
-  gradlew
-  exit
-  ;;
--g | --gradle) # build with Gradle
-  gradle
-  exit
-  ;;
--d | --docker)  # build with Docker
-  use_docker
-  exit
-  ;;
-*) # incorrect option
-  echo "Error: Invalid option"
-  exit
-  ;;
-esac
+build_docker_image_with_jib_and_gradle

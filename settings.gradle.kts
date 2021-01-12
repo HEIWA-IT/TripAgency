@@ -1,3 +1,3 @@
-rootProject.name = "pricer"
+rootProject.name = "trippricer"
 
 include("domain", "repository", "exposition", "e2e")

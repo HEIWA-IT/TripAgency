@@ -144,18 +144,7 @@
                     </container>
                     <from>
                         <image>${docker.baseImage.name}:${docker.baseImage.version}</image>
-                        <auth>
-                            <username>${docker.registry.username}</username>
-                            <password>${docker.registry.password}</password>
-                        </auth>
                     </from>
-                    <to>
-                        <auth>
-                            <username>${docker.registry.username}</username>
-                            <password>${docker.registry.password}</password>
-                        </auth>
-                    </to>
-                    <allowInsecureRegistries>true</allowInsecureRegistries>
                 </configuration>
             </plugin>
         </plugins>

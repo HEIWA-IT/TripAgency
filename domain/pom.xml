@@ -21,6 +21,10 @@
     <dependencies>
         <!-- Tests -->
         <dependency>
+            <groupId>com.github.cukedoctor</groupId>
+            <artifactId>cukedoctor-main</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
         </dependency>

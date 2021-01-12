@@ -34,7 +34,7 @@
 
         <project.build.directory>build</project.build.directory>
 
-        <jib.version>2.7.0</jib.version>
+        <jib.version>2.7.1</jib.version>
         <docker.baseImage.name>openjdk</docker.baseImage.name>
         <docker.baseImage.version>11-jdk-slim</docker.baseImage.version>
         <docker.registry.username></docker.registry.username>
@@ -129,11 +129,11 @@
     <distributionManagement>
         <snapshotRepository>
             <id>paxleones_nexus_snapshots</id>
-            <url>https://nexus.paxleones.com/repository/paxleones_snapshots/</url>
+            <url>https://nexus.heiwa-it.com/repository/paxleones_snapshots/</url>
         </snapshotRepository>
         <repository>
             <id>paxleones_nexus_releases</id>
-            <url>https://nexus.paxleones.com/repository/paxleones_releases/</url>
+            <url>https://nexus.heiwa-it.com/repository/paxleones_releases/</url>
         </repository>
     </distributionManagement>
 </project>

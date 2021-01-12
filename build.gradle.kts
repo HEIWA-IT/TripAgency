@@ -23,10 +23,10 @@ allprojects {
         jcenter()
         mavenCentral()
 
-        val mavenUser: String by project
-        val mavenPassword: String by project
-        val snapshotsRepoUrl: String by project
-        val releasesRepoUrl: String by project
+        val mavenUser = System.getenv("MAVEN_REPOSITORY_USERNAME")
+        val mavenPassword = System.getenv("MAVEN_REPOSITORY_PASSWORD")
+        val snapshotsRepoUrl = System.getenv("MAVEN_REPOSITORY_SNAPSHOTS")
+        val releasesRepoUrl = System.getenv("MAVEN_REPOSITORY_RELEASES")
 
         repositories {
             maven {
@@ -44,10 +44,10 @@ allprojects {
     }
 
     publishing {
-        val mavenUser: String by project
-        val mavenPassword: String by project
-        val snapshotsRepoUrl: String by project
-        val releasesRepoUrl: String by project
+        val mavenUser = System.getenv("MAVEN_REPOSITORY_USERNAME")
+        val mavenPassword = System.getenv("MAVEN_REPOSITORY_PASSWORD")
+        val snapshotsRepoUrl = System.getenv("MAVEN_REPOSITORY_SNAPSHOTS")
+        val releasesRepoUrl = System.getenv("MAVEN_REPOSITORY_RELEASES")
 
         repositories {
             maven {

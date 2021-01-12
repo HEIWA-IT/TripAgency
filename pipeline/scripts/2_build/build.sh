@@ -1,12 +1,11 @@
 #!/bin/bash
 ################################################################################
-#                       check_pipeline_variables.sh                            #
+#                               build.sh                                       #
 #                                                                              #
-# This script goal is to check the variable use in the pipeline.               #
+# This script goal is to build of the project                                  #
 #                                                                              #
 # Change History                                                               #
-# 01/10/2020  Dan MAGIER           Script to check the variable use in the     #
-#                                  pipeline                                    #
+# 01/10/2020  Dan MAGIER           Script to build the project                 #
 #                                                                              #
 #                                                                              #
 ################################################################################
@@ -34,78 +33,35 @@
 ################################################################################
 ################################################################################
 
-MANDATORY_VARIABLES=( "OPTIONS" "MAVEN_REPOSITORY" "SONARQUBE_URL" "SONARQUBE_CREDENTIALS" "DOCKER_PROJECT_REGISTRY"
-"DOCKER_REGISTRY_USERNAME" "DOCKER_REGISTRY_PASSWORD" "MAVEN_REPOSITORY" "CUKEDOCTOR_MAIN_JAR" )
+VERSION=$1
+echo Version: ${VERSION}
 
-NON_MANDATORY_VARIABLES=( "MVN_SETTINGS" "E2E_TEST_MODE" )
-
-###################################################
-# Check if a variable is filled or not
-# Returns:
-#   1if the variable is not filled
-####################################################
-function check_variable() {
-    var_name=$1
-    eval var_value=\$"$var_name"
-
-    if [ -z "${var_value}" ]
+################################################################################
+# build                                                                      #
+################################################################################
+function build()
+{
+  echo "Using building artifacts"
+  if [[ "${BUILD_TYPE}" = "maven" ]]
     then
-      echo "${var_name}" is empty!!! && return 1
+      ./pipeline/scripts/2_build/build_with_maven.sh "${VERSION}"
     else
-        echo "${var_name}" filled
-    fi
-}
-
-
-#######################################
-# Check the mandatory variables for the makefile to execute the rules
-# Outputs:
-#   Writes the number of variables that are not filled
-# Returns:
-#   0 if all the mandatory variables are set,
-#   else the number of mandatory variables not set.
-#######################################
-function check_mandatory_variables() {
-  count=0
-  for var_name in "${MANDATORY_VARIABLES[@]}"; do
-    check_variable "$var_name"
-    count=$(($?+count))
-  done
-
-  echo There are "${count}" mandatory variable\(s\) not filled!
-  exit ${count}
-}
-
-#######################################
-# Check the non mandatory variables for the makefile to execute the rules
-# Outputs:
-#   Writes the number of variables that are not filled
-#######################################
-function check_non_mandatory_variables() {
-  count=0
-  for var_name in "${NON_MANDATORY_VARIABLES[@]}"; do
-    check_variable "$var_name"
-    count=$(($?+count))
-  done
-
-  echo There are "${count}" non mandatory variable\(s\) not filled!
-}
-
-#######################################
-# Check all the variables for the makefile to execute the rules
-# Outputs:
-#   Writes the number of variables that are not filled
-# Returns:
-#   0 if all the mandatory variables are set,
-#   else the number of mandatory variables not set.
-#######################################
-function check_variables() {
-  check_non_mandatory_variables
-  check_mandatory_variables
+      ./pipeline/scripts/2_build/build_with_gradle.sh "${VERSION}"
+  fi
 }
 
 ################################################################################
 ################################################################################
 # Main program                                                                 #
 ################################################################################
-check_variables
+################################################################################
+
+###################################################
+# Launch the build of the project depending of the
+# options provided.
+# Outputs:
+#   Different artifacts stored in the build folder
+# Returns:
+#   0 if everything went fine, else 1
+####################################################
+build

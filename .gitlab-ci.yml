@@ -1,37 +1,140 @@
+before_script:
+  - '#!/bin/bash'
+  - 'export LOG_PATH=$LOG_PATH'
+  - 'export MAVEN_REPOSITORY=${MAVEN_REPOSITORY}'
+  - 'export BUILD_TYPE=${BUILD_TYPE}'
+  - 'export DOCKER_BUILD_OPTIONS=${DOCKER_BUILD_OPTIONS}'
+  - 'export MVN_SETTINGS=${MVN_SETTINGS}'
+  - 'export GRADLE_SETTINGS=${GRADLE_SETTINGS}'
+  - 'export SONARQUBE_URL=${SONARQUBE_URL}'
+  - 'export SONARQUBE_CREDENTIALS=${SONARQUBE_CREDENTIALS}'
+  - 'export DOCKER_REGISTRY_URL=${DOCKER_REGISTRY_URL}'
+  - 'export DOCKER_PROJECT_REGISTRY=${DOCKER_PROJECT_REGISTRY}'
+  - 'export DOCKER_REGISTRY_USERNAME=${DOCKER_REGISTRY_USERNAME}'
+  - 'export DOCKER_REGISTRY_PASSWORD=${DOCKER_REGISTRY_PASSWORD}'
+  - 'export CUKEDOCTOR_MAIN_VERSION=${CUKEDOCTOR_MAIN_VERSION}'
+  - 'export CUKEDOCTOR_MAIN_JAR=${CUKEDOCTOR_MAIN_JAR}'
+  - 'export E2E_TEST_MODE=${E2E_TEST_MODE}'
+  - 'export APP_NAME=${CI_PROJECT_NAME}'
+  - 'export DOCKER_IMAGE=$(echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${CI_COMMIT_SHORT_SHA}")'
+  - 'export GRADLE_USER_HOME=$(pwd)/.gradle'
+
 variables:
   GIT_SSL_NO_VERIFY: "true"
+  DOCKER_TLS_CERTDIR: "/certs"
+  MAVEN_OPTS: "-Dmaven.repo.local=/.m2"
 
 cache:
-  untracked: true
+  paths:
+    - domain/build
+    - repository/build
+    - exposition/build
+    - .gradle/wrapper
+    - .gradle/caches
+  policy: pull
 
 stages:
-  - build
-  - deploy_to_non_prod_environments
-  - deploy_to_prod_environments
+  - check
+  - build_artifacts
+  - quality
+  - build_container_image
+  - e2e_testing
+
+check_variables:
+  stage: check
+  image: heiwait/git-make-maven3.6.3-jdk16
+  script:
+    - './pipeline/scripts/1_check/check_pipeline_variables.sh'
+    - 'echo "VERSION=$(git describe --tags --always)" >> build.env'
+  artifacts:
+    reports:
+      dotenv: build.env
 
 build:
-  stage: build
+  stage: build_artifacts
+  needs:
+    - job: check_variables
+      artifacts: true
   script:
-    - "/builds/pax-leones/formations/TripAgency/CI_CD/build.sh"
+    - './pipeline/scripts/2_build/build.sh "${VERSION}"'
   artifacts:
     paths:
-      - domain/target/TripAgency
-      - infrastructure/target
-      - application/target
-      - exposition/target
+      - /var/log
+      - domain/build
+      - repository/build
+      - exposition/build
+    expire_in: 1 day
+  cache:
+    key: "gradle-cache-key"
+    paths:
+      - .gradle/wrapper
+      - .gradle/caches
+    policy: push
+
+code_analysis:
+  stage: quality
+  image: sonarsource/sonar-scanner-cli:4.6
+  needs:
+    - job: build
+    - job: check_variables
+      artifacts: true
+  script:
+    - './pipeline/scripts/3_reports/launch_quality_scan.sh'
+  artifacts:
+    paths:
+      - domain/build
+      - repository/build
+      - exposition/build
     expire_in: 1 day
 
-Deploy to DEV:
-  stage: deploy_to_non_prod_environments
+living_documentation_for_domain:
+  stage: quality
+  needs:
+    - job: build
+    - job: check_variables
+      artifacts: true
   script:
-    - "/builds/pax-leones/formations/TripAgency/CI_CD/deploy.sh DEV"
-  environment:
-    name: dev
+    - './pipeline/scripts/3_reports/generate_living_documentation.sh domain "${VERSION}" "${CUKEDOCTOR_MAIN_JAR}"'
+  artifacts:
+    paths:
+      - domain/build
+    expire_in: 1 day
 
-Deploy to INT:
-  stage: deploy_to_non_prod_environments
+build_docker_image_with_Dockerfile:
+  stage: build_container_image
+  tags:
+    - docker-dind
+  needs:
+    - job: build
+    - job: check_variables
+      artifacts: true
   script:
-    - "/builds/pax-leones/formations/TripAgency/CI_CD/deploy.sh INT"
-  environment:
-    name: int
-  when: manual
+    #- './pipeline/scripts/4_docker_build/build_docker_image_with_dockerfile.sh "${DOCKER_IMAGE}"'
+    - 'cd exposition && docker build --tag "${DOCKER_IMAGE}" . || exit 1'
+    - 'docker login -u=${DOCKER_PROJECT_REGISTRY} -p=${DOCKER_REGISTRY_PASSWORD}'
+    - 'docker push "${DOCKER_IMAGE}"'
+
+build_docker_image:
+  stage: build_container_image
+  needs:
+    - job: build
+    - job: check_variables
+      artifacts: true
+  script:
+    - './pipeline/scripts/4_docker_build/build_docker_image_with_jib.sh "${DOCKER_IMAGE}" "${VERSION}"'
+
+#e2e:
+#  stage: e2e_testing
+#  needs:
+#   - job: build_docker_image
+#   - job: check_variables
+#     artifacts: true
+#  script:
+#    - "make e2e"
+#    - 'echo "VERSION=${VERSION}" >> build.env'
+#  artifacts:
+#    paths:
+#      - domain/target/TripAgency
+#      - infrastructure/target
+#      - exposition/target
+#    expire_in: 1 day
