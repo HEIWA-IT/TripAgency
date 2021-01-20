@@ -37,9 +37,9 @@ VERSION=$1
 echo Version: ${VERSION}
 
 ################################################################################
-# gradlew                                                                      #
+# build_with_gradle                                                                      #
 ################################################################################
-function gradlew()
+function build_with_gradle()
 {
   echo "Using gradlew"
   ./gradlew :exposition:buildWithDependencies -PprojectVersion="${VERSION}" ${GRADLE_SETTINGS} || exit 1
@@ -59,4 +59,4 @@ function gradlew()
 # Returns:
 #   0 if everything went fine, else 1
 ####################################################
-gradlew
+build_with_gradle

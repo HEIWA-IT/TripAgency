@@ -37,13 +37,13 @@ VERSION=$1
 echo Version: ${VERSION}
 
 ################################################################################
-# mvnw                                                                         #
+# build_with_maven                                                             #
 ################################################################################
-function mvnw()
+function build_with_maven()
 {
   echo "Using mvnw"
   ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
-  ./mvnw deploy "${MVN_SETTINGS}" -pl !e2e -Drevision="${VERSION}"  || exit 1
+  ./mvnw deploy ${MVN_SETTINGS} -pl !e2e -Drevision="${VERSION}"  || exit 1
   ./mvnw versions:revert || exit 1
 }
 
@@ -61,4 +61,4 @@ function mvnw()
 # Returns:
 #   0 if everything went fine, else 1
 ####################################################
-mvnw
+build_with_maven

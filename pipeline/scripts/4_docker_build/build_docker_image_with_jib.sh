@@ -36,7 +36,7 @@
 DOCKER_IMAGE=$1
 echo "${DOCKER_IMAGE}"
 
-VERSION=$VERSION
+VERSION=$2
 echo "${VERSION}"
 ################################################################################
 # gradlew                                                                      #

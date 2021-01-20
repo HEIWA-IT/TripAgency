@@ -43,14 +43,13 @@ MVN_JIB_COMMAND="compile ${MVN_SETTINGS} jib:build -pl exposition \
 -Djib.to.auth.username=${DOCKER_REGISTRY_USERNAME} -Djib.to.auth.password=${DOCKER_REGISTRY_PASSWORD} \
 -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000 -Djib.allowInsecureRegistries=true"
 
-
 ################################################################################
-# mvnw                                                                         #
+# build_docker_image_with_jib_and_maven                                                                         #
 ################################################################################
 function build_docker_image_with_jib_and_maven() {
   echo "Using mvnw"
   ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
-  ./mvnw ${MVN_SETTINGS} ${MVN_JIB_COMMAND} || exit 1
+  ./mvnw ${MVN_JIB_COMMAND} || exit 1
   ./mvnw versions:revert || exit 1
 }
 
