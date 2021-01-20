@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <NAME>
+  labels:
+    app: <NAME>
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: <NAME>
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 33%
+  template:
+    metadata:
+      labels:
+        app: <NAME>
+    spec:
+      containers:
+        - name: <NAME>
+          image: <DOCKER_IMAGE>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: <NAME>-svc
+spec:
+  selector:
+    app: <NAME>
+  ports:
+    - name: http
+      protocol: TCP
+      port: <PORT>
+      targetPort: <PORT>
+  externalIPs:
+    - <EXTERNAL_IP>
