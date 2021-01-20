@@ -36,51 +36,29 @@
 INITIAL_DIR=$(pwd)
 
 ################################################################################
-# help                                                                         #
-################################################################################
-function help() {
-  # Display Help
-  echo "Display the options of this script."
-  echo "Syntax: clean.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
-  echo "options:"
-  echo "-gw|--gradlew      Use Gradle wrapper to build the docker image."
-  echo "-g|--gradle        Use Gradle to build the docker image."
-  echo "-mw|--mvnw         Use Maven wrapper to revert the poms to its former state."
-  echo "-m|--mvn           Use Maven  to revert the poms to its former state."
-  echo "-h|--help          Print this Help."
-  echo
-}
-
-################################################################################
 # gradlew                                                                      #
 ################################################################################
 function gradlew() {
   echo "Using gradlew"
-  ./gradlew clean || exit 1
 }
 
-################################################################################
-# gradle                                                                       #
-################################################################################
-function gradle() {
-  echo "Using Gradle"
-  gradle clean || exit 1
-}
 
 ################################################################################
 # mvnw                                                                         #
 ################################################################################
-function mvnw() {
-  echo "Using mvnw"
-  ./mvnw clean || exit 1
-}
-
-################################################################################
-# mvn                                                                          #
-################################################################################
-function mvn() {
-  echo "Using mvn"
-  mvn clean || exit 1
+function clean() {
+  echo "Cleaning project"
+  if [[ "${BUILD_TYPE}" = "maven" ]]
+  then
+     echo "Using mvnw"
+    ./mvnw clean || exit 1
+  elif [[ "${BUILD_TYPE}" = "gradle" ]]
+  then
+    echo "Using gradlew"
+    ./gradlew clean || exit 1
+  else
+      exit 1
+  fi
 }
 
 ################################################################################
@@ -93,22 +71,4 @@ function mvn() {
 # Returns:
 #   0 if everything went fine, else 1
 ####################################################
-
-case $OPTIONS in
--h | --help) # display Help
-  help
-  exit
-  ;;
--mw | --mvnw) # build with Maven wrapper
-  mvnw ;;
--m | --mvn) # build with Maven
-  mvn ;;
--gw | --gradlew) # build with Gradle wrapper
-  gradlew ;;
--g | --gradle) # build with Gradle
-  gradle ;;
-*) # incorrect option
-  echo "Error: Invalid option"
-  exit
-  ;;
-esac
+clean

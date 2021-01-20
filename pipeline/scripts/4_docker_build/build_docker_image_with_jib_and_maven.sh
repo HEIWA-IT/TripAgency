@@ -33,10 +33,10 @@
 ################################################################################
 ################################################################################
 ################################################################################
-DOCKER_IMAGE=$1-SNAPSHOT
+DOCKER_IMAGE=$1
 echo "${DOCKER_IMAGE}"
 
-VERSION=$2-SNAPSHOT
+VERSION=$2
 
 MVN_JIB_COMMAND="compile ${MVN_SETTINGS} jib:build -pl exposition \
 -Djib.from.auth.username=${DOCKER_REGISTRY_USERNAME} -Djib.from.auth.password=${DOCKER_REGISTRY_PASSWORD} \

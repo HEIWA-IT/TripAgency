@@ -33,7 +33,7 @@
 ################################################################################
 ################################################################################
 
-VERSION=$1-SNAPSHOT
+VERSION=$1
 echo Version: ${VERSION}
 
 ################################################################################
@@ -43,7 +43,7 @@ function mvnw()
 {
   echo "Using mvnw"
   ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
-  ./mvnw deploy -pl !e2e -Drevision="${VERSION}" ${MVN_SETTINGS} || exit 1
+  ./mvnw deploy "${MVN_SETTINGS}" -pl !e2e -Drevision="${VERSION}"  || exit 1
   ./mvnw versions:revert || exit 1
 }
 

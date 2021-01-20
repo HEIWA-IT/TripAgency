@@ -40,7 +40,7 @@ VERSION=$2
 INITIAL_DIR=$(pwd)
 
 function wait_for_exposition_to_start() {
-  ./scripts/commons/wait-for-it.sh "http://localhost:12378/tripagency/swagger-ui/" -- echo "exposition is up" || exit 1
+  ./pipeline/scripts/5_e2e/wait-for-it.sh "http://localhost:12378/tripagency/swagger-ui/" -- echo "exposition is up" || exit 1
 }
 
 function use_docker() {

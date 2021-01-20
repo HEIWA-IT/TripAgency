@@ -37,62 +37,24 @@ VERSION=$1
 echo Version: ${VERSION}
 
 ################################################################################
-# help                                                                         #
-################################################################################
-help()
-{
-  # Display Help
-  echo "Display the options of this script."
-  echo "Syntax: launch_e2e_tests.sh [-gw|--gradlew|-g|--gradle|-g|--gradle|-m|--mvn|-h|--help]"
-  echo "options:"
-  echo "-gw|--gradlew       Use Gradle wrapper to build the project."
-  echo "-g|--gradle         Use Gradle to build the project."
-  echo "-mw|--mvnw          Use Maven wrapper to revert the poms to its former state."
-  echo "-m|--mvn            Use Maven  to revert the poms to its former state."
-  echo "-h|--help           Print this Help."
-  echo
-}
-
-################################################################################
 # gradlew                                                                      #
 ################################################################################
-gradlew()
-{
-  echo "Using Gradlew"
-  ./gradlew :e2e:test || exit 1
+function launch_e2e_tests() {
+  echo "Cleaning project"
+  if [[ "${BUILD_TYPE}" = "maven" ]]
+  then
+     echo "Using Mvnw"
+    ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
+    ./mvnw -pl e2e test || exit 1
+    ./mvnw versions:revert || exit 1
+  elif [[ "${BUILD_TYPE}" = "gradle" ]]
+  then
+    echo "Using Gradlew"
+    ./gradlew :e2e:test || exit 1
+  else
+      exit 1
+  fi
 }
-
-################################################################################
-# gradle                                                                       #
-################################################################################
-gradle()
-{
-  echo "Using Gradle"
-  gradle :e2e:test || exit 1
-}
-
-################################################################################
-# mvnw                                                                         #
-################################################################################
-mvnw()
-{
-  echo "Using Mvnw"
-  ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
-  ./mvnw -pl e2e test || exit 1
-  ./mvnw versions:revert || exit 1
-}
-
-################################################################################
-# mvn                                                                          #
-################################################################################
-mvn()
-{
-  echo "Using Mvnw"
-  mvn versions:set -DnewVersion="${VERSION}" || exit 1
-  mvn -pl e2e test || exit 1
-  mvn versions:revert || exit 1
-}
-
 ################################################################################
 ################################################################################
 # Main program                                                                 #
@@ -104,24 +66,4 @@ mvn()
 # Returns:
 #   0 if everything went fine, else 1
 ###################################################
-
-case ${OPTIONS} in
-  -h|--help) # display Help
-    help
-    exit;;
-  -mw|--mvnw) # build with Maven wrapper
-    mvnw
-    exit;;
-  -m|--mvn) # build with Maven
-    mvn
-    exit;;
-  -gw|--gradlew) # build with Gradle wrapper
-    gradlew
-    exit;;
-  -g|--gradle) # build with Gradle
-    gradle
-    exit;;
-  *) # incorrect option
-    echo "Error: Invalid option"
-    exit;;
-esac
+launch_e2e_tests
