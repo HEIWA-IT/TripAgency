@@ -5,7 +5,7 @@ APP_NAME := $(shell ./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:eval
 DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
 
 all : 	ci e2e clean
-.PHONY: all_maven
+.PHONY: all
 
 ci : 	check build build_docker_image_with_jib launch_quality_scan generate_living_documentation_for_domain
 .PHONY: ci
@@ -15,7 +15,7 @@ e2e : 	check start_exposition launch_e2e_tests stop_exposition generate_living_d
 
 # Check
 check :
-	./pipeline/scripts/1_check/check_pipeline_variables.sh
+	./pipeline/scripts/1_init/check_pipeline_variables.sh
 
 # Build
 build :
