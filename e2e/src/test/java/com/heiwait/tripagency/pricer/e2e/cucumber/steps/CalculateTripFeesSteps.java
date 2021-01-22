@@ -13,12 +13,14 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.response.Response;
 
 import java.util.Locale;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CalculateTripFeesSteps {
 
-    String BASE_URL = "http://localhost:12378/tripagency/";
+    String HOST;
+    String BASE_URL;
     RequestSpecification request;
     Response response;
 
@@ -27,6 +29,9 @@ public class CalculateTripFeesSteps {
 
     @Before
     public void setup() {
+        Map<String, String> env = System.getenv();
+        HOST = env.get("HOST");
+        BASE_URL = HOST+"/tripagency/";
         Locale usLocale = new Locale("en", "US");
         Locale.setDefault(usLocale);
         RestAssured.baseURI = BASE_URL;

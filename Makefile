@@ -10,7 +10,10 @@ all : 	ci e2e clean
 ci : 	check build build_docker_image_with_jib launch_quality_scan generate_living_documentation_for_domain
 .PHONY: ci
 
-e2e : 	check start_exposition launch_e2e_tests stop_exposition generate_living_documentation_for_e2e
+e2e_docker : 	check start_exposition launch_e2e_tests stop_exposition generate_living_documentation_for_e2e
+.PHONY: e2e
+
+e2e : 	check connect_to_kubernetes launch_e2e_tests generate_living_documentation_for_e2e
 .PHONY: e2e
 
 # Check
@@ -32,6 +35,11 @@ build_docker_image_with_dockerfile :
 	./pipeline/scripts/4_docker_build/build_docker_image_with_dockerfile.sh "${DOCKER_IMAGE}"
 build_docker_image_with_jib :
 	./pipeline/scripts/4_docker_build/build_docker_image_with_jib.sh "${DOCKER_IMAGE}" "${VERSION}"
+
+
+# Deployment on k8s
+connect_to_kubernetes :
+	./pipeline/scripts/6_deployment/deploy_to_kubernetes.sh
 
 # e2e
 launch_e2e_tests :

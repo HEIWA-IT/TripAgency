@@ -1,12 +1,12 @@
 #!/bin/bash
 ################################################################################
-#                               deploy_to_kubernetes.sh                        #
+#                            delete_deployment_from_kubernetes.sh              #
 #                                                                              #
 # This script goal is to build of the project                                  #
 #                                                                              #
 # Change History                                                               #
-# 19/01/2021  Dan MAGIER           Script to deploy the project container      #
-#                                  image to kubernetes                         #
+# 19/01/2021  Dan MAGIER           Script to delete the deployment from        #
+#                                  kubernetes                                  #
 #                                                                              #
 #                                                                              #
 ################################################################################
@@ -58,12 +58,12 @@ function connect_to_kubernetes_cluster()
   kubectl config use-context "${CLUSTER}"-context
 }
 
-
-function deploy_to_kubernetes()
+function delete_deployment_from_kubernetes()
 {
   connect_to_kubernetes_cluster
   kubectl get pods
-  kubectl apply -f ./pipeline/scripts/6_deployment/deployment_test.yaml
+  kubectl delete -f ./pipeline/scripts/6_deployment/deployment_test.yaml
+  kubectl get pods
 }
 
 ################################################################################
@@ -77,4 +77,4 @@ function deploy_to_kubernetes()
 # Returns:
 #   0 if everything went fine, else 1
 ####################################################
-deploy_to_kubernetes
+delete_deployment_from_kubernetes
