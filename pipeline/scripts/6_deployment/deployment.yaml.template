@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: <NAME>
+  name: trippricer
   labels:
-    app: <NAME>
+    app: trippricer
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: <NAME>
+      app: trippricer
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -17,23 +17,28 @@ spec:
   template:
     metadata:
       labels:
-        app: <NAME>
+        app: trippricer
     spec:
       containers:
-        - name: <NAME>
-          image: <DOCKER_IMAGE>
+        - name: trippricer
+          image: {{IMAGE}}
+          ports:
+            - containerPort: 12378
+          env:
+            - name: LOG_PATH
+              value: "."
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: <NAME>-svc
+  name: trippricer-svc
 spec:
   selector:
-    app: <NAME>
+    app: trippricer
   ports:
     - name: http
       protocol: TCP
-      port: <PORT>
-      targetPort: <PORT>
+      port: 12378
+      targetPort: 12378
   externalIPs:
-    - <EXTERNAL_IP>
+    - 173.212.241.172

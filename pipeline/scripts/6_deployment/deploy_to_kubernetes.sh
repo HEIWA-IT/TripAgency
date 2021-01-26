@@ -58,12 +58,25 @@ function connect_to_kubernetes_cluster()
   kubectl config use-context "${CLUSTER}"-context
 }
 
+function deploy()
+{
+  # sample value for your variables
+  IMAGE_TO_DEPLOY="heiwait/trippricer-exposition:latest"
+
+  # read the yml template from a file and substitute the string
+  # {{MYVARNAME}} with the value of the IMAGE_TO_DEPLOY variable
+  template=`cat "./pipeline/scripts/6_deployment/deployment.yaml.template" | sed "s/{{IMAGE}}/$IMAGE_TO_DEPLOY/g"`
+
+  # apply the yml with the substituted value
+  echo "$template" | kubectl apply -f -
+}
+
 
 function deploy_to_kubernetes()
 {
   connect_to_kubernetes_cluster
   kubectl get pods
-  kubectl apply -f ./pipeline/scripts/6_deployment/deployment_test.yaml
+  deploy
 }
 
 ################################################################################

@@ -48,7 +48,7 @@ check_variables:
   image: heiwait/git-make-maven3.6.3-jdk16
   script:
     - './pipeline/scripts/1_init/check_pipeline_variables.sh'
-    - 'echo "VERSION=$(git describe --tags --always)" >> build.env'
+    - 'echo "VERSION=$(git describe --tags --always)"-SNAPSHOT >> build.env'
   artifacts:
     reports:
       dotenv: build.env
@@ -103,19 +103,19 @@ living_documentation_for_domain:
       - domain/build
     expire_in: 1 day
 
-build_docker_image_with_Dockerfile:
-  stage: build_and_publish_container_image
-  tags:
-    - docker-dind
-  needs:
-    - job: build
-    - job: check_variables
-      artifacts: true
-  script:
-    #- './pipeline/scripts/4_docker_build/build_docker_image_with_dockerfile.sh "${DOCKER_IMAGE}"'
-    - 'cd exposition && docker build --tag "${DOCKER_IMAGE}" . || exit 1'
-    - 'docker login -u=${DOCKER_PROJECT_REGISTRY} -p=${DOCKER_REGISTRY_PASSWORD}'
-    - 'docker push "${DOCKER_IMAGE}"'
+#build_docker_image_with_Dockerfile:
+#  stage: build_and_publish_container_image
+#  tags:
+#    - docker-dind
+#  needs:
+#    - job: build
+#    - job: check_variables
+#      artifacts: true
+#  script:
+#    #- './pipeline/scripts/4_docker_build/build_docker_image_with_dockerfile.sh "${DOCKER_IMAGE}"'
+#    - 'cd exposition && docker build --tag "${DOCKER_IMAGE}" . || exit 1'
+#    - 'docker login -u=${DOCKER_PROJECT_REGISTRY} -p=${DOCKER_REGISTRY_PASSWORD}'
+#    - 'docker push "${DOCKER_IMAGE}"'
 
 build_and_publish_container_image:
   stage: build_and_publish_container_image
@@ -124,6 +124,7 @@ build_and_publish_container_image:
     - job: check_variables
       artifacts: true
   script:
+    - 'DOCKER_IMAGE=$(echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")'
     - './pipeline/scripts/4_docker_build/build_docker_image_with_jib.sh "${DOCKER_IMAGE}" "${VERSION}"'
 
 deploy_to_kubernetes:
