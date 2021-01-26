@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trippricer
+  name: trippricer-{{VERSION}}
   labels:
-    app: trippricer
+    app: trippricer-{{VERSION}}
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: trippricer
+      app: trippricer-{{VERSION}}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -17,11 +17,11 @@ spec:
   template:
     metadata:
       labels:
-        app: trippricer
+        app: trippricer-{{VERSION}}
     spec:
       containers:
         - name: trippricer
-          image: {{IMAGE}}
+          image: heiwait/trippricer-exposition:{{VERSION}}
           ports:
             - containerPort: 12378
           env:
@@ -34,7 +34,7 @@ metadata:
   name: trippricer-svc
 spec:
   selector:
-    app: trippricer
+    app: trippricer-{{VERSION}}
   ports:
     - name: http
       protocol: TCP

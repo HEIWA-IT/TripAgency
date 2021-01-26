@@ -48,7 +48,7 @@ check_variables:
   image: heiwait/git-make-maven3.6.3-jdk16
   script:
     - './pipeline/scripts/1_init/check_pipeline_variables.sh'
-    - 'echo "VERSION=$(git describe --tags --always)"-SNAPSHOT >> build.env'
+    - 'echo "VERSION=$(git describe --tags --always)" >> build.env'
   artifacts:
     reports:
       dotenv: build.env
@@ -59,7 +59,7 @@ build:
     - job: check_variables
       artifacts: true
   script:
-    - './pipeline/scripts/2_build/build.sh "${VERSION}"'
+    - './pipeline/scripts/2_build/build.sh "${VERSION}"-SNAPSHOT'
   artifacts:
     paths:
       - /var/log
@@ -97,7 +97,7 @@ living_documentation_for_domain:
     - job: check_variables
       artifacts: true
   script:
-    - './pipeline/scripts/3_reports/generate_living_documentation.sh domain "${VERSION}" "${CUKEDOCTOR_MAIN_JAR}"'
+    - './pipeline/scripts/3_reports/generate_living_documentation.sh domain "${VERSION}"-SNAPSHOT "${CUKEDOCTOR_MAIN_JAR}"'
   artifacts:
     paths:
       - domain/build
@@ -124,8 +124,8 @@ build_and_publish_container_image:
     - job: check_variables
       artifacts: true
   script:
-    - 'DOCKER_IMAGE=$(echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")'
-    - './pipeline/scripts/4_docker_build/build_docker_image_with_jib.sh "${DOCKER_IMAGE}" "${VERSION}"'
+    - 'DOCKER_IMAGE=$(echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}-snapshot")'
+    - './pipeline/scripts/4_docker_build/build_docker_image_with_jib.sh "${DOCKER_IMAGE}" "${VERSION}-SNAPSHOT"'
 
 deploy_to_kubernetes:
   stage: e2e_deploy
@@ -135,8 +135,7 @@ deploy_to_kubernetes:
    - job: check_variables
      artifacts: true
   script:
-    - './pipeline/scripts/6_deployment/deploy_to_kubernetes.sh'
-    - './pipeline/scripts/5_e2e/wait-for-it.sh "${HOST}/tripagency/swagger-ui/" -- echo "exposition is up" || exit 1'
+    - './pipeline/scripts/6_deployment/deploy_to_kubernetes.sh ${VERSION}-snapshot'
     - 'echo "VERSION=${VERSION}" >> build.env'
 
 launch_e2e_test:
@@ -146,7 +145,7 @@ launch_e2e_test:
     - job: check_variables
       artifacts: true
   script:
-    - './pipeline/scripts/5_e2e/launch_e2e_tests.sh "${VERSION}"'
+    - './pipeline/scripts/5_e2e/launch_e2e_tests.sh "${VERSION}"-SNAPSHOT'
     - 'echo "VERSION=${VERSION}" >> build.env'
   artifacts:
     paths:
@@ -161,7 +160,7 @@ delete_deployment_from_to_kubernetes:
     - job: check_variables
       artifacts: true
   script:
-    - './pipeline/scripts/6_deployment/delete_deployment_from_kubernetes.sh'
+    - './pipeline/scripts/6_deployment/delete_deployment_from_kubernetes.sh "${VERSION}"-snapshot'
     - 'echo "VERSION=${VERSION}" >> build.env'
 
 living_documentation_for_e2e:

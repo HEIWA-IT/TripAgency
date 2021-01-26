@@ -1,7 +1,7 @@
 include $(HOME)/.env
 
-VERSION := $(shell git describe --tags --always)-SNAPSHOT
-APP_NAME := $(shell ./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.name -q -DforceStdout)
+VERSION := $(shell git describe --tags --always)-snapshot
+APP_NAME := trippricer
 DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
 
 all : 	ci e2e clean
@@ -13,7 +13,7 @@ ci : 	check build build_docker_image_with_jib launch_quality_scan generate_livin
 e2e_docker : 	check start_exposition launch_e2e_tests stop_exposition generate_living_documentation_for_e2e
 .PHONY: e2e
 
-e2e : 	check connect_to_kubernetes launch_e2e_tests generate_living_documentation_for_e2e
+e2e : 	check deploy_to_kubernetes launch_e2e_tests delete_deployment_from_kubernetes generate_living_documentation_for_e2e
 .PHONY: e2e
 
 # Check
@@ -38,8 +38,11 @@ build_docker_image_with_jib :
 
 
 # Deployment on k8s
-connect_to_kubernetes :
-	./pipeline/scripts/6_deployment/deploy_to_kubernetes.sh
+deploy_to_kubernetes :
+	./pipeline/scripts/6_deployment/deploy_to_kubernetes.sh "${VERSION}"
+
+delete_deployment_from_kubernetes :
+	./pipeline/scripts/6_deployment/delete_deployment_from_kubernetes.sh "${VERSION}"
 
 # e2e
 launch_e2e_tests :

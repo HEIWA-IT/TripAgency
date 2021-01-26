@@ -34,6 +34,7 @@
 ################################################################################
 ################################################################################
 
+VERSION=$1
 APISERVER=${APISERVER}
 TOKEN=${TOKEN}
 SECRET_NAME=${SECRET_NAME}
@@ -60,15 +61,16 @@ function connect_to_kubernetes_cluster()
 
 function deploy()
 {
-  # sample value for your variables
-  IMAGE_TO_DEPLOY="heiwait/trippricer-exposition:latest"
+  DEPLOYMENT_YAML=$(sed "s/{{VERSION}}/${VERSION}/g" <"./pipeline/kubernetes/deployment.yaml.template")
+  echo "${DEPLOYMENT_YAML}"
 
-  # read the yml template from a file and substitute the string
-  # {{MYVARNAME}} with the value of the IMAGE_TO_DEPLOY variable
-  template=`cat "./pipeline/scripts/6_deployment/deployment.yaml.template" | sed "s/{{IMAGE}}/$IMAGE_TO_DEPLOY/g"`
+  echo "${DEPLOYMENT_YAML}" | kubectl apply -f -
 
-  # apply the yml with the substituted value
-  echo "$template" | kubectl apply -f -
+  kubectl rollout status deployment trippricer-"${VERSION}"
+
+  while [ $(curl -sw '%{http_code}' "${HOST}/tripagency/api/swagger-ui/" -o /dev/null) -ne 200 ]; do
+    sleep 5;
+  done
 }
 
 
@@ -77,6 +79,7 @@ function deploy_to_kubernetes()
   connect_to_kubernetes_cluster
   kubectl get pods
   deploy
+  kubectl get pods
 }
 
 ################################################################################

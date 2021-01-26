@@ -34,6 +34,7 @@
 ################################################################################
 ################################################################################
 
+VERSION=$1
 APISERVER=${APISERVER}
 TOKEN=${TOKEN}
 SECRET_NAME=${SECRET_NAME}
@@ -62,7 +63,7 @@ function delete_deployment_from_kubernetes()
 {
   connect_to_kubernetes_cluster
   kubectl get pods
-  kubectl delete -f ./pipeline/scripts/6_deployment/deployment_test.yaml
+  kubectl delete deployment/trippricer-"${VERSION}"
   kubectl get pods
 }
 
