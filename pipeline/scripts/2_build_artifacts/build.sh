@@ -1,12 +1,11 @@
 #!/bin/bash
 ################################################################################
-#                       build_docker_image_with_jib.sh                                  #
+#                               build.sh                                       #
 #                                                                              #
-# This script goal is to build the docker image of the exposition module       #
+# This script goal is to build of the project                                  #
 #                                                                              #
 # Change History                                                               #
-# 01/10/2020  Dan MAGIER           Script to build the docker image of the     #
-#                                  exposition module depending on options      #
+# 01/10/2020  Dan MAGIER           Script to build the project                 #
 #                                                                              #
 #                                                                              #
 ################################################################################
@@ -33,33 +32,36 @@
 ################################################################################
 ################################################################################
 ################################################################################
-DOCKER_IMAGE=$1
-echo "${DOCKER_IMAGE}"
 
-VERSION=$2
-echo "${VERSION}"
+VERSION=$1
+echo Version: ${VERSION}
+
 ################################################################################
-# gradlew                                                                      #
+# build                                                                      #
 ################################################################################
-function build_docker_image() {
-  echo "Building Docker image"
+function build()
+{
+  echo "Using building artifacts"
   if [[ "${BUILD_TYPE}" = "maven" ]]
-  then
-    ./pipeline/scripts/4_docker_build/build_docker_image_with_jib_and_maven.sh "${DOCKER_IMAGE}" "${VERSION}"
-  elif [[ "${BUILD_TYPE}" = "gradle" ]]
-  then
-    ./pipeline/scripts/4_docker_build/build_docker_image_with_jib_and_gradle.sh "${DOCKER_IMAGE}"
-  else
-      exit 1
+    then
+      ./pipeline/scripts/2_build_artifacts/build_with_maven.sh "${VERSION}"
+    else
+      ./pipeline/scripts/2_build_artifacts/build_with_gradle.sh "${VERSION}"
   fi
 }
 
+################################################################################
+################################################################################
+# Main program                                                                 #
+################################################################################
+################################################################################
+
 ###################################################
-# Launch the build of the docker image of the
-# exposition module depending of the options provided.
+# Launch the build of the project depending of the
+# options provided.
 # Outputs:
-#   A docker image of the exposition module
+#   Different artifacts stored in the build folder
 # Returns:
 #   0 if everything went fine, else 1
 ####################################################
-build_docker_image
+build
