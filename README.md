@@ -246,7 +246,7 @@ export LOG_PATH=/Volumes/DATA/var/log
 export MAVEN_REPOSITORY=${HOME}/.m2/repository
 export OPTIONS=-mw
 export DOCKER_BUILD_OPTIONS=-d
-export MVN_SETTINGS=
+export MAVEN_SETTINGS=
 export GRADLE_SETTINGS=
 
 export SONARQUBE_URL={{SONARQUBE_URL}}

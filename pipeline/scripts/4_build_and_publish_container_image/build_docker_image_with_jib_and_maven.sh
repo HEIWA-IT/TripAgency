@@ -38,7 +38,7 @@ echo "${DOCKER_IMAGE}"
 
 VERSION=$2
 
-MVN_JIB_COMMAND="compile ${MVN_SETTINGS} jib:build -pl exposition \
+MVN_JIB_COMMAND="compile ${MAVEN_SETTINGS} jib:build -pl exposition \
 -Djib.from.auth.username=${DOCKER_REGISTRY_USERNAME} -Djib.from.auth.password=${DOCKER_REGISTRY_PASSWORD} \
 -Djib.to.auth.username=${DOCKER_REGISTRY_USERNAME} -Djib.to.auth.password=${DOCKER_REGISTRY_PASSWORD} \
 -Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000 -Djib.allowInsecureRegistries=true"

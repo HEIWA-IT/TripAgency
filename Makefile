@@ -4,6 +4,8 @@ VERSION := $(shell git describe --tags --always)
 APP_NAME := trippricer
 DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
 
+MAVEN_SETTINGS := -s ${MAVEN_SETTINGS_XML} -Dmaven_repository_username=${MAVEN_REPOSITORY_USERNAME} -Dmaven_repository_password=${MAVEN_REPOSITORY_PASSWORD} -Dmaven_repository_url=${MAVEN_REPOSITORY_URL} -Dsonarqube_url=${SONARQUBE_URL}
+
 all : 	ci e2e clean
 .PHONY: all
 

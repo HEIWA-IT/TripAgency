@@ -35,10 +35,10 @@
 ################################################################################
 
 VERSION=$1
-APISERVER=${APISERVER}
-TOKEN=${TOKEN}
-SECRET_NAME=${SECRET_NAME}
-CERTIFICATE_AUTHORITY_DATA=${CERTIFICATE_AUTHORITY_DATA}
+KUBERNETES_API_SERVER=${KUBERNETES_API_SERVER}
+KUBERNETES_TOKEN=${KUBERNETES_TOKEN}
+KUBERNETES_SECRET_NAME=${KUBERNETES_SECRET_NAME}
+KUBERNETES_CERTIFICATE_AUTHORITY_DATA=${KUBERNETES_CERTIFICATE_AUTHORITY_DATA}
 CLUSTER=kubernetes
 USER=default
 NAMESPACE=gitlab-managed-apps
@@ -52,9 +52,9 @@ NAMESPACE=gitlab-managed-apps
 #######################################
 function connect_to_kubernetes_cluster()
 {
-  kubectl config set-cluster "${CLUSTER}" --server="${APISERVER}" --insecure-skip-tls-verify=true
+  kubectl config set-cluster "${CLUSTER}" --server="${KUBERNETES_API_SERVER}" --insecure-skip-tls-verify=true
   kubectl config set-context "${CLUSTER}"-context --cluster="${CLUSTER}"
-  kubectl config set-credentials "${USER}" --token="${TOKEN}"
+  kubectl config set-credentials "${USER}" --token="${KUBERNETES_TOKEN}"
   kubectl config set-context "${CLUSTER}"-context --user="${USER}" --namespace="${NAMESPACE}"
   kubectl config use-context "${CLUSTER}"-context
 }
