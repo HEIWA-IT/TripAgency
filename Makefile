@@ -4,7 +4,19 @@ VERSION := $(shell git describe --tags --always)
 APP_NAME := trippricer
 DOCKER_IMAGE := $(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
 
+BUILD_TYPE := maven
+MAVEN_REPOSITORY := ${HOME}/.m2/repository
+MAVEN_SETTINGS_XML := pipeline/.m2/settings.xml
 MAVEN_SETTINGS := -s ${MAVEN_SETTINGS_XML} -Dmaven_repository_username=${MAVEN_REPOSITORY_USERNAME} -Dmaven_repository_password=${MAVEN_REPOSITORY_PASSWORD} -Dmaven_repository_url=${MAVEN_REPOSITORY_URL} -Dsonarqube_url=${SONARQUBE_URL}
+GRADLE_SETTINGS := --rerun-tasks
+LOG_PATH := /Volumes/DATA/var/log
+
+CUKEDOCTOR_MAIN_VERSION := 3.5.1
+CUKEDOCTOR_MAIN_JAR := ${MAVEN_REPOSITORY}/com/github/cukedoctor/cukedoctor-main/${CUKEDOCTOR_MAIN_VERSION}/cukedoctor-main-${CUKEDOCTOR_MAIN_VERSION}.jar
+
+E2E_TEST_MODE := DOCKER
+HOST := http://173.212.241.172:12378
+#HOST := http://localhost:12378
 
 all : 	ci e2e clean
 .PHONY: all
