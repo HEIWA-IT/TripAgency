@@ -34,15 +34,16 @@
 ################################################################################
 ################################################################################
 
-MANDATORY_VARIABLES=( "BUILD_TYPE" "MAVEN_REPOSITORY" "SONARQUBE_URL" "SONARQUBE_CREDENTIALS" "DOCKER_REGISTRY_URL"
-"DOCKER_PROJECT_REGISTRY" "DOCKER_REGISTRY_USERNAME" "DOCKER_REGISTRY_PASSWORD" "MAVEN_REPOSITORY" "CUKEDOCTOR_MAIN_JAR" )
+MANDATORY_VARIABLES=( "BUILD_TYPE" "CUKEDOCTOR_MAIN_JAR"
+"DOCKER_PROJECT_REGISTRY" "DOCKER_REGISTRY_PASSWORD" "DOCKER_REGISTRY_URL" "DOCKER_REGISTRY_USERNAME"
+"MAVEN_REPOSITORY" "SONARQUBE_CREDENTIALS" "SONARQUBE_URL" )
 
-NON_MANDATORY_VARIABLES=( "MAVEN_SETTINGS" "E2E_TEST_MODE" )
+NON_MANDATORY_VARIABLES=( "E2E_TEST_MODE" "MAVEN_SETTINGS" )
 
 ###################################################
 # Check if a variable is filled or not
 # Returns:
-#   1if the variable is not filled
+#   1 if the variable is not filled else 0
 ####################################################
 function check_variable() {
     var_name=$1
@@ -55,7 +56,6 @@ function check_variable() {
         echo "${var_name}" filled
     fi
 }
-
 
 #######################################
 # Check the mandatory variables for the makefile to execute the rules
