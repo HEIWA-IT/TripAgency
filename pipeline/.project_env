@@ -4,11 +4,10 @@ export E2E_TEST_MODE=DOCKER
 
 export BUILD_TYPE=maven
 export HOST=http://173.212.241.172:12378
-export #HOST=http://localhost:12378
 export LOG_PATH=/Volumes/DATA/var/log
-export ##############################################################################################
+##############################################################################################
 
-export ############################### GENERIC DEVELOPMENT VARIABLES ################################
+############################### GENERIC DEVELOPMENT VARIABLES ################################
 export VERSION=$(shell git describe --tags --always)
 export DOCKER_IMAGE=$(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
 

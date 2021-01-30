@@ -233,40 +233,62 @@ The logs are stored in the following folder : /var/log/tripagency
 
 #### Install the needed tools to 
 - docker and docker-compose
-- **timeout** or **gtimeout**. Look at this [paragraph](e2e-testing)
 
 #### Fill an .env file
 You can also us the Makefile included at the root folder of the project.
-To use it, you will need to have the following file **~/.env** with this content:
+To use it, you will need to have the following files:
+- **~/.env** with this content:
 ```
-############################### LOG ###############################
-export LOG_PATH=/Volumes/DATA/var/log
-
-############################### CI ###############################
-export MAVEN_REPOSITORY=${HOME}/.m2/repository
-export OPTIONS=-mw
-export DOCKER_BUILD_OPTIONS=-d
-export MAVEN_SETTINGS=
-export GRADLE_SETTINGS=
-
-export SONARQUBE_URL={{SONARQUBE_URL}}
-export SONARQUBE_CREDENTIALS={{SONARQUBE_CREDS}}
-
-export DOCKER_REGISTRY_URL={{DOCKER_REGISTRY_URL}}
+############################### DEVELOPMENT COMMONS VARIABLE ################################
 export DOCKER_PROJECT_REGISTRY={{DOCKER_PROJECT_REGISTRY}}
-export DOCKER_REGISTRY_USERNAME={{DOCKER_REGISTRY_USERNAME}}
 export DOCKER_REGISTRY_PASSWORD={{DOCKER_REGISTRY_PASSWORD}}
+export DOCKER_REGISTRY_URL={{DOCKER_REGISTRY_URL}}
+export DOCKER_REGISTRY_USERNAME={{DOCKER_REGISTRY_USERNAME}}
 
-############################# COMMONS #############################
-export CUKEDOCTOR_MAIN_VERSION=3.2
-export CUKEDOCTOR_MAIN_JAR=${MAVEN_REPOSITORY}/com/github/cukedoctor/cukedoctor-main/${CUKEDOCTOR_MAIN_VERSION}/cukedoctor-main-${CUKEDOCTOR_MAIN_VERSION}.jar
+export KUBERNETES_API_SERVER={{KUBERNETES_API_SERVER}}
+export KUBERNETES_CERTIFICATE_AUTHORITY_DATA={{KUBERNETES_CERTIFICATE_AUTHORITY_DATA}}
+export KUBERNETES_SECRET_NAME={{KUBERNETES_SECRET_NAME}}
+export KUBERNETES_TOKEN={{KUBERNETES_TOKEN}}
 
-############################## E2E ###############################
-export E2E_TEST_MODE=DOCKER
+export MAVEN_REPOSITORY_PASSWORD={{MAVEN_REPOSITORY_PASSWORD}}
+export MAVEN_REPOSITORY_RELEASES={{MAVEN_REPOSITORY_RELEASES}}
+export MAVEN_REPOSITORY_SNAPSHOTS={{MAVEN_REPOSITORY_SNAPSHOTS}}
+export MAVEN_REPOSITORY_URL={{MAVEN_REPOSITORY_URL}}
+export MAVEN_REPOSITORY_USERNAME={{MAVEN_REPOSITORY_USERNAME}}
+
+export SONARQUBE_CREDENTIALS={{SONARQUBE_CREDENTIALS}}
+export SONARQUBE_URL={{SONARQUBE_URL}}
+################################################################
 ```
 
-The placeholders (between double brackets) need to be fill with the correct values. 
-Some values have been set (for example CUKEDOCTOR_MAIN_VERSION). You can change the value if it does not fit your environment.  
+- **./pipelines/.project_env** with this content:
+```
+############################### BUILD PROJECT DEVELOPMENT VARIABLES ###########################
+export APP_NAME=trippricer
+export E2E_TEST_MODE=DOCKER
+
+export BUILD_TYPE=maven
+export HOST={{SONARQUBE_CREDENTIALS}}
+export LOG_PATH={{SONARQUBE_CREDENTIALS}}
+##############################################################################################
+
+############################### GENERIC DEVELOPMENT VARIABLES ################################
+export VERSION=$(shell git describe --tags --always)
+export DOCKER_IMAGE=$(shell echo "${DOCKER_PROJECT_REGISTRY}/${APP_NAME}-exposition:${VERSION}")
+
+export MAVEN_REPOSITORY=$(shell echo "${HOME}/.m2/repository")
+export MAVEN_SETTINGS_XML=pipeline/.m2/settings.xml
+export MAVEN_SETTINGS=$(shell echo "-s ${MAVEN_SETTINGS_XML} -Dmaven_repository_username=${MAVEN_REPOSITORY_USERNAME} -Dmaven_repository_password=${MAVEN_REPOSITORY_PASSWORD} -Dmaven_repository_url=${MAVEN_REPOSITORY_URL} -Dsonarqube_url=${SONARQUBE_URL}")
+export GRADLE_SETTINGS=--rerun-tasks
+
+export CUKEDOCTOR_MAIN_VERSION=3.5.1
+export CUKEDOCTOR_MAIN_JAR=$(shell echo "${MAVEN_REPOSITORY}/com/github/cukedoctor/cukedoctor-main/${CUKEDOCTOR_MAIN_VERSION}/cukedoctor-main-${CUKEDOCTOR_MAIN_VERSION}.jar")
+##############################################################################################
+```
+
+The placeholders (between double brackets) need to be fill with the correct values.  
+Some values have been set (for example CUKEDOCTOR_MAIN_VERSION).  
+You can change the value if it does not fit your environment, or the way you want to build your app.  
 
 #### Commands to execute
 **make ci** will build the different components, and the docker image.  
