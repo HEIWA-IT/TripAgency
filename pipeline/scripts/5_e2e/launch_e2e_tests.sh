@@ -40,7 +40,7 @@ echo Version: ${VERSION}
 # gradlew                                                                      #
 ################################################################################
 function launch_e2e_tests() {
-  echo "Cleaning project"
+  echo "Launching e2e tests"
   if [[ "${BUILD_TYPE}" = "maven" ]]
   then
      echo "Using Mvnw"
