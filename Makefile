@@ -4,11 +4,8 @@ include ./pipeline/.project_env
 all : 	ci e2e clean
 .PHONY: all
 
-ci : 	check build build_docker_image_with_jib launch_quality_scan generate_living_documentation_for_domain
+ci : 	check build build_and_publish_container_image launch_quality_scan generate_living_documentation_for_domain
 .PHONY: ci
-
-e2e_docker : 	check start_exposition launch_e2e_tests stop_exposition generate_living_documentation_for_e2e
-.PHONY: e2e
 
 e2e : 	check deploy_to_kubernetes launch_e2e_tests delete_deployment_from_kubernetes generate_living_documentation_for_e2e
 .PHONY: e2e
@@ -28,10 +25,9 @@ launch_quality_scan :
 	./pipeline/scripts/3_quality/launch_quality_scan.sh
 
 # Build container image
-build_docker_image_with_dockerfile :
-	./pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_dockerfile.sh "${DOCKER_IMAGE}"-snapshot
-build_docker_image_with_jib :
-	./pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_jib.sh "${DOCKER_IMAGE}"-snapshot "${VERSION}"-SNAPSHOT
+build_and_publish_container_image :
+	./pipeline/scripts/4_build_and_publish_container_image/build_and_publish_container_image.sh "${CONTAINER_BUILD_TYPE}" "${DOCKER_IMAGE}"-snapshot "${VERSION}"-SNAPSHOT
+
 
 
 # Deployment on k8s

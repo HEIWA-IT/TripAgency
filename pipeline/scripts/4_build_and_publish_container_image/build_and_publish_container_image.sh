@@ -1,12 +1,12 @@
 #!/bin/bash
 ################################################################################
-#                       build_docker_image_with_jib.sh                                  #
+#                       build_and_publish_container_image.sh                   #
 #                                                                              #
 # This script goal is to build the docker image of the exposition module       #
 #                                                                              #
 # Change History                                                               #
-# 01/10/2020  Dan MAGIER           Script to build the docker image of the     #
-#                                  exposition module depending on options      #
+# 03/02/2021  Dan MAGIER           Script to build the container image of the  #
+#                                  exposition module using JIB                 #
 #                                                                              #
 #                                                                              #
 ################################################################################
@@ -33,22 +33,30 @@
 ################################################################################
 ################################################################################
 ################################################################################
-DOCKER_IMAGE=$1
-echo "${DOCKER_IMAGE}"
 
-VERSION=$2
+CONTAINER_BUILD_TYPE=$1
+echo "${CONTAINER_BUILD_TYPE}"
+
+CONTAINER_IMAGE=$2
+echo "${CONTAINER_IMAGE}"
+
+VERSION=$3
 echo "${VERSION}"
+
 ################################################################################
-# gradlew                                                                      #
+# Build and publish the container image                                                                         #
 ################################################################################
-function build_docker_image() {
-  echo "Building Docker image"
-  if [[ "${BUILD_TYPE}" = "maven" ]]
+function build_and_publish_container_image() {
+  echo "Building container image"
+  if [[ "${CONTAINER_BUILD_TYPE}" = "maven" ]]
   then
     ./pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_jib_and_maven.sh "${DOCKER_IMAGE}" "${VERSION}"
-  elif [[ "${BUILD_TYPE}" = "gradle" ]]
+  elif [[ "${CONTAINER_BUILD_TYPE}" = "gradle" ]]
   then
     ./pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_jib_and_gradle.sh "${DOCKER_IMAGE}"
+  elif [[ "${CONTAINER_BUILD_TYPE}" = "docker" ]]
+  then
+    ./pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_dockerfile.sh "${DOCKER_IMAGE}"
   else
       exit 1
   fi
@@ -62,4 +70,4 @@ function build_docker_image() {
 # Returns:
 #   0 if everything went fine, else 1
 ####################################################
-build_docker_image
+build_and_publish_container_image
