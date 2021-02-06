@@ -103,20 +103,6 @@ living_documentation_for_domain:
       - domain/build
     expire_in: 1 day
 
-#build_docker_image_with_Dockerfile:
-#  stage: build_and_publish_container_image
-#  tags:
-#    - docker-dind
-#  needs:
-#    - job: build
-#    - job: check_variables
-#      artifacts: true
-#  script:
-#    #- './pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_dockerfile.sh "${DOCKER_IMAGE}"'
-#    - 'cd exposition && docker build --tag "${DOCKER_IMAGE}" . || exit 1'
-#    - 'docker login -u=${DOCKER_PROJECT_REGISTRY} -p=${DOCKER_REGISTRY_PASSWORD}'
-#    - 'docker push "${DOCKER_IMAGE}"'
-
 build_and_publish_container_image:
   stage: build_and_publish_container_image
   needs:
