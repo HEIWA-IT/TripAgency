@@ -49,10 +49,11 @@ function generate_living_documentation() {
     -o "build/TripAgency/TripAgency_living_documentation-""${PROJECT_VERSION}" \
     -p "build/cucumber/TripAgency.json" \
     -t "TripAgency_living_documentation" \
-    -f all \
-    -numbered \
-    -hideSummarySection \
-    -hideScenarioKeyword
+    -f all
+    #\
+#    -numbered \
+#    -hideSummarySection \
+#    -hideScenarioKeyword
 }
 
 ################################################################################
