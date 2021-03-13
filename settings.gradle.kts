@@ -1,3 +1,3 @@
 rootProject.name = "trippricer"
 
-include("domain", "repository", "exposition", "e2e")
+include("domain", "repository", "application","exposition", "e2e")
