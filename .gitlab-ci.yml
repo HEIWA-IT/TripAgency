@@ -28,6 +28,7 @@ cache:
   paths:
     - domain/build
     - repository/build
+    - application/build
     - exposition/build
     - .gradle/wrapper
     - .gradle/caches
@@ -65,6 +66,7 @@ build:
       - /var/log
       - domain/build
       - repository/build
+      - application/build
       - exposition/build
     expire_in: 1 day
   cache:
@@ -87,6 +89,7 @@ code_analysis:
     paths:
       - domain/build
       - repository/build
+      - application/build
       - exposition/build
     expire_in: 1 day
 
