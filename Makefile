@@ -1,5 +1,5 @@
 include $(HOME)/.env
-include ./pipeline/.project_env
+include .project.env
 
 all : 	ci e2e clean
 .PHONY: all
