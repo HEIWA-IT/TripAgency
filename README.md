@@ -48,7 +48,7 @@ code and ease also the tests implementation without infrastructure
 
 ## 4 Living Documentation
 Cukedoctor  
-See in the following repository in the domain module: domain/build/TripAgency   
+See in the following repository in the domain module: domain/build/YellowProject   
 You should see a pdf file containing the results of the cucumber tests.
 
 ## 5 Hexagonal architecture
@@ -84,9 +84,9 @@ This command should be executed after the execution of Cucumber tests. You can f
 
 ``
 java -jar ${CUKEDOCTOR_MAIN_JAR} 
-      -o "build/TripAgency/TripAgency_living_documentation-${PROJECT_VERSION}" 
-      -p "build/cucumber/TripAgency.json" 
-  	  -t "TripAgency_living_documentation" 
+      -o "build/YellowProject/YellowProject_living_documentation-${PROJECT_VERSION}" 
+      -p "build/cucumber/YellowProject.json" 
+  	  -t "YellowProject_living_documentation" 
   	  -f all 
   	  -numbered 
   	  -hideSummarySection 
@@ -111,11 +111,11 @@ you can start the rest exposition by executing the following command line in the
 **./mvnw clean spring-boot:run**  
 
 The url to display the swagger page is the following:  
-**http://localhost:12378/tripagency/api/swagger-ui/**
+**http://localhost:12378/yellowproject/api/swagger-ui/**
 
 ### Consulting the H2 DB
 Connect to this url:
-**http://localhost:12378/tripagency/api/backend/h2-console**
+**http://localhost:12378/yellowproject/api/backend/h2-console**
 Fill the information regarding your configuration
 
 ### Building the docker image of the exposition
@@ -131,7 +131,7 @@ cd exposition
 A docker-compose file is present in the following folder to launch the image: **exposition/docker**
 USe this command to launch it: **docker-compose up -d**
 The url to display the swagger page is the following:  
-**http://localhost:12378/tripagency/api/swagger-ui/**
+**http://localhost:12378/yellowproject/api/swagger-ui/**
 Warning with the port. Here it is **12378**
 
 ### e2e testing
@@ -146,7 +146,7 @@ sudo ln -s /usr/local/bin/gtimeout /usr/local/bin/timeout
 ```
 
 ### logs
-The logs are stored in the following folder : /var/log/tripagency
+The logs are stored in the following folder : /var/log/yellowproject
 
 ## Use the Makefile to compile and test the project
 

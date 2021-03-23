@@ -40,7 +40,7 @@ VERSION=$2
 INITIAL_DIR=$(pwd)
 
 function wait_for_exposition_to_start() {
-  while [ $(curl -sw '%{http_code}' "${HOST}/tripagency/api/swagger-ui/" -o /dev/null) -ne 200 ]; do
+  while [ $(curl -sw '%{http_code}' "${HOST}/yellowproject/api/swagger-ui/" -o /dev/null) -ne 200 ]; do
     sleep 5;
   done
 }
@@ -55,7 +55,7 @@ function use_docker() {
 function use_generated_jar() {
   echo "Using the generated jar"
   mkdir -p logs
-  EXPOSITION_PATH="${MAVEN_REPOSITORY}"/com/heiwait/tripagency/pricer/exposition/"${VERSION}"/exposition-"${VERSION}".jar
+  EXPOSITION_PATH="${MAVEN_REPOSITORY}"/com/heiwait/yellowproject/pricer/exposition/"${VERSION}"/exposition-"${VERSION}".jar
   echo "exposition-jar path " "${EXPOSITION_PATH}"
   java -cp "${EXPOSITION_PATH}":./build/lib/* com.bnpparibas.hackathon.yellowteam.yellowproject.driver.exposition.ExpositionApplication >>./logs/log.txt &
   cd "${INITIAL_DIR}" || exit

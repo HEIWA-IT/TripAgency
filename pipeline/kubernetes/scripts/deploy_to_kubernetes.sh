@@ -68,7 +68,7 @@ function deploy()
 
   kubectl rollout status deployment trippricer-"${VERSION}"
 
-  while [ $(curl -sw '%{http_code}' "${HOST}/tripagency/api/swagger-ui/" -o /dev/null) -ne 200 ]; do
+  while [ $(curl -sw '%{http_code}' "${HOST}/yellowproject/api/swagger-ui/" -o /dev/null) -ne 200 ]; do
     sleep 5;
   done
 }

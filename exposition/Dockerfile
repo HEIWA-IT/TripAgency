@@ -6,7 +6,7 @@ COPY ${BUILD}/libs /app/lib
 COPY ${BUILD}/classes /app
 
 RUN groupadd -r spring && useradd -r -g spring spring \
-&& mkdir -p /var/log/tripagency && chown spring: /var/log/tripagency && chmod a+rwx /var/log/tripagency \
+&& mkdir -p /var/log/yellowproject && chown spring: /var/log/yellowproject && chmod a+rwx /var/log/yellowproject \
 && chown spring: /app && chmod -R a+rwx /app
 USER spring:spring
 

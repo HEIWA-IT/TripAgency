@@ -46,9 +46,9 @@ CUKEDOCTOR_MAIN_JAR=$3
 ####################################################
 function generate_living_documentation() {
   cd "${MODULE}" && java -jar "${CUKEDOCTOR_MAIN_JAR}" \
-    -o "build/TripAgency/TripAgency_living_documentation-""${PROJECT_VERSION}" \
-    -p "build/cucumber/TripAgency.json" \
-    -t "TripAgency_living_documentation" \
+    -o "build/YellowProject/yellowproject_living_documentation-""${PROJECT_VERSION}" \
+    -p "build/cucumber/yellowproject.json" \
+    -t "yellowproject_living_documentation" \
     -f all
     #\
 #    -numbered \
