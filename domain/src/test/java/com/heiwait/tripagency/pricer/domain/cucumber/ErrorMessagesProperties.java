@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.domain.cucumber;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.domain.cucumber;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.heiwait.tripagency.pricer</groupId>
+        <groupId>com.bnpparibas.hackathon.yellowteam.yellowproject</groupId>
         <artifactId>parent</artifactId>
         <version>${revision}</version>
     </parent>
@@ -20,12 +20,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.heiwait.tripagency.pricer</groupId>
+            <groupId>com.bnpparibas.hackathon.yellowteam.yellowproject</groupId>
             <artifactId>domain</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.heiwait.tripagency.pricer</groupId>
+            <groupId>com.bnpparibas.hackathon.yellowteam.yellowproject</groupId>
             <artifactId>repository</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -140,7 +140,7 @@
                 <version>${jib.version}</version>
                 <configuration>
                     <container>
-                        <mainClass>com.heiwait.tripagency.pricer.driver.exposition.ExpositionApplication</mainClass>
+                        <mainClass>com.bnpparibas.hackathon.yellowteam.yellowproject.driver.exposition.ExpositionApplication</mainClass>
                     </container>
                     <from>
                         <image>${docker.baseImage.name}:${docker.baseImage.version}</image>

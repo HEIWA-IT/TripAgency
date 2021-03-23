@@ -1,8 +1,8 @@
-package com.heiwait.tripagency.pricer.driven.repository.springdata;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.driven.repository.springdata;
 
-import com.heiwait.tripagency.pricer.domain.Destination;
-import com.heiwait.tripagency.pricer.domain.Trip;
-import com.heiwait.tripagency.pricer.domain.TripRepositoryPort;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.Destination;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.Trip;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.TripRepositoryPort;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 

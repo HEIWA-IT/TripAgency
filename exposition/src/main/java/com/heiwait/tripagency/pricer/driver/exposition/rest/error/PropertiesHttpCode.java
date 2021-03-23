@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.driver.exposition.rest.error;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.driver.exposition.rest.error;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;

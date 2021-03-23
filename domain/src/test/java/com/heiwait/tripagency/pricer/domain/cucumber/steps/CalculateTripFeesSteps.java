@@ -1,8 +1,8 @@
-package com.heiwait.tripagency.pricer.domain.cucumber.steps;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.domain.cucumber.steps;
 
-import com.heiwait.tripagency.pricer.domain.cucumber.ErrorMessagesProperties;
-import com.heiwait.tripagency.pricer.domain.*;
-import com.heiwait.tripagency.pricer.domain.error.BusinessException;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.cucumber.ErrorMessagesProperties;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.*;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.error.BusinessException;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

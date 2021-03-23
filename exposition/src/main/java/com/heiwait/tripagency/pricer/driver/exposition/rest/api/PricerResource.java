@@ -1,10 +1,10 @@
-package com.heiwait.tripagency.pricer.driver.exposition.rest.api;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.driver.exposition.rest.api;
 
-import com.heiwait.tripagency.pricer.domain.Destination;
-import com.heiwait.tripagency.pricer.domain.TravelClass;
-import com.heiwait.tripagency.pricer.driver.exposition.handler.TripPricerWithJdbcTemplateRepositoryAdapter;
-import com.heiwait.tripagency.pricer.driver.exposition.handler.TripPricerWithJpaRepositoryAdapter;
-import com.heiwait.tripagency.pricer.driver.exposition.handler.TripPricerWithMockRepositoryAdapter;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.Destination;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.TravelClass;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.driver.exposition.handler.TripPricerWithJdbcTemplateRepositoryAdapter;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.driver.exposition.handler.TripPricerWithJpaRepositoryAdapter;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.driver.exposition.handler.TripPricerWithMockRepositoryAdapter;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

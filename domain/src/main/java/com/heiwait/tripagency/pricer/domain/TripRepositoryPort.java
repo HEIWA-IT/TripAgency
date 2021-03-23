@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.domain;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.domain;
 
 public interface TripRepositoryPort {
     Trip findTripByDestination(final Destination destination);

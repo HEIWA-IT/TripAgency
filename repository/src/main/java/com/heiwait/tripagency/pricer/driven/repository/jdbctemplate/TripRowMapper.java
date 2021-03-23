@@ -1,6 +1,6 @@
-package com.heiwait.tripagency.pricer.driven.repository.jdbctemplate;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.driven.repository.jdbctemplate;
 
-import com.heiwait.tripagency.pricer.domain.Trip;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.Trip;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

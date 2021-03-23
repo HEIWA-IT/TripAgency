@@ -57,7 +57,7 @@ function use_generated_jar() {
   mkdir -p logs
   EXPOSITION_PATH="${MAVEN_REPOSITORY}"/com/heiwait/tripagency/pricer/exposition/"${VERSION}"/exposition-"${VERSION}".jar
   echo "exposition-jar path " "${EXPOSITION_PATH}"
-  java -cp "${EXPOSITION_PATH}":./build/lib/* com.heiwait.tripagency.pricer.driver.exposition.ExpositionApplication >>./logs/log.txt &
+  java -cp "${EXPOSITION_PATH}":./build/lib/* com.bnpparibas.hackathon.yellowteam.yellowproject.driver.exposition.ExpositionApplication >>./logs/log.txt &
   cd "${INITIAL_DIR}" || exit
 }
 

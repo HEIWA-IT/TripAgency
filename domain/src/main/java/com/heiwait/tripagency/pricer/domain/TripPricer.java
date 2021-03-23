@@ -1,7 +1,7 @@
-package com.heiwait.tripagency.pricer.domain;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.domain;
 
-import com.heiwait.tripagency.pricer.domain.error.BusinessErrors;
-import com.heiwait.tripagency.pricer.domain.error.BusinessException;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.error.BusinessErrors;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.error.BusinessException;
 
 public class TripPricer implements PriceComputorDriverPort {
 

@@ -1,9 +1,9 @@
-package com.heiwait.tripagency.pricer.driven.repository;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.driven.repository;
 
-import com.heiwait.tripagency.pricer.domain.Destination;
-import com.heiwait.tripagency.pricer.domain.Trip;
-import com.heiwait.tripagency.pricer.domain.TripRepositoryPort;
-import com.heiwait.tripagency.pricer.driven.repository.config.AppConfig;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.Destination;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.Trip;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.TripRepositoryPort;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.driven.repository.config.AppConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

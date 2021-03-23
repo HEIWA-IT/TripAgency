@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.driven.repository.springdata;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.driven.repository.springdata;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

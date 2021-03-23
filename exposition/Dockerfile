@@ -10,4 +10,4 @@ RUN groupadd -r spring && useradd -r -g spring spring \
 && chown spring: /app && chmod -R a+rwx /app
 USER spring:spring
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.heiwait.tripagency.pricer.driver.exposition.ExpositionApplication"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","com.bnpparibas.hackathon.yellowteam.yellowproject.driver.exposition.ExpositionApplication"]

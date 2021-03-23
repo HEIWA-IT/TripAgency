@@ -1,6 +1,6 @@
-package com.heiwait.tripagency.pricer.driven.repository.springdata;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.driven.repository.springdata;
 
-import com.heiwait.tripagency.pricer.domain.Trip;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.Trip;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

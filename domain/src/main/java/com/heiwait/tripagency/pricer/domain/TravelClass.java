@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.domain;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.domain;
 
 public enum TravelClass {
     ECONOMIC(1), FIRST(2), BUSINESS(5);

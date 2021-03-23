@@ -28,7 +28,7 @@
             <AppenderRef ref="RollingFile" />
         </Root>
 
-        <!-- LOG "com.heiwait.tripagency.pricer" at TRACE level -->
-        <Logger name="com.heiwait.tripagency.pricer" level="trace"/>
+        <!-- LOG "com.bnpparibas.hackathon.yellowteam.yellowproject" at TRACE level -->
+        <Logger name="com.bnpparibas.hackathon.yellowteam.yellowproject" level="trace"/>
     </Loggers>
 </Configuration>

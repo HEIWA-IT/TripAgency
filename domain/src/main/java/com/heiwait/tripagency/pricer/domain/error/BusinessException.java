@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.domain.error;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.domain.error;
 
 public class BusinessException extends RuntimeException {
     private final BusinessErrors error;

@@ -1,6 +1,6 @@
-package com.heiwait.tripagency.pricer.domain.tu;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.domain.tu;
 
-import com.heiwait.tripagency.pricer.domain.TripPricer;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.TripPricer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

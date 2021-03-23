@@ -1,7 +1,7 @@
-package com.heiwait.tripagency.pricer.driver.exposition.handler;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.driver.exposition.handler;
 
-import com.heiwait.tripagency.pricer.domain.TripPricer;
-import com.heiwait.tripagency.pricer.domain.TripRepositoryPort;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.TripPricer;
+import com.bnpparibas.hackathon.yellowteam.yellowproject.domain.TripRepositoryPort;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 

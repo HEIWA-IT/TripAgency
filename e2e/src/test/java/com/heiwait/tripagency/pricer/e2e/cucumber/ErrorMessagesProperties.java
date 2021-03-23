@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.e2e.cucumber;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.e2e.cucumber;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

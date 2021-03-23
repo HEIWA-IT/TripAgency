@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.driver.exposition.rest.api;
+package com.bnpparibas.hackathon.yellowteam.yellowproject.driver.exposition.rest.api;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
