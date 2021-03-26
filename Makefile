@@ -16,7 +16,7 @@ check :
 
 # Build
 build :
-	./pipeline/scripts/2_build_artifacts/build.sh "${VERSION}"-SNAPSHOT
+	./pipeline/scripts/2_build_artifacts/build.sh "${VERSION}"
 
 # Report
 generate_living_documentation_for_domain :
@@ -26,24 +26,24 @@ launch_quality_scan :
 
 # Build container image
 build_and_publish_container_image :
-	./pipeline/scripts/4_build_and_publish_container_image/build_and_publish_container_image.sh "${CONTAINER_BUILD_TYPE}" "${DOCKER_IMAGE}"-snapshot "${VERSION}"-SNAPSHOT
+	./pipeline/scripts/4_build_and_publish_container_image/build_and_publish_container_image.sh "${CONTAINER_BUILD_TYPE}" "${DOCKER_IMAGE}" "${VERSION}"
 
 
 
 # Deployment on k8s
 deploy_to_kubernetes :
-	./pipeline/kubernetes/scripts/deploy_to_kubernetes.sh "${VERSION}"-snapshot
+	./pipeline/kubernetes/scripts/deploy_to_kubernetes.sh "${VERSION}"
 
 delete_deployment_from_kubernetes :
-	./pipeline/kubernetes/scripts/delete_deployment_from_kubernetes.sh "${VERSION}"-snapshot
+	./pipeline/kubernetes/scripts/delete_deployment_from_kubernetes.sh "${VERSION}"
 
 # e2e
 launch_e2e_tests :
-	./pipeline/scripts/5_e2e/launch_e2e_tests.sh "${VERSION}"-SNAPSHOT
+	./pipeline/scripts/5_e2e/launch_e2e_tests.sh "${VERSION}"
 start_exposition :
-	./pipeline/scripts/5_e2e/start_exposition.sh "${DOCKER_IMAGE}"-snapshot "${VERSION}"-SNAPSHOT
+	./pipeline/scripts/5_e2e/start_exposition.sh "${DOCKER_IMAGE}" "${VERSION}"
 generate_living_documentation_for_e2e :
-	./pipeline/scripts/3_quality/generate_living_documentation.sh e2e "${VERSION}"-SNAPSHOT "${CUKEDOCTOR_MAIN_JAR}"
+	./pipeline/scripts/3_quality/generate_living_documentation.sh e2e "${VERSION}" "${CUKEDOCTOR_MAIN_JAR}"
 stop_exposition :
 	./pipeline/scripts/5_e2e/stop_exposition.sh
 
