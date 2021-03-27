@@ -11,7 +11,7 @@ Each solution allow to have a running project quickly and easily up to date with
 
 ### 2-3 Bom for Bill Of Materials
 [BOM](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)
-allows to define in a pom containing a dependency management element filled with dependecies and their versions.  
+allows defining in a pom containing a dependency management element filled with dependencies and their versions.  
 The BOM is used in others projects as a dependency management element.  
 It allows to centralize the versions and even scope if you want (but this is not a good practice for the scope).
 
