@@ -12,7 +12,7 @@ e2e : 	check deploy_to_kubernetes launch_e2e_tests delete_deployment_from_kubern
 
 # Check
 check :
-	./pipeline/scripts/1_init/check_pipeline_variables.sh
+	./pipeline/scripts/1_setup/check_pipeline_variables.sh
 
 # Build
 build :

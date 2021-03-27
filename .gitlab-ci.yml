@@ -34,7 +34,7 @@ cache:
   policy: pull
 
 stages:
-  - init
+  - setup
   - build_artifacts
   - quality
   - build_and_publish_container_image
@@ -44,10 +44,10 @@ stages:
   - living_documentation_for_e2e
 
 check_variables:
-  stage: init
+  stage: setup
   image: heiwait/git-make-maven3.6.3-jdk16
   script:
-    - './pipeline/scripts/1_init/check_pipeline_variables.sh'
+    - './pipeline/scripts/1_setup/check_pipeline_variables.sh'
     - 'echo "VERSION=$(git describe --tags --always)" >> build.env'
   artifacts:
     reports:
