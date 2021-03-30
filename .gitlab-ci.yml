@@ -121,7 +121,7 @@ deploy_to_kubernetes:
    - job: check_variables
      artifacts: true
   script:
-    - './pipeline/kubernetes/scripts/deploy_to_kubernetes.sh ${VERSION}-snapshot'
+    - './k8s/scripts/deploy_to_kubernetes.sh ${VERSION}-snapshot'
     - 'echo "VERSION=${VERSION}" >> build.env'
 
 launch_e2e_test:
@@ -146,7 +146,7 @@ delete_deployment_from_to_kubernetes:
     - job: check_variables
       artifacts: true
   script:
-    - './pipeline/kubernetes/scripts/delete_deployment_from_kubernetes.sh "${VERSION}"-snapshot'
+    - './k8s/scripts/delete_deployment_from_kubernetes.sh "${VERSION}"-snapshot'
     - 'echo "VERSION=${VERSION}" >> build.env'
 
 living_documentation_for_e2e:

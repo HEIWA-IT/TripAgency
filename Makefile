@@ -32,10 +32,10 @@ build_and_publish_container_image :
 
 # Deployment on k8s
 deploy_to_kubernetes :
-	./pipeline/kubernetes/scripts/deploy_to_kubernetes.sh "${VERSION}"
+	./k8s/scripts/deploy_to_kubernetes.sh "${VERSION}"
 
 delete_deployment_from_kubernetes :
-	./pipeline/kubernetes/scripts/delete_deployment_from_kubernetes.sh "${VERSION}"
+	./k8s/scripts/delete_deployment_from_kubernetes.sh "${VERSION}"
 
 # e2e
 launch_e2e_tests :
