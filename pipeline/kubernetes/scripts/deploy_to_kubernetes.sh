@@ -61,12 +61,8 @@ function connect_to_kubernetes_cluster()
 
 function deploy()
 {
-  DEPLOYMENT_YAML=$(sed "s/{{VERSION}}/${VERSION}/g" <"./pipeline/kubernetes/deployment.yaml.template")
-  echo "${DEPLOYMENT_YAML}"
-
-  echo "${DEPLOYMENT_YAML}" | kubectl apply -f -
-
-  kubectl rollout status deployment trippricer-"${VERSION}"
+  helm install -f ./k8s/helm_chart/trippricer/values.yaml mytrip ./k8s/helm_chart/trippricer --set image.tag="${VERSION}"
+  kubectl rollout status deployment mytrip-trippricer
 
   while [ $(curl -sw '%{http_code}' "${HOST}/tripagency/api/swagger-ui/" -o /dev/null) -ne 200 ]; do
     sleep 5;

@@ -63,7 +63,7 @@ function delete_deployment_from_kubernetes()
 {
   connect_to_kubernetes_cluster
   kubectl get pods
-  kubectl delete deployment/trippricer-"${VERSION}"
+  helm uninstall mytrip
   kubectl get pods
 }
 
