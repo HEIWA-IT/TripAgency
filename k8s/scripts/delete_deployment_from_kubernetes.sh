@@ -35,13 +35,17 @@
 ################################################################################
 
 VERSION=$1
+APP_NAME=${APP_NAME}
+
 KUBERNETES_API_SERVER=${KUBERNETES_API_SERVER}
 KUBERNETES_TOKEN=${KUBERNETES_TOKEN}
 KUBERNETES_SECRET_NAME=${KUBERNETES_SECRET_NAME}
 KUBERNETES_CERTIFICATE_AUTHORITY_DATA=${KUBERNETES_CERTIFICATE_AUTHORITY_DATA}
-CLUSTER=kubernetes
-USER=default
-NAMESPACE=gitlab-managed-apps
+KUBERNETES_CLUSTER=${KUBERNETES_CLUSTER}
+KUBERNETES_USER=${KUBERNETES_USER}
+KUBERNETES_NAMESPACE=${KUBERNETES_NAMESPACE}
+
+
 ################################################################################
 
 
@@ -52,18 +56,18 @@ NAMESPACE=gitlab-managed-apps
 #######################################
 function connect_to_kubernetes_cluster()
 {
-  kubectl config set-cluster "${CLUSTER}" --server="${KUBERNETES_API_SERVER}" --insecure-skip-tls-verify=true
-  kubectl config set-context "${CLUSTER}"-context --cluster="${CLUSTER}"
-  kubectl config set-credentials "${USER}" --token="${KUBERNETES_TOKEN}"
-  kubectl config set-context "${CLUSTER}"-context --user="${USER}" --namespace="${NAMESPACE}"
-  kubectl config use-context "${CLUSTER}"-context
+  kubectl config set-cluster "${KUBERNETES_CLUSTER}" --server="${KUBERNETES_API_SERVER}" --insecure-skip-tls-verify=true
+  kubectl config set-context "${KUBERNETES_CLUSTER}"-context --cluster="${KUBERNETES_CLUSTER}"
+  kubectl config set-credentials "${KUBERNETES_USER}" --token="${KUBERNETES_TOKEN}"
+  kubectl config set-context "${KUBERNETES_CLUSTER}"-context --user="${KUBERNETES_USER}" --namespace="${KUBERNETES_NAMESPACE}"
+  kubectl config use-context "${KUBERNETES_CLUSTER}"-context
 }
 
 function delete_deployment_from_kubernetes()
 {
   connect_to_kubernetes_cluster
   kubectl get pods
-  helm uninstall mytrip
+  helm uninstall "${APP_NAME}"
   kubectl get pods
 }
 

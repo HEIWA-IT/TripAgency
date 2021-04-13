@@ -35,13 +35,20 @@
 ################################################################################
 
 VERSION=$1
+APP_NAME=${APP_NAME}
+
 KUBERNETES_API_SERVER=${KUBERNETES_API_SERVER}
 KUBERNETES_TOKEN=${KUBERNETES_TOKEN}
 KUBERNETES_SECRET_NAME=${KUBERNETES_SECRET_NAME}
 KUBERNETES_CERTIFICATE_AUTHORITY_DATA=${KUBERNETES_CERTIFICATE_AUTHORITY_DATA}
-CLUSTER=kubernetes
-USER=default
-NAMESPACE=gitlab-managed-apps
+KUBERNETES_CLUSTER=${KUBERNETES_CLUSTER}
+KUBERNETES_USER=${KUBERNETES_USER}
+KUBERNETES_NAMESPACE=${KUBERNETES_NAMESPACE}
+
+HELM_CHART_FOLDER=./k8s/helm_chart/java-rest-api
+HELM_VALUES_FILE=./k8s/helm_chart/java-rest-api/values.yaml
+
+URI=tripagency/api/swagger-ui/
 ################################################################################
 
 
@@ -52,19 +59,19 @@ NAMESPACE=gitlab-managed-apps
 #######################################
 function connect_to_kubernetes_cluster()
 {
-  kubectl config set-cluster "${CLUSTER}" --server="${KUBERNETES_API_SERVER}" --insecure-skip-tls-verify=true
-  kubectl config set-context "${CLUSTER}"-context --cluster="${CLUSTER}"
-  kubectl config set-credentials "${USER}" --token="${KUBERNETES_TOKEN}"
-  kubectl config set-context "${CLUSTER}"-context --user="${USER}" --namespace="${NAMESPACE}"
-  kubectl config use-context "${CLUSTER}"-context
+  kubectl config set-cluster "${KUBERNETES_CLUSTER}" --server="${KUBERNETES_API_SERVER}" --insecure-skip-tls-verify=true
+  kubectl config set-context "${KUBERNETES_CLUSTER}"-context --cluster="${KUBERNETES_CLUSTER}"
+  kubectl config set-credentials "${KUBERNETES_USER}" --token="${KUBERNETES_TOKEN}"
+  kubectl config set-context "${KUBERNETES_CLUSTER}"-context --user="${KUBERNETES_USER}" --namespace="${KUBERNETES_NAMESPACE}"
+  kubectl config use-context "${KUBERNETES_CLUSTER}"-context
 }
 
 function deploy()
 {
-  helm install -f ./k8s/helm_chart/trippricer/values.yaml mytrip ./k8s/helm_chart/trippricer --set image.tag="${VERSION}"
-  kubectl rollout status deployment mytrip-trippricer
+  helm install -f "${HELM_VALUES_FILE}" "${APP_NAME}" "${HELM_CHART_FOLDER}" --set image.tag="${VERSION}"
+  kubectl rollout status deployment "${APP_NAME}"-java-rest-api
 
-  while [ $(curl -sw '%{http_code}' "${HOST}/tripagency/api/swagger-ui/" -o /dev/null) -ne 200 ]; do
+  while [ $(curl -sw '%{http_code}' "${HOST}/${URI}" -o /dev/null) -ne 200 ]; do
     sleep 5;
   done
 }
