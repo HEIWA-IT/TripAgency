@@ -18,6 +18,7 @@ dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-log4j2:2.4.1")
     implementation ("org.springframework.boot:spring-boot-devtools:2.4.1")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 
     implementation ("org.slf4j:jul-to-slf4j:1.7.30")
     implementation ("org.apache.logging.log4j:log4j-api:2.14.0")
