@@ -10,30 +10,28 @@ ci : 	check build build_and_publish_container_image launch_quality_scan generate
 e2e : 	check deploy_to_kubernetes launch_e2e_tests delete_deployment_from_kubernetes generate_living_documentation_for_e2e
 .PHONY: e2e
 
-# Check
+# Init
 check :
 	./pipeline/scripts/1_setup/check_pipeline_variables.sh
 
 # Build
 build :
 	./pipeline/scripts/2_build_artifacts/build.sh "${VERSION}"
+# Build container image
+build_and_publish_container_image :
+	./pipeline/scripts/4_build_and_publish_container_image/build_and_publish_container_image.sh "${CONTAINER_BUILD_TYPE}" "${DOCKER_IMAGE}" "${VERSION}"
 
-# Report
+# Quality
 generate_living_documentation_for_domain :
 	./pipeline/scripts/3_quality/generate_living_documentation.sh domain "${VERSION}" "${CUKEDOCTOR_MAIN_JAR}"
 launch_quality_scan :
 	./pipeline/scripts/3_quality/launch_quality_scan.sh
 
-# Build container image
-build_and_publish_container_image :
-	./pipeline/scripts/4_build_and_publish_container_image/build_and_publish_container_image.sh "${CONTAINER_BUILD_TYPE}" "${DOCKER_IMAGE}" "${VERSION}"
-
-
-
-# Deployment on k8s
+# K8S
+connecting_to_kubernetes_cluster :
+	./k8s/scripts/connecting_to_kubernetes.sh "${VERSION}"
 deploy_to_kubernetes :
 	./k8s/scripts/deploy_to_kubernetes.sh "${VERSION}"
-
 delete_deployment_from_kubernetes :
 	./k8s/scripts/delete_deployment_from_kubernetes.sh "${VERSION}"
 

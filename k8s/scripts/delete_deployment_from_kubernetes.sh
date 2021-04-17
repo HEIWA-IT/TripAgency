@@ -33,39 +33,13 @@
 ################################################################################
 ################################################################################
 ################################################################################
-
 VERSION=$1
 APP_NAME=${APP_NAME}
-
-KUBERNETES_API_SERVER=${KUBERNETES_API_SERVER}
-KUBERNETES_TOKEN=${KUBERNETES_TOKEN}
-KUBERNETES_SECRET_NAME=${KUBERNETES_SECRET_NAME}
-KUBERNETES_CERTIFICATE_AUTHORITY_DATA=${KUBERNETES_CERTIFICATE_AUTHORITY_DATA}
-KUBERNETES_CLUSTER=${KUBERNETES_CLUSTER}
-KUBERNETES_USER=${KUBERNETES_USER}
-KUBERNETES_NAMESPACE=${KUBERNETES_NAMESPACE}
-
-
 ################################################################################
-
-
-#######################################
-# Connect to the Kubernetes cluster to execute commands via cli
-# Returns:
-#   0 if everything went fine, else 1.
-#######################################
-function connect_to_kubernetes_cluster()
-{
-  kubectl config set-cluster "${KUBERNETES_CLUSTER}" --server="${KUBERNETES_API_SERVER}" --insecure-skip-tls-verify=true
-  kubectl config set-context "${KUBERNETES_CLUSTER}"-context --cluster="${KUBERNETES_CLUSTER}"
-  kubectl config set-credentials "${KUBERNETES_USER}" --token="${KUBERNETES_TOKEN}"
-  kubectl config set-context "${KUBERNETES_CLUSTER}"-context --user="${KUBERNETES_USER}" --namespace="${KUBERNETES_NAMESPACE}"
-  kubectl config use-context "${KUBERNETES_CLUSTER}"-context
-}
 
 function delete_deployment_from_kubernetes()
 {
-  connect_to_kubernetes_cluster
+  ./connecting_to_kubernetes.sh
   kubectl get pods
   helm uninstall "${APP_NAME}"
   kubectl get pods

@@ -121,6 +121,7 @@ deploy_to_kubernetes:
    - job: check_variables
      artifacts: true
   script:
+    - './k8s/scripts/connecting_to_kubernetes.sh'
     - './k8s/scripts/deploy_to_kubernetes.sh ${VERSION}-snapshot'
     - 'echo "VERSION=${VERSION}" >> build.env'
 
@@ -146,6 +147,7 @@ delete_deployment_from_to_kubernetes:
     - job: check_variables
       artifacts: true
   script:
+    - './k8s/scripts/connecting_to_kubernetes.sh'
     - './k8s/scripts/delete_deployment_from_kubernetes.sh "${VERSION}"-snapshot'
     - 'echo "VERSION=${VERSION}" >> build.env'
 
