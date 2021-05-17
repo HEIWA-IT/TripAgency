@@ -11,14 +11,14 @@ In this case you should be able to use or rewrite the script in a way that suits
 - docker and docker-compose
 - kubectl command
 
-#### Fill an .env file
+#### Fill an .development.env file
 To use it, you will need to have the following files:
-- **~/.env** with the following content.   
-  If you don't wish to have or change your .env file, you can do it in ht e.project.env file.   
+- **~/.development.env** with the following content.   
+  If you don't wish to have or change your .development.env file, you can do it in ht e.project.env file.   
   Just adapt the Makefile by removing first line if needed.  
   
 
-  **.env file**:
+  **.development.env file**:
 ```
 ############################### DEVELOPMENT COMMONS VARIABLE ################################
 export DOCKER_PROJECT_REGISTRY={{DOCKER_PROJECT_REGISTRY}}
@@ -42,13 +42,13 @@ export SONARQUBE_URL={{SONARQUBE_URL}}
 ################################################################
 ```
 
-- the **./pipelines/.project.env** can ovverride the value of the .env if it suits you better.  
+- the **./pipelines/.project.env** can ovverride the value of the .development.env if it suits you better.  
 
 
   **./pipelines/.project.enve**:
 ```
 ############################### DEVELOPMENT COMMONS VARIABLE ################################
-###############  This variables are define in the $(HOME)/.env file in principle. ###########
+###############  This variables are define in the $(HOME)/.development.env file in principle. ###########
 ###############  You can create it or surcharge its values here.                  ###########
 
 #export DOCKER_PROJECT_REGISTRY=${DOCKER_PROJECT_REGISTRY}

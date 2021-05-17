@@ -1,4 +1,4 @@
-include $(HOME)/.env
+include $(HOME)/.development.env
 include .project.env
 
 all : 	ci e2e clean
