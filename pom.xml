@@ -11,6 +11,7 @@
     <description>Pricer that is used to determine the price of a trip</description>
 
     <modules>
+        <module>specifications</module>
         <module>domain</module>
         <module>repository</module>
         <module>exposition</module>

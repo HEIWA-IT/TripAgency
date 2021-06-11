@@ -1,6 +1,5 @@
 package com.heiwait.tripagency.pricer.domain.cucumber;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ErrorMessagesProperties {

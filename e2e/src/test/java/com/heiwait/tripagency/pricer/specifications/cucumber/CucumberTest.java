@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.e2e.cucumber;
+package com.heiwait.tripagency.pricer.specifications.cucumber;
 
 import io.cucumber.junit.platform.engine.Cucumber;
 
