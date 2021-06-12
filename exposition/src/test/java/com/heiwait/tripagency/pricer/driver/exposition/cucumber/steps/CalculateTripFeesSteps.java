@@ -67,7 +67,7 @@ public class CalculateTripFeesSteps {
 
     @When("^the customer asked for the trip price")
     public void the_customer_asked_for_the_trip_price() {
-        String urlTemplate = "/tripagency/api/pricer/" + destination.name() + "/travelClass/" + travelClass + "/priceTripWithHardCodedValues";
+        String urlTemplate = "/tripagency/api/pricer/" + destination.name() + "/travelClass/" + travelClass + "/priceTrip";
         response = given().basePath(urlTemplate).get("");
     }
 

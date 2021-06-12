@@ -62,7 +62,7 @@ public class CalculateTripFeesSteps {
 
     @When("^the customer asked for the trip price")
     public void the_customer_asked_for_the_trip_price() {
-        String url = "api/pricer/" + destination.name() + "/travelClass/" + travelClass + "/priceTripWithJPA";
+        String url = "api/pricer/" + destination.name() + "/travelClass/" + travelClass + "/priceTrip";
         response = request.get(url);
     }
 

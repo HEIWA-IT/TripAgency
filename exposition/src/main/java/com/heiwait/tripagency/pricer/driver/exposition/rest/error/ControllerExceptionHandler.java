@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class ControllerExceptionTranslator {
+public class ControllerExceptionHandler {
 
     private final MessageSource messageSource;
 
     private final PropertiesHttpCode propertiesHttpCode;
 
-    ControllerExceptionTranslator(MessageSource messageSource, PropertiesHttpCode propertiesHttpCode) {
+    ControllerExceptionHandler(MessageSource messageSource, PropertiesHttpCode propertiesHttpCode) {
         this.messageSource = messageSource;
         this.propertiesHttpCode = propertiesHttpCode;
     }
