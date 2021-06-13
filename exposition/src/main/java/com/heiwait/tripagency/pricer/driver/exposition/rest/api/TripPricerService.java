@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TripPricerService extends TripPricer {
-    private final TripRepositoryPort tripRepository;
-
     public TripPricerService(@Qualifier("TripRepositoryJpaAdapter") final TripRepositoryPort tripRepository) {
         super(tripRepository);
-        this.tripRepository = tripRepository;
     }
 }
