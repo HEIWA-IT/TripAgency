@@ -132,8 +132,6 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-spring</artifactId>
-            <version>6.10.4</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
