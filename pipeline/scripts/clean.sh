@@ -44,6 +44,7 @@ function clean() {
   then
      echo "Using mvnw"
     ./mvnw clean || exit 1
+    ./mvnw versions:revert || exit 1
   elif [[ "${BUILD_TYPE}" = "gradle" ]]
   then
     echo "Using gradlew"
