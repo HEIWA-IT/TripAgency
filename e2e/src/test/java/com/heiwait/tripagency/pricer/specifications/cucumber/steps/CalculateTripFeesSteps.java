@@ -1,8 +1,8 @@
-package com.heiwait.tripagency.pricer.e2e.cucumber.steps;
+package com.heiwait.tripagency.pricer.specifications.cucumber.steps;
 
 import com.heiwait.tripagency.pricer.domain.Destination;
 import com.heiwait.tripagency.pricer.domain.TravelClass;
-import com.heiwait.tripagency.pricer.e2e.cucumber.ErrorMessagesProperties;
+import com.heiwait.tripagency.pricer.specifications.cucumber.ErrorMessagesProperties;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

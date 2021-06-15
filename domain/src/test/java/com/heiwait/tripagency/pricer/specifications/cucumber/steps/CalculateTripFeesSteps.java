@@ -1,6 +1,6 @@
-package com.heiwait.tripagency.pricer.domain.cucumber.steps;
+package com.heiwait.tripagency.pricer.specifications.cucumber.steps;
 
-import com.heiwait.tripagency.pricer.domain.cucumber.ErrorMessagesProperties;
+import com.heiwait.tripagency.pricer.specifications.cucumber.ErrorMessagesProperties;
 import com.heiwait.tripagency.pricer.domain.*;
 import com.heiwait.tripagency.pricer.domain.error.BusinessException;
 import io.cucumber.java.Before;

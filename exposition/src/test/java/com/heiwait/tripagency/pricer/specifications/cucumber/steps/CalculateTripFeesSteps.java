@@ -1,8 +1,9 @@
-package com.heiwait.tripagency.pricer.driver.exposition.cucumber.steps;
+package com.heiwait.tripagency.pricer.specifications.cucumber.steps;
 
 import com.heiwait.tripagency.pricer.domain.Destination;
 import com.heiwait.tripagency.pricer.domain.TravelClass;
-import com.heiwait.tripagency.pricer.driver.exposition.cucumber.ErrorMessagesProperties;
+import com.heiwait.tripagency.pricer.driver.exposition.ExpositionApplication;
+import com.heiwait.tripagency.pricer.specifications.cucumber.ErrorMessagesProperties;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.Locale;
@@ -23,13 +25,13 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @CucumberContextConfiguration
+@ContextConfiguration(classes = ExpositionApplication.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
 public class CalculateTripFeesSteps {
     private final static String BUSINESS_ERRORS_CODE_KEY = "code";
     private Destination destination;
     private TravelClass travelClass;
-
     private Response response;
 
     @LocalServerPort

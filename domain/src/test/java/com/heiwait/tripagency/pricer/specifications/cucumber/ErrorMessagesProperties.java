@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.domain.cucumber;
+package com.heiwait.tripagency.pricer.specifications.cucumber;
 
 import java.util.ResourceBundle;
 

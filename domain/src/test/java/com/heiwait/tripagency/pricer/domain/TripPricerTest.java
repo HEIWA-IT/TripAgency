@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.domain.tu;
+package com.heiwait.tripagency.pricer.domain;
 
 import com.heiwait.tripagency.pricer.domain.TripPricer;
 import org.junit.jupiter.api.Test;

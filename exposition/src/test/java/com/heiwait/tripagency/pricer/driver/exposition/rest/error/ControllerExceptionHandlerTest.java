@@ -1,4 +1,4 @@
-package com.heiwait.tripagency.pricer.driver.exposition.tu;
+package com.heiwait.tripagency.pricer.driver.exposition.rest.error;
 
 import com.heiwait.tripagency.pricer.domain.*;
 import com.heiwait.tripagency.pricer.driver.exposition.rest.api.PricerResource;
