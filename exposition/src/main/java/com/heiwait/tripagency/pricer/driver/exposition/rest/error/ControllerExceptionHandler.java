@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.Objects;
+
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
@@ -27,8 +29,7 @@ public class ControllerExceptionHandler {
         String[] params = null;
         String description = messageSource.getMessage(error.code(), params, error.code(), LocaleContextHolder.getLocale());
         HttpStatus httpStatus = HttpStatus.resolve(propertiesHttpCode.getHttpCodeFromErrorCode(error.code()));
-        assert httpStatus != null;
-        return new ResponseEntity<>(new ErrorMessage(error.code(), description), httpStatus);
+        return new ResponseEntity<>(new ErrorMessage(error.code(), description), Objects.requireNonNullElse(httpStatus, HttpStatus.NOT_ACCEPTABLE));
     }
 
     @ExceptionHandler(Exception.class)

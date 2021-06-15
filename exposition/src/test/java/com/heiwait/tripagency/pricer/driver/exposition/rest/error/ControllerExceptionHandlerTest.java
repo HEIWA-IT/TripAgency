@@ -1,35 +1,31 @@
 package com.heiwait.tripagency.pricer.driver.exposition.rest.error;
 
-import com.heiwait.tripagency.pricer.domain.*;
-import com.heiwait.tripagency.pricer.driver.exposition.rest.api.PricerResource;
+import com.heiwait.tripagency.pricer.domain.Destination;
+import com.heiwait.tripagency.pricer.domain.TravelClass;
 import com.heiwait.tripagency.pricer.driver.exposition.rest.api.TripPricerService;
 import io.restassured.RestAssured;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 
-import java.net.ConnectException;
 import java.util.Locale;
 
 import static io.restassured.RestAssured.given;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
-public class ControllerExceptionHandlerTest {
+class ControllerExceptionHandlerTest {
 
     @MockBean
     TripPricerService TripPricer;
-    @InjectMocks
-    PricerResource pricerReosurce;
 
     @LocalServerPort
     int port;
@@ -40,19 +36,19 @@ public class ControllerExceptionHandlerTest {
 
         Locale usLocale = new Locale("en", "US");
         Locale.setDefault(usLocale);
-
-        //MockitoAnnotations.openMocks(this);
-        //RestAssuredMockMvc.mockMvc = MockMvcBuilders.standaloneSetup(transactions).build();
-        Mockito.when(TripPricer.priceTrip(Mockito.any(), Mockito.any())).thenThrow(RuntimeException.class);
     }
 
     @Test
-    void computeTravelPrice_should_return_an_invalid_argument_exception_if_destination_is_null() {
+    void should_return_an_internal_server_error_if_a_non_business_exception_is_raised() throws JSONException {
+        Mockito.when(TripPricer.priceTrip(Mockito.any(), Mockito.any())).thenThrow(new RuntimeException("This is for testing purposes"));
         String urlTemplate = "/tripagency/api/pricer/" + new Destination("Paris").name() + "/travelClass/" + TravelClass.FIRST + "/priceTrip";
-        String response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value()).and().extract().response().asString();
-        System.out.println("the Response " + response);
 
-        /*assertThatThrownBy(() -> travelPricer.priceTrip(null, null))
-                .isInstanceOf(IllegalArgumentException.class);*/
+        String response = given().basePath(urlTemplate).get("").then().statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value()).and().extract().response().asString();
+
+        JSONObject obj = new JSONObject(response);
+        String code = obj.getString("code");
+
+        String expectedCode = "error.internal.server";
+        assertThat(code).isEqualTo(expectedCode);
     }
 }
