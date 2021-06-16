@@ -65,10 +65,10 @@ Feature: as a travel agency, I want to calculate travel fees depending on the de
     When the customer asked for the trip price
     Then the trip price is 2700€
 
-  Scenario: The pricer determines a price of 7100€ to travel to Tokyo in ECONOMIC class
+  Scenario: The pricer determines a price of 7100€ to travel to Tokyo in BUSINESS class
     Given the customer wants to travel to "Tokyo"
     And the economic travel ticket price is 1200€
-    And the customer wants to travel in "ECONOMIC" class
+    And the customer wants to travel in "BUSINESS" class
     And the stay fees are 1000€
     And the agency fees are 100€
     When the customer asked for the trip price
