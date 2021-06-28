@@ -43,7 +43,7 @@ function build_with_maven()
 {
   echo "Using mvnw"
   ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
-  ./mvnw deploy ${MAVEN_SETTINGS} -pl !e2e -Drevision="${VERSION}"  || exit 1
+  ./mvnw ${MAVEN_GOAL} ${MAVEN_SETTINGS} ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}  || exit 1
   ./mvnw versions:revert || exit 1
 }
 
