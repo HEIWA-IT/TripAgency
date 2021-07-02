@@ -40,13 +40,15 @@ APP_NAME=${APP_NAME}
 HELM_CHART_FOLDER=./k8s/helm_chart/java-rest-api
 HELM_VALUES_FILE=./k8s/helm_chart/java-rest-api/values.yaml
 
+KUBERNETES_CONNECTION_TO_CLUSTER_SCRIPT=./k8s/scripts/connecting_to_kubernetes_cluster.sh
+
 URI=tripagency/api/swagger-ui/
 ################################################################################
 
 function deploy()
 {
-  helm install -f "${HELM_VALUES_FILE}" "${APP_NAME}" "${HELM_CHART_FOLDER}" --set image.tag="${VERSION}"
-  kubectl rollout status deployment "${APP_NAME}"-java-rest-api
+  helm upgrade --install -f "${HELM_VALUES_FILE}" "${APP_NAME}" "${HELM_CHART_FOLDER}" --set image.tag="${VERSION}"
+  kubectl rollout status deployment "${APP_NAME}"-java-rest-api-"${VERSION}"
 
   while [ $(curl -sw '%{http_code}' "${HOST}/${URI}" -o /dev/null) -ne 200 ]; do
     sleep 5;
@@ -56,7 +58,8 @@ function deploy()
 
 function deploy_to_kubernetes()
 {
-  ./connecting_to_kubernetes.sh
+  pwd
+  "${KUBERNETES_CONNECTION_TO_CLUSTER_SCRIPT}"
   kubectl get pods
   deploy
   kubectl get pods

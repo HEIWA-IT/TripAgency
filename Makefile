@@ -29,7 +29,7 @@ launch_quality_scan :
 
 # K8S
 connecting_to_kubernetes_cluster :
-	./k8s/scripts/connecting_to_kubernetes.sh "${VERSION}"
+	./k8s/scripts/connecting_to_kubernetes_cluster.sh "${VERSION}"
 deploy_to_kubernetes :
 	./k8s/scripts/deploy_to_kubernetes.sh "${VERSION}"
 delete_deployment_from_kubernetes :

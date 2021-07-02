@@ -35,11 +35,13 @@
 ################################################################################
 VERSION=$1
 APP_NAME=${APP_NAME}
+
+KUBERNETES_CONNECTION_TO_CLUSTER_SCRIPT=./k8s/scripts/connecting_to_kubernetes_cluster.sh
 ################################################################################
 
 function delete_deployment_from_kubernetes()
 {
-  ./connecting_to_kubernetes.sh
+  ${KUBERNETES_CONNECTION_TO_CLUSTER_SCRIPT}
   kubectl get pods
   helm uninstall "${APP_NAME}"
   kubectl get pods

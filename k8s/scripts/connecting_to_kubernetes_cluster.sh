@@ -1,6 +1,6 @@
 #!/bin/bash
 ################################################################################
-#                               connecting_to_kubernetes.sh                    #
+#                               connecting_to_kubernetes_cluster.sh                    #
 #                                                                              #
 # This script goal is to build of the project                                  #
 #                                                                              #
