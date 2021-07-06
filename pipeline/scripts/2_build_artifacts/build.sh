@@ -42,6 +42,12 @@ echo Version: ${VERSION}
 function build()
 {
   echo "Using building artifacts"
+
+  if [[ "${COMMIT_BRANCH}" != "master" ]] && [[ "${COMMIT_BRANCH}" != "release"* ]] ; then
+    VERSION="${VERSION}"-SNAPSHOT
+  fi
+  echo "Version used for building:"  "${VERSION}"
+
   if [[ "${BUILD_TYPE}" = "maven" ]]
     then
       ./pipeline/scripts/2_build_artifacts/build_with_maven.sh "${VERSION}"
