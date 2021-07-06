@@ -34,17 +34,20 @@
 ################################################################################
 
 VERSION=$1
-echo Version: ${VERSION}
+echo Version: "${VERSION}"
+
+echo MAVEN_OPTS: "${MAVEN_OPTS}"
+echo MAVEN_GOAL: "${MAVEN_GOAL}"
+echo MAVEN_SETTINGS: "${MAVEN_SETTINGS}"
+echo MAVEN_CLI_OPTS: "${MAVEN_CLI_OPTS}"
 
 ################################################################################
 # build_with_maven                                                             #
 ################################################################################
-function build_with_maven()
+function build()
 {
   echo "Using mvnw"
-  ./mvnw versions:set -DnewVersion="${VERSION}" || exit 1
   ./mvnw ${MAVEN_GOAL} ${MAVEN_SETTINGS} ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}  || exit 1
-  ./mvnw versions:revert || exit 1
 }
 
 ################################################################################
@@ -61,4 +64,4 @@ function build_with_maven()
 # Returns:
 #   0 if everything went fine, else 1
 ####################################################
-build_with_maven
+build
