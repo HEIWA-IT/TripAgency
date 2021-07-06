@@ -41,6 +41,7 @@ echo Version: ${VERSION}
 ################################################################################
 function launch_e2e_tests() {
   echo "Launching e2e tests"
+
   if [[ "${BUILD_TYPE}" = "maven" ]]
   then
      echo "Using Mvnw"

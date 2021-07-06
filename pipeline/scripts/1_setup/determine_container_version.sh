@@ -1,18 +1,21 @@
 #!/bin/bash
 ################################################################################
-#                               build.sh                                       #
+#                       determine_container_version.sh                                      #
 #                                                                              #
-# This script goal is to build of the project                                  #
+# This script goal is to set the version of the different artifacts.           #
+# The results depends of the git branch name.                                  #
 #                                                                              #
 # Change History                                                               #
-# 01/10/2020  Dan MAGIER           Script to build the project                 #
+# 01/10/2020  Dan MAGIER           Script to determine if the artifact to      #
+#                                  build is a snapshot or a release            #
+#                                                                              #
 #                                                                              #
 #                                                                              #
 ################################################################################
 ################################################################################
 ################################################################################
 #                                                                              #
-#  Copyright (C) 2007, 2020 Dan MAGIER                                         #
+#  Copyright (C) 2007, 2021 Dan MAGIER                                         #
 #  dan@heiwa-it.com                                                            #
 #                                                                              #
 #  This program is free software; you can redistribute it and/or modify        #
@@ -33,37 +36,34 @@
 ################################################################################
 ################################################################################
 
-ARTIFACT_VERSION=$1
-echo ARTIFACT_VERSION: "${ARTIFACT_VERSION}"
+current_branch_name=$1
+VERSION=$2
+###################################################
+# determine if the artifact to build is a snapshot or a release type
+# Outputs:
+#   Returns the type of artifact: snapshot or release
+# Returns:
+#   1 if a problem occurred else print the valu of the VERSION
+####################################################
+function determine_container_version() {
 
-################################################################################
-# build                                                                      #
-################################################################################
-function build()
-{
-  echo "Using building artifacts"
-  echo "Version used for building:"  "${ARTIFACT_VERSION}"
-
-  if [[ "${BUILD_TYPE}" = "maven" ]]
-    then
-      ./pipeline/scripts/2_build_artifacts/build_with_maven.sh "${ARTIFACT_VERSION}"
-    else
-      ./pipeline/scripts/2_build_artifacts/build_with_gradle.sh "${ARTIFACT_VERSION}"
+  if [[ "${current_branch_name}" != "master" ]] && [[ "${current_branch_name}" != "release"* ]] ;
+  then
+    CONTAINER_VERSION="${VERSION}-snapshot"
+    echo "${CONTAINER_VERSION}"
+    return 0
+  else
+    CONTAINER_VERSION="${VERSION}"
+    echo "${CONTAINER_VERSION}"
+    return 0
   fi
+
+  echo "We have a problem here!!!!"
+  exit 1
 }
 
 ################################################################################
 ################################################################################
 # Main program                                                                 #
 ################################################################################
-################################################################################
-
-###################################################
-# Launch the build of the project depending of the
-# options provided.
-# Outputs:
-#   Different artifacts stored in the build folder
-# Returns:
-#   0 if everything went fine, else 1
-####################################################
-build
+determine_container_version

@@ -48,26 +48,18 @@ echo "VERSION: " "${VERSION}"
 ################################################################################
 function build_and_publish_container_image() {
   echo "Building container image"
-
-  if [[ "${COMMIT_BRANCH}" != "master" ]] && [[ "${COMMIT_BRANCH}" != "release"* ]] ; then
-    DOCKER_IMAGE="${DOCKER_IMAGE}":"${VERSION}"-snapshot
-    VERSION="${VERSION}"-SNAPSHOT
-  else
-    DOCKER_IMAGE="${DOCKER_IMAGE}":"${VERSION}"
-  fi
-
-  echo "Docker image to build:"  "${DOCKER_IMAGE}"
+  echo "Docker image to build:"  "${CONTAINER_IMAGE}"
   echo "Version used for building:"  "${VERSION}"
 
   if [[ "${CONTAINER_BUILD_TYPE}" = "maven" ]]
   then
-    ./pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_jib_and_maven.sh "${DOCKER_IMAGE}" "${VERSION}"
+    ./pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_jib_and_maven.sh "${CONTAINER_IMAGE}" "${VERSION}"
   elif [[ "${CONTAINER_BUILD_TYPE}" = "gradle" ]]
   then
-    ./pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_jib_and_gradle.sh "${DOCKER_IMAGE}"
+    ./pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_jib_and_gradle.sh "${CONTAINER_IMAGE}"
   elif [[ "${CONTAINER_BUILD_TYPE}" = "docker" ]]
   then
-    ./pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_dockerfile.sh "${DOCKER_IMAGE}"
+    ./pipeline/scripts/4_build_and_publish_container_image/build_docker_image_with_dockerfile.sh "${CONTAINER_IMAGE}"
   else
       exit 1
   fi

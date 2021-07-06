@@ -1,18 +1,21 @@
 #!/bin/bash
 ################################################################################
-#                               build.sh                                       #
+#                       determine_versions.sh                                  #
 #                                                                              #
-# This script goal is to build of the project                                  #
+# This script goal is to determine the version of the different artifacts.     #
+# The results depends of the git branch name.                                  #
 #                                                                              #
 # Change History                                                               #
-# 01/10/2020  Dan MAGIER           Script to build the project                 #
+# 07/07/2021  Dan MAGIER           Script to determine if the artifact to      #
+#                                  build is a snapshot or a release            #
+#                                                                              #
 #                                                                              #
 #                                                                              #
 ################################################################################
 ################################################################################
 ################################################################################
 #                                                                              #
-#  Copyright (C) 2007, 2020 Dan MAGIER                                         #
+#  Copyright (C) 2007, 2021 Dan MAGIER                                         #
 #  dan@heiwa-it.com                                                            #
 #                                                                              #
 #  This program is free software; you can redistribute it and/or modify        #
@@ -33,37 +36,32 @@
 ################################################################################
 ################################################################################
 
-ARTIFACT_VERSION=$1
-echo ARTIFACT_VERSION: "${ARTIFACT_VERSION}"
-
-################################################################################
-# build                                                                      #
-################################################################################
-function build()
-{
-  echo "Using building artifacts"
-  echo "Version used for building:"  "${ARTIFACT_VERSION}"
-
-  if [[ "${BUILD_TYPE}" = "maven" ]]
-    then
-      ./pipeline/scripts/2_build_artifacts/build_with_maven.sh "${ARTIFACT_VERSION}"
-    else
-      ./pipeline/scripts/2_build_artifacts/build_with_gradle.sh "${ARTIFACT_VERSION}"
+BRANCH_NAME=$1
+VERSION=$2
+###################################################
+# determine if the artifact to build is a snapshot or a release type
+# Outputs:
+#   Returns the version of hte artifact based ont he branch name
+# Returns:
+#   1 if a problem occurred else 0
+####################################################
+function determine_versions() {
+  if [[ "${BRANCH_NAME}" != "master" ]] && [[ "${BRANCH_NAME}" != "release"* ]] ;
+  then
+    VERSION="${VERSION}-SNAPSHOT"
+    echo "${VERSION}"
+    return 0
+  else
+    echo "${VERSION}"
+    return 0
   fi
+
+  echo "We have a problem here!!!!"
+  exit 1
 }
 
 ################################################################################
 ################################################################################
 # Main program                                                                 #
 ################################################################################
-################################################################################
-
-###################################################
-# Launch the build of the project depending of the
-# options provided.
-# Outputs:
-#   Different artifacts stored in the build folder
-# Returns:
-#   0 if everything went fine, else 1
-####################################################
-build
+determine_versions

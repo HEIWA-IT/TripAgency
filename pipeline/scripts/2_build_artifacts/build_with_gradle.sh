@@ -33,8 +33,8 @@
 ################################################################################
 ################################################################################
 
-VERSION=$1
-echo Version: ${VERSION}
+ARTIFACT_VERSION=$1
+echo ARTIFACT_VERSION: "${ARTIFACT_VERSION}"
 
 ################################################################################
 # build_with_gradle                                                                      #
@@ -42,7 +42,7 @@ echo Version: ${VERSION}
 function build()
 {
   echo "Using gradlew"
-  ./gradlew :exposition:buildWithDependencies -PprojectVersion="${VERSION}" ${GRADLE_SETTINGS} || exit 1
+  ./gradlew :exposition:buildWithDependencies -PprojectVersion="${ARTIFACT_VERSION}" ${GRADLE_SETTINGS} || exit 1
 }
 
 ################################################################################

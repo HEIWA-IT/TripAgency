@@ -33,15 +33,16 @@
 ################################################################################
 ################################################################################
 ################################################################################
-DOCKER_IMAGE=$1
-echo "${DOCKER_IMAGE}"
+CONTAINER_IMAGE=$1
+echo "CONTAINER_IMAGE: " "${CONTAINER_IMAGE}"
 
 VERSION=$2
+echo "VERSION: " "${VERSION}"
 
 MVN_JIB_COMMAND="compile ${MAVEN_SETTINGS} jib:build -pl exposition \
 -Djib.from.auth.username=${DOCKER_REGISTRY_USERNAME} -Djib.from.auth.password=${DOCKER_REGISTRY_PASSWORD} \
 -Djib.to.auth.username=${DOCKER_REGISTRY_USERNAME} -Djib.to.auth.password=${DOCKER_REGISTRY_PASSWORD} \
--Dimage=${DOCKER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000 -Djib.allowInsecureRegistries=true"
+-Dimage=${CONTAINER_IMAGE} -Djib.console=plain -Djib.httpTimeout=600000 -Djib.allowInsecureRegistries=true"
 
 ################################################################################
 # build_docker_image_with_jib_and_maven                                                                         #

@@ -14,12 +14,6 @@
     <version>${revision}</version>
 
     <dependencies>
-        <dependency>
-            <groupId>com.heiwait.tripagency.pricer</groupId>
-            <artifactId>domain</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!-- Tests -->
         <dependency>
             <groupId>com.github.cukedoctor</groupId>

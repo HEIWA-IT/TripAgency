@@ -1,7 +1,5 @@
 package com.heiwait.tripagency.pricer.specifications.cucumber.steps;
 
-import com.heiwait.tripagency.pricer.domain.Destination;
-import com.heiwait.tripagency.pricer.domain.TravelClass;
 import com.heiwait.tripagency.pricer.specifications.cucumber.ErrorMessagesProperties;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -24,8 +22,8 @@ public class CalculateTripFeesSteps {
     RequestSpecification request;
     Response response;
 
-    private Destination destination;
-    private TravelClass travelClass;
+    private String destination;
+    private String travelClass;
 
     @Before
     public void setup() {
@@ -40,11 +38,11 @@ public class CalculateTripFeesSteps {
 
     @Given("^the customer wants to travel to \"([^\"]*)\"$")
     public void the_customer_wants_to_travel_to(String dest) {
-        destination = new Destination(dest);
+        destination = dest;
     }
 
     @Given("^the customer wants to travel in \"([^\"]*)\" class$")
-    public void the_customer_wants_to_travel_in_class(TravelClass travelClass) {
+    public void the_customer_wants_to_travel_in_class(String travelClass) {
         this.travelClass = travelClass;
     }
 
@@ -62,7 +60,7 @@ public class CalculateTripFeesSteps {
 
     @When("^the customer asked for the trip price")
     public void the_customer_asked_for_the_trip_price() {
-        String url = "api/pricer/" + destination.name() + "/travelClass/" + travelClass + "/priceTrip";
+        String url = "api/pricer/" + destination + "/travelClass/" + travelClass + "/priceTrip";
         response = request.get(url);
     }
 
