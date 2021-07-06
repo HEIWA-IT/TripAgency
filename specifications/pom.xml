@@ -13,8 +13,4 @@
     <artifactId>specifications</artifactId>
     <version>${revision}</version>
     <packaging>jar</packaging>
-
-    <properties>
-        <revision>revision</revision>
-    </properties>
 </project>

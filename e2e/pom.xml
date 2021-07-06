@@ -13,10 +13,6 @@
     <artifactId>e2e</artifactId>
     <version>${revision}</version>
 
-    <properties>
-        <revision>revision</revision>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.heiwait.tripagency.pricer</groupId>

@@ -14,10 +14,6 @@
     <version>${revision}</version>
     <packaging>jar</packaging>
 
-    <properties>
-        <revision>revision</revision>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.heiwait.tripagency.pricer</groupId>
