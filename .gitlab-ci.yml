@@ -54,6 +54,7 @@ stages:
   - setup
   - build_artifacts
   - quality
+  - living_documentation_for_domain
   - build_and_publish_container_image
   - e2e_deploy
   - e2e_testing
@@ -130,10 +131,10 @@ code_analysis:
     expire_in: 1 day
 
 living_documentation_for_domain:
-  stage: quality
+  stage: living_documentation_for_domain
   needs:
     - job: build
-    - job: setup
+    - job: code_analysis
       artifacts: true
   script:
     - |
