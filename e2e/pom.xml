@@ -19,6 +19,7 @@
             <groupId>com.heiwait.tripagency.pricer</groupId>
             <artifactId>specifications</artifactId>
             <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
