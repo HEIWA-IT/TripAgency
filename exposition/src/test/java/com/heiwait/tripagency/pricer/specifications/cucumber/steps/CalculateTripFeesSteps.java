@@ -1,7 +1,5 @@
 package com.heiwait.tripagency.pricer.specifications.cucumber.steps;
 
-import com.heiwait.tripagency.pricer.domain.Destination;
-import com.heiwait.tripagency.pricer.domain.TravelClass;
 import com.heiwait.tripagency.pricer.driver.exposition.ExpositionApplication;
 import com.heiwait.tripagency.pricer.specifications.cucumber.ErrorMessagesProperties;
 import io.cucumber.java.Before;
@@ -10,15 +8,14 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 
+import java.net.HttpURLConnection;
 import java.util.Locale;
 
 import static io.restassured.RestAssured.given;
@@ -30,8 +27,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestPropertySource(locations = "classpath:test.properties")
 public class CalculateTripFeesSteps {
     private final static String BUSINESS_ERRORS_CODE_KEY = "code";
-    private Destination destination;
-    private TravelClass travelClass;
+    private String destination;
+    private String travelClass;
     private Response response;
 
     @LocalServerPort
@@ -39,19 +36,19 @@ public class CalculateTripFeesSteps {
 
     @Before
     public void setUp() {
-        RestAssured.port = port;
-
         Locale usLocale = new Locale("en", "US");
         Locale.setDefault(usLocale);
+
+        RestAssured.port = port;
     }
 
     @Given("^the customer wants to travel to \"([^\"]*)\"$")
     public void the_customer_wants_to_travel_to(String dest) {
-        destination = new Destination(dest);
+        destination = dest;
     }
 
     @Given("^the customer wants to travel in \"([^\"]*)\" class$")
-    public void the_customer_wants_to_travel_in_class(TravelClass travelClass) {
+    public void the_customer_wants_to_travel_in_class(String travelClass) {
         this.travelClass = travelClass;
     }
 
@@ -69,14 +66,14 @@ public class CalculateTripFeesSteps {
 
     @When("^the customer asked for the trip price")
     public void the_customer_asked_for_the_trip_price() {
-        String urlTemplate = "/tripagency/api/pricer/" + destination.name() + "/travelClass/" + travelClass + "/priceTrip";
+        String urlTemplate = "/tripagency/api/pricer/" + destination + "/travelClass/" + travelClass + "/priceTrip";
         response = given().basePath(urlTemplate).get("");
     }
 
     @Then("^the trip price is (\\d+)€$")
     public void the_trip_price_is_€(Integer expectedPrice) {
         String computedPriceAsString =
-                response.then().statusCode(HttpStatus.OK.value()).and().extract().response().asString();
+                response.then().statusCode(HttpURLConnection.HTTP_OK).and().extract().response().asString();
 
         Integer computedPrice = Integer.valueOf(computedPriceAsString);
 
@@ -84,14 +81,17 @@ public class CalculateTripFeesSteps {
     }
 
     @Then("^the trip price returns the following message \"([^\"]*)\"$")
-    public void the_trip_price_returns_the_following_message(String expectedMessage) throws JSONException {
+    public void the_trip_price_returns_the_following_message(String expectedMessage){
         String responseAsString =
-                response.then().statusCode(HttpStatus.NOT_FOUND.value()).and().extract().response().asString();
+                response.then().statusCode(HttpURLConnection.HTTP_NOT_FOUND).and().extract().response().asString();
 
-        JSONObject responseAsJSON = new JSONObject(responseAsString);
-        String errorCode = responseAsJSON.getString(BUSINESS_ERRORS_CODE_KEY);
-        String errorMessage = ErrorMessagesProperties.getErrorMessageFromErrorCode(errorCode);
+        String errorMessage = errorMessageFromResponse(responseAsString);
 
         assertThat(expectedMessage).isEqualTo(errorMessage);
+    }
+
+    private String errorMessageFromResponse(String responseAsString){
+        String errorCode = JsonPath.from(responseAsString).get(BUSINESS_ERRORS_CODE_KEY);
+        return ErrorMessagesProperties.getErrorMessageFromErrorCode(errorCode);
     }
 }

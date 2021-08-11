@@ -7,33 +7,33 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import io.restassured.specification.RequestSpecification;
 import io.restassured.response.Response;
 
+import java.net.HttpURLConnection;
 import java.util.Locale;
 import java.util.Map;
 
+import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CalculateTripFeesSteps {
+    private final static String BUSINESS_ERRORS_CODE_KEY = "code";
+    private String destination;
+    private String travelClass;
+    private Response response;
 
     String HOST;
     String BASE_URL;
-    RequestSpecification request;
-    Response response;
-
-    private String destination;
-    private String travelClass;
 
     @Before
     public void setup() {
-        Map<String, String> env = System.getenv();
-        HOST = env.get("HOST");
-        BASE_URL = HOST+"/tripagency/";
         Locale usLocale = new Locale("en", "US");
         Locale.setDefault(usLocale);
+
+        Map<String, String> env = System.getenv();
+        HOST = env.get("HOST");
+        BASE_URL = HOST;
         RestAssured.baseURI = BASE_URL;
-        request = RestAssured.given();
     }
 
     @Given("^the customer wants to travel to \"([^\"]*)\"$")
@@ -60,25 +60,32 @@ public class CalculateTripFeesSteps {
 
     @When("^the customer asked for the trip price")
     public void the_customer_asked_for_the_trip_price() {
-        String url = "api/pricer/" + destination + "/travelClass/" + travelClass + "/priceTrip";
-        response = request.get(url);
+        String urlTemplate = "/tripagency/api/pricer/" + destination + "/travelClass/" + travelClass + "/priceTrip";
+        response = given().basePath(urlTemplate).get("");
     }
 
     @Then("^the trip price is (\\d+)€$")
     public void the_trip_price_is_€(Integer expectedPrice) {
-        assertThat(expectedPrice).isEqualTo(Integer.parseInt(response.asString()));
+        String computedPriceAsString =
+                response.then().statusCode(HttpURLConnection.HTTP_OK).and().extract().response().asString();
+
+        Integer computedPrice = Integer.valueOf(computedPriceAsString);
+
+        assertThat(expectedPrice).isEqualTo(computedPrice);
     }
 
     @Then("^the trip price returns the following message \"([^\"]*)\"$")
     public void the_trip_price_returns_the_following_message(String expectedMessage) {
-        String errorMessage = errorMessageFromResponse(response);
+        String responseAsString =
+                response.then().statusCode(HttpURLConnection.HTTP_NOT_FOUND).and().extract().response().asString();
+
+        String errorMessage = errorMessageFromResponse(responseAsString);
+
         assertThat(expectedMessage).isEqualTo(errorMessage);
     }
 
-    private String errorMessageFromResponse(Response response) {
-        String jsonString = response.asString();
-        String code = JsonPath.from(jsonString).get("code");
-
-        return ErrorMessagesProperties.getErrorMessageFromErrorCode(code);
+    private String errorMessageFromResponse(String responseAsString) {
+        String errorCode = JsonPath.from(responseAsString).get(BUSINESS_ERRORS_CODE_KEY);
+        return ErrorMessagesProperties.getErrorMessageFromErrorCode(errorCode);
     }
 }
