@@ -155,10 +155,6 @@ deploy_to_kubernetes:
       ./k8s/scripts/connecting_to_kubernetes_cluster.sh
       ./k8s/scripts/deploy_to_kubernetes.sh ${CONTAINER_VERSION}
 
-      echo "ARTIFACT_VERSION=${ARTIFACT_VERSION}" >> build.env
-      echo "CONTAINER_VERSION=${CONTAINER_VERSION}" >> build.env
-      echo "CONTAINER_IMAGE=${CONTAINER_IMAGE}" >> build.env
-
 launch_e2e_test:
   stage: e2e_testing
   needs:
@@ -168,10 +164,6 @@ launch_e2e_test:
   script:
     - |
       ./pipeline/scripts/5_e2e/launch_e2e_tests.sh "${ARTIFACT_VERSION}"
-
-      echo "ARTIFACT_VERSION=${ARTIFACT_VERSION}" >> build.env
-      echo "CONTAINER_VERSION=${CONTAINER_VERSION}" >> build.env
-      echo "CONTAINER_IMAGE=${CONTAINER_IMAGE}" >> build.env
   artifacts:
     paths:
       - e2e/build
@@ -188,10 +180,6 @@ delete_deployment_from_to_kubernetes:
     - |
       ./k8s/scripts/connecting_to_kubernetes_cluster.sh
       ./k8s/scripts/delete_deployment_from_kubernetes.sh "${CONTAINER_VERSION}"
-
-      echo "ARTIFACT_VERSION=${ARTIFACT_VERSION}" >> build.env
-      echo "CONTAINER_VERSION=${CONTAINER_VERSION}" >> build.env
-      echo "CONTAINER_IMAGE=${CONTAINER_IMAGE}" >> build.env
 
 living_documentation_for_e2e:
   stage: living_documentation_for_e2e
